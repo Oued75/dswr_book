@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapitre 2 Objets dans R | Data Science avec R</title>
+  <meta name="description" content="Chapitre 2 Objets dans R | Data Science avec R">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapitre 2 Objets dans R | Data Science avec R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 2 Objets dans R | Data Science avec R" />
+  
+  
+  
+
+<meta name="author" content="Fousseynou Bah">
+
+
+<meta name="date" content="2019-02-12">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="introduction.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science avec R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#un-autre-livre-sur-la-data-science-vraiment"><i class="fa fa-check"></i><b>1.1</b> Un autre livre sur la <em>data science</em>! Vraiment?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#la-data-science"><i class="fa fa-check"></i><b>1.2</b> La <em>data science</em></a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#le-data-scientist"><i class="fa fa-check"></i><b>1.3</b> Le <em>data scientist</em></a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#r"><i class="fa fa-check"></i><b>1.4</b> R</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#quest-ce-que-cest-que-r"><i class="fa fa-check"></i><b>1.4.1</b> Qu’est-ce que c’est que R?</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#pourquoi-r"><i class="fa fa-check"></i><b>1.4.2</b> Pourquoi R?</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#r-dans-lecosysteme-des-langages"><i class="fa fa-check"></i><b>1.4.3</b> R dans l’écosystème des langages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#rstudio"><i class="fa fa-check"></i><b>1.5</b> RStudio</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#quest-ce-que-cest-que-rstudio"><i class="fa fa-check"></i><b>1.5.1</b> Qu’est-ce que c’est que RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="objets-dans-r.html"><a href="objets-dans-r.html"><i class="fa fa-check"></i><b>2</b> Objets dans R</a><ul>
+<li class="chapter" data-level="2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#objectifs-et-outils"><i class="fa fa-check"></i><b>2.1</b> Objectifs et outils</a></li>
+<li class="chapter" data-level="2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-dobjet-dans-r"><i class="fa fa-check"></i><b>2.2</b> La notion d’objet dans R</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-objet"><i class="fa fa-check"></i><b>2.2.1</b> Qu’est-ce qu’un objet?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oranges-et-bananes"><i class="fa fa-check"></i><b>2.2.2</b> Oranges et bananes</a></li>
+<li class="chapter" data-level="2.2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#ce-qui-se-ressemblent-sassemblent"><i class="fa fa-check"></i><b>2.2.3</b> Ce qui se ressemblent s’assemblent</a></li>
+<li class="chapter" data-level="2.2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quelques-objets-dans-r"><i class="fa fa-check"></i><b>2.2.4</b> Quelques objets dans R</a></li>
+<li class="chapter" data-level="2.2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-de-classe-et-de-type"><i class="fa fa-check"></i><b>2.2.5</b> La notion de classe et de type</a></li>
+<li class="chapter" data-level="2.2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vers-dautres-types-dobjets"><i class="fa fa-check"></i><b>2.2.6</b> Vers d’autres types d’objets</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vecteurs"><i class="fa fa-check"></i><b>2.3</b> Vecteurs</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-vecteur"><i class="fa fa-check"></i><b>2.3.1</b> Qu’est-ce qu’un vecteur?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#creons-en-des-vecteurs"><i class="fa fa-check"></i><b>2.3.2</b> Créons-en, des vecteurs!</a></li>
+<li class="chapter" data-level="2.3.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vrai-pour-un-vrai-pour-plusieurs"><i class="fa fa-check"></i><b>2.3.3</b> Vrai pour un, vrai pour plusieurs</a></li>
+<li class="chapter" data-level="2.3.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#nommer-les-elements-dun-vecteur"><i class="fa fa-check"></i><b>2.3.4</b> Nommer les éléments d’un vecteur</a></li>
+<li class="chapter" data-level="2.3.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-vecteurs"><i class="fa fa-check"></i><b>2.3.5</b> Opérations sur vecteurs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#matrices"><i class="fa fa-check"></i><b>2.4</b> Matrices</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-ensemble-de-vecteurs"><i class="fa fa-check"></i><b>2.4.1</b> La matrice, un ensemble de vecteurs</a></li>
+<li class="chapter" data-level="2.4.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-objet-bidimensionnel"><i class="fa fa-check"></i><b>2.4.2</b> La matrice, un objet bidimensionnel</a></li>
+<li class="chapter" data-level="2.4.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-matrices"><i class="fa fa-check"></i><b>2.4.3</b> Opérations sur matrices</a></li>
+<li class="chapter" data-level="2.4.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-matrices-consolidation"><i class="fa fa-check"></i><b>2.4.4</b> Opérations sur matrices: consolidation</a></li>
+<li class="chapter" data-level="2.4.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-matrices-calculs"><i class="fa fa-check"></i><b>2.4.5</b> Opérations sur matrices: calculs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#data-frames"><i class="fa fa-check"></i><b>2.5</b> <em>Data frames</em></a><ul>
+<li class="chapter" data-level="2.5.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-data-frame-au-dela-de-la-matrice-1"><i class="fa fa-check"></i><b>2.5.1</b> Le <em>data frame</em>, au-délà de la matrice (1)</a></li>
+<li class="chapter" data-level="2.5.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-data-frame-au-dela-de-la-matrice-2"><i class="fa fa-check"></i><b>2.5.2</b> Le <em>data frame</em>, au-délà de la matrice (2)</a></li>
+<li class="chapter" data-level="2.5.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-data-frame-au-dela-de-la-matrice-3"><i class="fa fa-check"></i><b>2.5.3</b> Le <em>data frame</em>, au-délà de la matrice (3)</a></li>
+<li class="chapter" data-level="2.5.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-data-frame-au-dela-de-la-matrice-4"><i class="fa fa-check"></i><b>2.5.4</b> Le <em>data frame</em>, au-délà de la matrice (4)</a></li>
+<li class="chapter" data-level="2.5.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame-selection-de-cellules"><i class="fa fa-check"></i><b>2.5.5</b> Opérations sur <em>data frame</em>: sélection de cellules</a></li>
+<li class="chapter" data-level="2.5.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame-selection-de-variables"><i class="fa fa-check"></i><b>2.5.6</b> Opérations sur <em>data frame</em>: sélection de variables</a></li>
+<li class="chapter" data-level="2.5.7" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame-creation-de-variables"><i class="fa fa-check"></i><b>2.5.7</b> Opérations sur <em>data frame</em>: création de variables</a></li>
+<li class="chapter" data-level="2.5.8" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame-suppression-de-variables"><i class="fa fa-check"></i><b>2.5.8</b> Opérations sur <em>data frame</em>: suppression de variables</a></li>
+<li class="chapter" data-level="2.5.9" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame-selection-dobservations"><i class="fa fa-check"></i><b>2.5.9</b> Opérations sur <em>data frame</em>: sélection d’observations</a></li>
+<li class="chapter" data-level="2.5.10" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame-ordonner-les-observations"><i class="fa fa-check"></i><b>2.5.10</b> Opérations sur <em>data frame</em>: ordonner les observations</a></li>
+<li class="chapter" data-level="2.5.11" data-path="objets-dans-r.html"><a href="objets-dans-r.html#data-frame-le-meilleur-reste-a-venir"><i class="fa fa-check"></i><b>2.5.11</b> <em>Data frame</em>: le meilleur reste à venir</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#listes"><i class="fa fa-check"></i><b>2.6</b> Listes</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#les-listes-que-faire-de-lordre-et-de-la-structure"><i class="fa fa-check"></i><b>2.6.1</b> Les listes, que faire de l’ordre et de la structure?</a></li>
+<li class="chapter" data-level="2.6.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#listes-un-contenant-de-contenants-1"><i class="fa fa-check"></i><b>2.6.2</b> Listes, un contenant de contenants (1)</a></li>
+<li class="chapter" data-level="2.6.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#listes-un-contenant-de-contenants-2"><i class="fa fa-check"></i><b>2.6.3</b> Listes, un contenant de contenants (2)</a></li>
+<li class="chapter" data-level="2.6.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#listes-un-contenant-de-contenants-3"><i class="fa fa-check"></i><b>2.6.4</b> Listes, un contenant de contenants (3)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="objets-dans-r.html"><a href="objets-dans-r.html#conclusion"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#et-ce-nest-que-le-debut"><i class="fa fa-check"></i><b>2.7.1</b> Et ce n’est que le début</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publié avec bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science avec R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="objets-dans-r" class="section level1">
+<h1><span class="header-section-number">Chapitre 2</span> Objets dans R</h1>
+<div id="objectifs-et-outils" class="section level2">
+<h2><span class="header-section-number">2.1</span> Objectifs et outils</h2>
+<p>Dans ce chapitre, nous allons :</p>
+<ul>
+<li><p>introduire la notion d’objet dans R;</p></li>
+<li><p>présenter un certain nombre d’entre eux;</p></li>
+<li><p>et illustrer avec quelques exemples.</p></li>
+</ul>
+<p>Que nous faudra-t-il?</p>
+<ul>
+<li><p>R (évidemment)</p></li>
+<li><p>RStudio (de préférence)</p></li>
+</ul>
+</div>
+<div id="la-notion-dobjet-dans-r" class="section level2">
+<h2><span class="header-section-number">2.2</span> La notion d’objet dans R</h2>
+<div id="quest-ce-quun-objet" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Qu’est-ce qu’un objet?</h3>
+<p>Dans R, un objet représente un concept, une idée. Il se matérialise par une entité qui possède sa propre identité. Dans celle-ci, l’on compte deux aspects majeurs:</p>
+<ul>
+<li><p>la structure interne;</p></li>
+<li><p>le comportement.</p></li>
+</ul>
+<p>Illustrons pour comprendre. Commençons par créer des objets.</p>
+<p>Imaginez que vous voulez créer et conserver des bouts d’information dans R sur les présidents qui se sont succédés à la tête de la République du Mali. Commençons par le premier président, <a href="https://fr.wikipedia.org/wiki/Modibo_Ke%C3%AFta_(1915-1977)">Mobido Keïta</a>. Créeons des objects relatifs à son nom et son prénom.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nom &lt;-<span class="st"> &quot;Keïta&quot;</span>
+prenom &lt;-<span class="st"> &quot;Mobido&quot;</span></code></pre></div>
+<p>L’acte d’assignation d’une valeur à un objet se fait par le signe <code>&lt;-</code> qui est équivalent à <code>=</code>. Chez beaucoup d’utilisateurs, la préférence est donnée à la première. Ceci peut se comprendre par le fait qu’avec <code>&lt;-</code>, l’acte d’assignation se différencie plus facilement d’autres utilisations du signe <code>=</code> (dont notamment à l’intérieur de fonctions). Désormais, ces informations sont stockées dans notre environnement. Pour vérifier appellons-les! Ceci revient à les saisir dans notre console et à taper “Entrée”!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nom</code></pre></div>
+<pre><code>## [1] &quot;Keïta&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prenom</code></pre></div>
+<pre><code>## [1] &quot;Mobido&quot;</code></pre>
+</div>
+<div id="oranges-et-bananes" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Oranges et bananes</h3>
+<p>Enrichissons notre environnement des objets additionnels. Ajoutons l’année d’accession au pouvoir. Appelons cet objet <code>annee_arrivee_pouvoir</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_arrivee_pouvoir &lt;-<span class="st"> </span><span class="dv">1960</span></code></pre></div>
+<p>Comme pour les objets précédent, celui-ci aussi peut être invoqué:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_arrivee_pouvoir</code></pre></div>
+<pre><code>## [1] 1960</code></pre>
+<p>A l’instar de l’orange et de la banane, fort différentes bien que toutes les deux des fruits, ici aussi nos objets diffèrent. Peut-on les additionner?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nom <span class="op">+</span><span class="st"> </span>annee_arrivee_pouvoir</code></pre></div>
+<pre><code>## Error in nom + annee_arrivee_pouvoir: non-numeric argument to binary operator</code></pre>
+<p>Non, en l’occurence! On a un message d’erreur. R, c’est comme la vraie vie! Les oranges et les bananes ne se mélangent.</p>
+</div>
+<div id="ce-qui-se-ressemblent-sassemblent" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Ce qui se ressemblent s’assemblent</h3>
+<p>Les choses qui diffèrent ne s’assemblent pas Illustration d’une propriété des objets: le comportement. Regardons les choses qui marchent.</p>
+<pre><code>## [1] 2</code></pre>
+<p>Maintenant stockons ce résultat dans un objet.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">objet1 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
+<p>Créons-en un autre.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">objet2 &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+<p>Amusons à faire diverses opérations avec ces deux objets</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">objet1 <span class="op">+</span><span class="st"> </span>objet2</code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">objet1 <span class="op">-</span><span class="st"> </span>objet2</code></pre></div>
+<pre><code>## [1] -2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">objet1 <span class="op">*</span><span class="st"> </span>objet2</code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">objet1 <span class="op">/</span><span class="st"> </span>objet2</code></pre></div>
+<pre><code>## [1] 0.5</code></pre>
+<p>Bref, vous voyez l’idée! Les propriétés des objets déterminent les intéractions auxquelles elles se prêtent. Et ce sont justement ces intéractions qui constituent le coeur de l’analyse de données. D’où l’importance de la notion d’objet.</p>
+</div>
+<div id="quelques-objets-dans-r" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Quelques objets dans R</h3>
+<p>Dans R, l’on distingue plusieurs types d’objets. Nous en retiendrons ici 5, qui nous serons utiles tout le long de l’ouvrage. Il s’agit des:</p>
+<ul>
+<li><p>caractères (<em>strings</em> en anglais);</p></li>
+<li><p>nombres (entiers ou réels);</p></li>
+<li><p>dates;</p></li>
+<li><p>valeurs logiques qui ne prennent que deux valeurs: <code>TRUE</code> (vrai) ou <code>FALSE</code> (faux);</p></li>
+<li><p>facteurs qui sont un format spécial dans R prévu pour les variables catégorielles.</p></li>
+</ul>
+<p>Revenons à notre exemple <em>présidentiel</em>! Nous avons déjà le nom et le prénom…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Caractères</span>
+nom &lt;-<span class="st"> &quot;Keïta&quot;</span>
+prenom &lt;-<span class="st"> &quot;Mobido&quot;</span></code></pre></div>
+<p>…ainsi que l’année d’arrivée au pouvoir.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Nombre</span>
+annee_arrivee_pouvoir &lt;-<span class="st"> </span><span class="dv">1960</span></code></pre></div>
+<p>Ajoutons la date de naissance,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Date</span>
+date_naissance &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1915-06-04&quot;</span>)</code></pre></div>
+<p>une valeur logique indiquant s’il a eu un parcours militaire ou pas,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Valeur logique</span>
+parcours_militaire &lt;-<span class="st"> </span><span class="ot">FALSE</span></code></pre></div>
+<p>et enfin la région de naissance.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Facteur</span>
+region_naissance &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="st">&quot;Bamako&quot;</span>)</code></pre></div>
+</div>
+<div id="la-notion-de-classe-et-de-type" class="section level3">
+<h3><span class="header-section-number">2.2.5</span> La notion de classe et de type</h3>
+<p>Quand on a faire à des objets dont on ignore l’identité, l’on peut s’appuyer la fonction <code>class</code>. Celle-ci permeet de connaître la classe de l’objet. La classe est un attribut qui contribue à la formation de l’idée d’un objet. “Avec quoi se mélange-t-il?” “A quelles règles de transformation se soumet-il?” Basiquement, la classe dicte les principes régissant la manipulation de cet objet. Testons la fonction sur les objets que nous venons de créer pour bien confirmer les identités qu’on leur a attribuées.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(nom)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(prenom)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(annee_arrivee_pouvoir)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(date_naissance)</code></pre></div>
+<pre><code>## [1] &quot;Date&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(parcours_militaire)</code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(region_naissance)</code></pre></div>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<p>Nous voyons que les résultats sont bien conformes aux dénominations que nous leur avons données plus haut.</p>
+<p>Dans R, il y a aussi la fonction <code>typeof</code> (ou <code>mode</code>, mais nous resterons avec la première) qui permet de connaître le mode de stockage d’un objet. Testons!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(nom)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(prenom)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(annee_arrivee_pouvoir)</code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(date_naissance)</code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(parcours_militaire)</code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(region_naissance)</code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<p>Si pour les objets <code>nom</code> et <code>prenom</code> qui sont des lettres, la classe et le type se confondent, la question est tout autre pour d’autres objets. Regardons <code>region_naissance</code>, par exemple. En termes de classe, c’est un facteur. Par contre, en terme de type, R l’a coercé en entier (<em>integer</em>).</p>
+<p>Les types sont assez génériques car présentant pratiquement les mêmes nomenclatures d’un langage à un autre. Dans R, nous allons plus nous intéressér aux types suivants:</p>
+<ul>
+<li><p>logique (<em>logical</em>);</p></li>
+<li><p>entier (<em>integer</em>);</p></li>
+<li><p>réel (<em>double</em>);</p></li>
+<li><p>caractère (<em>character</em>);</p></li>
+<li><p>liste (<em>list</em>);</p></li>
+<li><p>valeur nulle (<em>NULL</em>).</p></li>
+</ul>
+<p>Les objets que nous avons vus là peuvent être pensés comme des briques. Ils entrent à leur tour dans la formation d’autres objets qui varient les uns des autres. Tout comme les constructions peuvent différer entre elles.</p>
+</div>
+<div id="vers-dautres-types-dobjets" class="section level3">
+<h3><span class="header-section-number">2.2.6</span> Vers d’autres types d’objets</h3>
+<p>La deuxième catégorie d’objets que nous allons voir ici peuvent être pensés comme des objets composites. Nous en verrons quatre types:</p>
+<ul>
+<li><p>le vecteur;</p></li>
+<li><p>la matrice;</p></li>
+<li><p>le <em>data frame</em> (cadre de données ou données rectangulaires);</p></li>
+<li><p>la liste.</p></li>
+</ul>
+</div>
+</div>
+<div id="vecteurs" class="section level2">
+<h2><span class="header-section-number">2.3</span> Vecteurs</h2>
+<div id="quest-ce-quun-vecteur" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Qu’est-ce qu’un vecteur?</h3>
+<p>De façon très simple, un vecteur est un ensemble d’éléments de même nature. Revenons à notre exemple pour mieux comprendre. Nous avons défini l’objet <code>nom</code>, n’est-ce pas? Est-ce un vecteur? A quoi peut-on voir si c’est un vecteur ou pas? La réponse:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.vector</span>(nom)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Donc nous avons crééé des vecteurs depuis longtemps et on voit qu’un objet d’un seul élément peut être un vecteur. Maintenant, compte le nombre d’éléments que compte ce vecteur.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(nom)</code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>C’est vraiment un singleton qu’on a là…pour le moment!</p>
+</div>
+<div id="creons-en-des-vecteurs" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Créons-en, des vecteurs!</h3>
+<p>Décidons d’étendre nos observations à tous les présidents de la République du Mali. En voici de quoi nous faire revisiter nos livres d’histoire…ou juste visiter Wikipedia!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Omettons les périodes de transition (la valeur pédagogique est ce qui est recherché ici!)</span>
+nom &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Keïta&quot;</span>, <span class="st">&quot;Traoré&quot;</span>, <span class="st">&quot;Konaré&quot;</span>, <span class="st">&quot;Touré&quot;</span>, <span class="st">&quot;Keïta&quot;</span>)
+prenom &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Modibo&quot;</span>, <span class="st">&quot;Moussa&quot;</span>, <span class="st">&quot;Alpha Oumar&quot;</span>, <span class="st">&quot;Amadou Toumani&quot;</span>, <span class="st">&quot;Ibrahim Boubacar&quot;</span>)
+date_naissance &lt;-<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">c</span>(<span class="st">&quot;1915-06-04&quot;</span>, <span class="st">&quot;1936-09-25&quot;</span>, <span class="st">&quot;1946-02-02&quot;</span>, <span class="st">&quot;1948-11-04&quot;</span>, <span class="st">&quot;1945-01-29&quot;</span>))
+region_naissance &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">c</span>(<span class="st">&quot;Bamako&quot;</span>, <span class="st">&quot;Kayes&quot;</span>, <span class="st">&quot;Kayes&quot;</span>, <span class="st">&quot;Mopti&quot;</span>, <span class="st">&quot;Koutiala&quot;</span>))
+annee_arrivee_pouvoir &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1960</span>, <span class="dv">1968</span>, <span class="dv">1992</span>, <span class="dv">2002</span>, <span class="dv">2013</span>)
+parcours_militaire &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</code></pre></div>
+<p>Maintenant, expérimentons! Commençons avec <code>nom</code> que nous avons écrasé avec de nouvelles valeurs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.vector</span>(nom)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(nom)</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(nom)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(nom)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>“nom” est un <strong>vecteur</strong>, un ensemble de <strong>5</strong> éléments en <strong>charactères</strong>. Amusez-vous à expérimenter avec les autres vecteurs.</p>
+</div>
+<div id="vrai-pour-un-vrai-pour-plusieurs" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Vrai pour un, vrai pour plusieurs</h3>
+<p>Vous vous rappelez que plus haut, nous voyions que les opérations n’étaient pas possible entre de différentes natures. Et bien, cette règle, valable à l’échelle des objets élémentaires, l’est aussi aux échelles supérieures.</p>
+<p>Prenons nos données et cherchons à déterminer l’âge des présidents à leur arrivée au pouvoir. On a les éléments nécéssaires pour ce faire, la date de naissance et l’année d’arrivée au pouvoir. Toutefois, ces deux vecteurs ne sont pas de même nature.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_arrivee_pouvoir &lt;-<span class="st"> </span>annee_arrivee_pouvoir <span class="op">-</span><span class="st"> </span>date_naissance</code></pre></div>
+<pre><code>## Error in `-.Date`(annee_arrivee_pouvoir, date_naissance): can only subtract from &quot;Date&quot; objects</code></pre>
+<p>On a un message d’erreur. Apparemment l’opération n’est pas possible. Il faudrait procéder à une transformation: déduire de la date de naissance l’année pour conduire l’opération avec celle-ci.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_naissance &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">format</span>(date_naissance,<span class="st">&#39;%Y&#39;</span>))</code></pre></div>
+<p>Testons si le nouveau vecteur est de même nature de celui de <code>annee_arrivee_pouvoir</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(annee_naissance)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Maintenant, nous pouvons procéder à l’opération</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_arrivee_pouvoir &lt;-<span class="st"> </span>annee_arrivee_pouvoir <span class="op">-</span><span class="st"> </span>annee_naissance
+age_arrivee_pouvoir</code></pre></div>
+<pre><code>## [1] 45 32 46 54 68</code></pre>
+<p>On le confirme: les oranges et les bananes ne se mélangent pas. Toutefois, R nous fait souvent des cocktails de fruits en coerçant certains éléments. Imaginons que l’on veuille rassembler le prénom et le nom dans un seul vecteur. Collons avec une fonction de base dans R, <code>paste</code>, (ne vous en faites pas, vous ferez progressivement connaissance avec les fonctions!)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prenom_nom &lt;-<span class="st"> </span><span class="kw">paste</span>(prenom, nom)
+prenom_nom</code></pre></div>
+<pre><code>## [1] &quot;Modibo Keïta&quot;           &quot;Moussa Traoré&quot;         
+## [3] &quot;Alpha Oumar Konaré&quot;     &quot;Amadou Toumani Touré&quot;  
+## [5] &quot;Ibrahim Boubacar Keïta&quot;</code></pre>
+<p>On peut être enclin à dire que ceci est passé sans souci parce que <code>nom</code> et <code>prenom</code> sont tous les deux des vecteurs en caractères. Maintenant, et si l’on ajoutait l’année d’arrivée au pouvoir?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prenom_nom_age &lt;-<span class="st"> </span><span class="kw">paste</span>(prenom, nom, <span class="st">&quot;,&quot;</span>, age_arrivee_pouvoir)
+prenom_nom_age</code></pre></div>
+<pre><code>## [1] &quot;Modibo Keïta , 45&quot;           &quot;Moussa Traoré , 32&quot;         
+## [3] &quot;Alpha Oumar Konaré , 46&quot;     &quot;Amadou Toumani Touré , 54&quot;  
+## [5] &quot;Ibrahim Boubacar Keïta , 68&quot;</code></pre>
+<p>C’est passé comme une lettre à la poste (pour la génération email, voici ce qu’est <a href="https://fr.wikipedia.org/wiki/Poste">la poste</a>). Car R a une hiérarchie entre les objets. Avant de déclarer forfait avec un message d’erreur, il tente tant bien que mal d’exécuter l’opération. Sur la base de cette hiérarchie, il coerce certains éléments à se conformer à d’autres, partant du plus flexible au moins flexible: <code>logique</code> &lt; <code>entier</code> &lt; <code>réel</code> &lt; <code>caractère</code>. Pour comprendre ça, créons un vecteur de valeurs logiques.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecteur_logique &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</code></pre></div>
+<p>Confirmons sa classe.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(vecteur_logique)</code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<p>Ajoutons un troisième élément qui sera un entier. Disons 1.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecteur_entier &lt;-<span class="st"> </span><span class="kw">c</span>(vecteur_logique, <span class="dv">1</span>)</code></pre></div>
+<p>Qu’obtenons-nous?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecteur_entier</code></pre></div>
+<pre><code>## [1] 1 0 1</code></pre>
+<p>Des entiers! R a coercé <code>TRUE</code> en 1 et <code>FALSE</code> en 0.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(vecteur_entier)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Ajoutons un quatrième élément, cette fois-ci une réel: 2.5 (dans R, comme en anglais, les décimales viennent après un <code>.</code>, pas une <code>,</code>, qui sert plutôt de séparateur de milliers).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecteur_reel &lt;-<span class="st"> </span><span class="kw">c</span>(vecteur_entier, <span class="fl">2.5</span>)
+vecteur_reel</code></pre></div>
+<pre><code>## [1] 1.0 0.0 1.0 2.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(vecteur_reel)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>La mutation se voit au fait que R a affecté aux trois premiers éléments des décimales, bien qu’initialement c’étaient des entiers. Maintenant, ajoutons un cinquième élément: un prénom.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vecteur_caractere &lt;-<span class="st"> </span><span class="kw">c</span>(vecteur_reel, <span class="st">&quot;Mariam&quot;</span>)
+vecteur_caractere</code></pre></div>
+<pre><code>## [1] &quot;1&quot;      &quot;0&quot;      &quot;1&quot;      &quot;2.5&quot;    &quot;Mariam&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(vecteur_caractere)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>Là aussi, la coercion se voit.</p>
+</div>
+<div id="nommer-les-elements-dun-vecteur" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Nommer les éléments d’un vecteur</h3>
+<p>Jusque là, ce sont des objets à part intégrale que nous avons nommés. On les a assignés des noms pour les garder dans notre environnement de travail. Maintenant, nous allons donner un nom aux éléments de vecteur. Dressons l’analogie suivante. Notre environnement dans R est comme une rue. Dans celle-ci, nous avons des concessions dont les portes sont toutes numérotées: ce sont les noms des objets. A l’intérieur des concessions, nous avons des individus: ce sont les éléments à l’intérieur de nos objets. Tout comme ces individus portent des prénoms, nous pouvons donner des appélations aux éléments contenus dans nos objets.</p>
+<p>Considerons que nous voulons associer à chaque date de naissance le nom du président en question.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(date_naissance) &lt;-<span class="st"> </span>prenom_nom</code></pre></div>
+<p>Voyons ce que ça donne</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">date_naissance</code></pre></div>
+<pre><code>##           Modibo Keïta          Moussa Traoré     Alpha Oumar Konaré 
+##           &quot;1915-06-04&quot;           &quot;1936-09-25&quot;           &quot;1946-02-02&quot; 
+##   Amadou Toumani Touré Ibrahim Boubacar Keïta 
+##           &quot;1948-11-04&quot;           &quot;1945-01-29&quot;</code></pre>
+<p>C’est beau non! Il est intéréssant de noter que quand on conduit des opérations sur des vecteurs aux éléments nommés, le résultat peut hériter de ces propriétés. Reprenons l’opération de déduction de l’âge à l’arrivée au pouvoir. Rappelons les deux vecteurs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_naissance</code></pre></div>
+<pre><code>## [1] 1915 1936 1946 1948 1945</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_arrivee_pouvoir</code></pre></div>
+<pre><code>## [1] 1960 1968 1992 2002 2013</code></pre>
+<p>Nommons juste un des deux vecteurs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(annee_naissance) &lt;-<span class="st"> </span>prenom_nom
+annee_naissance</code></pre></div>
+<pre><code>##           Modibo Keïta          Moussa Traoré     Alpha Oumar Konaré 
+##                   1915                   1936                   1946 
+##   Amadou Toumani Touré Ibrahim Boubacar Keïta 
+##                   1948                   1945</code></pre>
+<p>Procédons à l’opération.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_arrivee_pouvoir &lt;-<span class="st"> </span>annee_arrivee_pouvoir <span class="op">-</span><span class="st"> </span>annee_naissance
+age_arrivee_pouvoir</code></pre></div>
+<pre><code>##           Modibo Keïta          Moussa Traoré     Alpha Oumar Konaré 
+##                     45                     32                     46 
+##   Amadou Toumani Touré Ibrahim Boubacar Keïta 
+##                     54                     68</code></pre>
+<p>Le vecteur <code>age_arrivee_pouvoir</code> a hérité des noms d’éléments.</p>
+<p>Cette règle n’est pas toutefois immuable. Quand les éléments sont coercés à prendre une autre classe que leur classe de départ, ils peuvent perdre leur nom, qui n’est qu’un de leurs attributs (qui sont subordonnés à leur classe). Reprenons la déduction de l’année de naissance à partir de la date de naissance.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_naissance &lt;-<span class="st"> </span><span class="kw">format</span>(date_naissance,<span class="st">&#39;%Y&#39;</span>)
+annee_naissance</code></pre></div>
+<pre><code>##           Modibo Keïta          Moussa Traoré     Alpha Oumar Konaré 
+##                 &quot;1915&quot;                 &quot;1936&quot;                 &quot;1946&quot; 
+##   Amadou Toumani Touré Ibrahim Boubacar Keïta 
+##                 &quot;1948&quot;                 &quot;1945&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(annee_naissance)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>Ici, l’année n’a pas été coercé. Elle a été extraite par la fonction sous format de caractères. En voulant conformer le vecteur à la classe de nombre (on descend dans la hiérarchie), on coerce les éléments.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_naissance &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">format</span>(date_naissance,<span class="st">&#39;%Y&#39;</span>))
+annee_naissance</code></pre></div>
+<pre><code>## [1] 1915 1936 1946 1948 1945</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(annee_naissance)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Avec la coercion, les noms se perdent. Il est donc utile de se rappeler que les noms d’éléments ne sont pas immunes à la coercion. Toutefois, quand les opérations se passent entre des éléments de même nature, les noms sont bien saufs!</p>
+</div>
+<div id="operations-sur-vecteurs" class="section level3">
+<h3><span class="header-section-number">2.3.5</span> Opérations sur vecteurs</h3>
+<div id="selection-explicite" class="section level4">
+<h4><span class="header-section-number">2.3.5.1</span> Sélection explicite</h4>
+<p>Il arrive souvent qu’on ne soit intéréssée que par un élément précis d’un vecteur. Peut-être l’on souhaite connaître seulement l’âge du premier président lors de son accès au pouvoir. C’est le premier élément du vecteur <code>age_arrivee_pouvoir</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_arrivee_pouvoir[<span class="dv">1</span>]</code></pre></div>
+<pre><code>## Modibo Keïta 
+##           45</code></pre>
+<p>Peut-être nous voulons l’information pour le 1er et le 3ème présidents. Ce sont les 1er et 3ème éléments du vecteur.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_arrivee_pouvoir[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</code></pre></div>
+<pre><code>##       Modibo Keïta Alpha Oumar Konaré 
+##                 45                 46</code></pre>
+<p>Peut-être que nous voulons l’information du 1er au 3ème président.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_arrivee_pouvoir[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</code></pre></div>
+<pre><code>##       Modibo Keïta      Moussa Traoré Alpha Oumar Konaré 
+##                 45                 32                 46</code></pre>
+<p>On peut aussi souhaiter exclure certains éléments. Imaginons que l’on veuille seulement regarder les informations sans les deux derniers éléments du vecteur.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_arrivee_pouvoir[<span class="op">-</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>)]</code></pre></div>
+<pre><code>##       Modibo Keïta      Moussa Traoré Alpha Oumar Konaré 
+##                 45                 32                 46</code></pre>
+<p>Le signe <code>[]</code> agit comme une porte d’entrée à l’intérieur du vecteur tandis que les chiffres indiqués sont des index qui indiquent les éléments intérêt. L’opération peut consister en une sélection ou une exclusion selon que l’opérateur <code>c</code> est précédé du signe <code>-</code> (exclusion) ou pas (sélection).</p>
+</div>
+<div id="selection-a-partir-de-logiques" class="section level4">
+<h4><span class="header-section-number">2.3.5.2</span> Sélection à partir de logiques</h4>
+<p>La sélection à l’intérieur d’un vecteur peut aussi se faire à partir de valeurs logiques. L’on peut poser des critères auxquels certains éléments répondraient. Et sur la base de leur confirmité au(x) critère(s) posé(s), l’on pourra effectuer la sélection (ou l’exclusion). Cette fonctionnalité est très utile le data scientist d’utiliser les questions qu’il se pose pour avoir un aperçu des données qui sont à sa disposition.</p>
+<p>Explorons la question suivante: quels sont les présidents arrivés au pouvoir avant l’âge de 50 ans?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">president_avant_50ans &lt;-<span class="st"> </span>age_arrivee_pouvoir <span class="op">&lt;</span><span class="st"> </span><span class="dv">50</span>
+president_avant_50ans</code></pre></div>
+<pre><code>##           Modibo Keïta          Moussa Traoré     Alpha Oumar Konaré 
+##                   TRUE                   TRUE                   TRUE 
+##   Amadou Toumani Touré Ibrahim Boubacar Keïta 
+##                  FALSE                  FALSE</code></pre>
+<p>On transforme maintenant ce vecteur de valeurs logiques en outil de sélection. On peut soir regarder le nom de ses présidents:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prenom_nom[president_avant_50ans]</code></pre></div>
+<pre><code>## [1] &quot;Modibo Keïta&quot;       &quot;Moussa Traoré&quot;      &quot;Alpha Oumar Konaré&quot;</code></pre>
+<p>Le résultat nous donne le nom des présidents pour lesquels le vecteur de valeurs logiques affiche <code>TRUE</code>. On peut utiliser le même critère sur d’autres vecteurs. Voyons le vecteur d’âge d’arrivée au pouvoir: quel âge avec les présidents qui sont arrivés au pouvoir avant l’âge de 50 ans?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_arrivee_pouvoir[age_arrivee_pouvoir <span class="op">&lt;</span><span class="st"> </span><span class="dv">50</span>]</code></pre></div>
+<pre><code>##       Modibo Keïta      Moussa Traoré Alpha Oumar Konaré 
+##                 45                 32                 46</code></pre>
+<p>Pendant qu’on y est, dans quelle région sont-ils nés?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(region_naissance) &lt;-<span class="st"> </span>prenom_nom <span class="co"># nommons d&#39;abord les éléments</span>
+region_naissance[age_arrivee_pouvoir <span class="op">&lt;</span><span class="st"> </span><span class="dv">50</span>]</code></pre></div>
+<pre><code>##       Modibo Keïta      Moussa Traoré Alpha Oumar Konaré 
+##             Bamako              Kayes              Kayes 
+## Levels: Bamako Kayes Koutiala Mopti</code></pre>
+<p>Vous comprenez la logique.</p>
+</div>
+<div id="statistiques-sommaires" class="section level4">
+<h4><span class="header-section-number">2.3.5.3</span> Statistiques sommaires</h4>
+<p>Une fois le vecteur constitué, il peut en lui-même faire l’objet d’opérations diverses. Posons diverses questions avec le vecteur <code>age_arrivee_pouvoir</code>. Quelle est la moyenne d’âge d’arrivée au pouvoir sur la base des éléments disponibles?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(age_arrivee_pouvoir)</code></pre></div>
+<pre><code>## [1] 49</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># une alternative donnat le même résultat.</span>
+<span class="kw">sum</span>(age_arrivee_pouvoir)<span class="op">/</span><span class="kw">length</span>(age_arrivee_pouvoir)</code></pre></div>
+<pre><code>## [1] 49</code></pre>
+<p>Quel est l’âge d’arrivée au pouvoir le plus bas ?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">min</span>(age_arrivee_pouvoir)</code></pre></div>
+<pre><code>## [1] 32</code></pre>
+<p>Quel est l’âge d’arrivée au pouvoir le plus élevé ?</p>
+<pre><code>## [1] 68</code></pre>
+</div>
+<div id="ajustement-et-recyclage" class="section level4">
+<h4><span class="header-section-number">2.3.5.4</span> Ajustement et recyclage</h4>
+<p>Maintenant, revenons-en un peu aux opérations entre deux vecteurs. Imaginez maintenant, que l’on veuille connaître l’âge auquel les présidents ont quitté le pouvoir. Rappellons d’abord le vecteur <code>age_arrivee_pouvoir</code> que nous avions déjà généré.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_arrivee_pouvoir</code></pre></div>
+<pre><code>##           Modibo Keïta          Moussa Traoré     Alpha Oumar Konaré 
+##                     45                     32                     46 
+##   Amadou Toumani Touré Ibrahim Boubacar Keïta 
+##                     54                     68</code></pre>
+<p>Construisons ensuite un vecteur avec le nombre d’années passées au pouvoir.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_en_pouvoir &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">23</span>, <span class="dv">10</span>, <span class="dv">10</span>)</code></pre></div>
+<p>Maintenant calculons l’année de départ du pouvoir en ajoutant à l’âge d’arrivée au pouvoir le nombre d’années qui y ont été passé.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_depart_pouvoir &lt;-<span class="st"> </span>age_arrivee_pouvoir <span class="op">+</span><span class="st"> </span>annee_en_pouvoir</code></pre></div>
+<pre><code>## Warning in age_arrivee_pouvoir + annee_en_pouvoir: longer object length is
+## not a multiple of shorter object length</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_depart_pouvoir</code></pre></div>
+<pre><code>##           Modibo Keïta          Moussa Traoré     Alpha Oumar Konaré 
+##                     53                     55                     56 
+##   Amadou Toumani Touré Ibrahim Boubacar Keïta 
+##                     64                     76</code></pre>
+<p>Parvenez-vous à décéler l’erreur? Nous avons additionné une vecteur de 5 éléments, <code>age_arrivee_pouvoir</code>, avec un vecteur de 4 éléments <code>annee_en_pouvoir</code>. R a recyclé le premier élément du vecteur court (4) pour poursuivre l’opération d’addition entre les deux vecteur et l’a ajouté au 5ème élément du vecteur long. D’où la valeur de <code>76</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">68</span> <span class="op">+</span><span class="st"> </span><span class="dv">8</span></code></pre></div>
+<pre><code>## [1] 76</code></pre>
+<p>R avertit, mais conduit l’opération. De ce fait, même si les opérations entre les vecteurs de même nature s’exécute sans problème majeur, il reste utile de vérifier leur longueur. Pour éviter le recyclage, il faudrait ne pas laisser de videe dans le vecteur court, s’assurer que les vecteurs impliqués dans l’opératio sont de la même taille. Sur nos 5 présidents, nous n’avons pas ajouté le nombre d’années passées au pouvoir (car le mandat est encore en cours pendant la rédaction du présent document). Une solution serait de remplir la position dans le vecteur avec la valeur <code>NA</code>, indiquant un valeur manquante. Ajoutons-le à è ``</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_en_pouvoir &lt;-<span class="st"> </span><span class="kw">c</span>(annee_en_pouvoir, <span class="ot">NA</span>)
+annee_en_pouvoir</code></pre></div>
+<pre><code>## [1]  8 23 10 10 NA</code></pre>
+<p>Reprenons l’opération.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_depart_pouvoir &lt;-<span class="st"> </span>age_arrivee_pouvoir <span class="op">+</span><span class="st"> </span>annee_en_pouvoir
+age_depart_pouvoir</code></pre></div>
+<pre><code>##           Modibo Keïta          Moussa Traoré     Alpha Oumar Konaré 
+##                     53                     55                     56 
+##   Amadou Toumani Touré Ibrahim Boubacar Keïta 
+##                     64                     NA</code></pre>
+<p>Ne sachant pas comment faire l’opération pour la dernière entrée du vecteur car l’un des composante est <code>NA</code>, R reconduit cette valeur. Ainsi le recyclage est évité.</p>
+</div>
+</div>
+</div>
+<div id="matrices" class="section level2">
+<h2><span class="header-section-number">2.4</span> Matrices</h2>
+<div id="la-matrice-un-ensemble-de-vecteurs" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> La matrice, un ensemble de vecteurs</h3>
+<p>De façon basique, une matrice n’est autre qu’une collection de vecteurs. De ce fait, elle hérite d’une propriété fondamentale du vecteur: ne peuvent former une matrice que des éléments de même nature.</p>
+<p>Retournons à notre exemple. Associons les noms et prénoms en une matrice car tous deux sont en charactères.</p>
+<p>Solution 1: coller horizontalement les deux vecteurs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prenom_nom_hmatrix &lt;-<span class="st"> </span><span class="kw">rbind</span>(prenom, nom)
+prenom_nom_hmatrix</code></pre></div>
+<pre><code>##        [,1]     [,2]     [,3]          [,4]             [,5]              
+## prenom &quot;Modibo&quot; &quot;Moussa&quot; &quot;Alpha Oumar&quot; &quot;Amadou Toumani&quot; &quot;Ibrahim Boubacar&quot;
+## nom    &quot;Keïta&quot;  &quot;Traoré&quot; &quot;Konaré&quot;      &quot;Touré&quot;          &quot;Keïta&quot;</code></pre>
+<p>Solution 2: coller verticalement les deux vecteurs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prenom_nom_vmatrix &lt;-<span class="st"> </span><span class="kw">cbind</span>(prenom, nom)
+prenom_nom_vmatrix</code></pre></div>
+<pre><code>##      prenom             nom     
+## [1,] &quot;Modibo&quot;           &quot;Keïta&quot; 
+## [2,] &quot;Moussa&quot;           &quot;Traoré&quot;
+## [3,] &quot;Alpha Oumar&quot;      &quot;Konaré&quot;
+## [4,] &quot;Amadou Toumani&quot;   &quot;Touré&quot; 
+## [5,] &quot;Ibrahim Boubacar&quot; &quot;Keïta&quot;</code></pre>
+<p>On voit que la matrice hérite des noms donnés aux différents vecteurs.</p>
+<p>Bien que l’on puisse créer une matrice en combinant différents vecteurs, horizontalement avec <code>rbind</code> ou verticalement avec <code>cbind</code>, il existe aussi une fonction qui permet de créer directement une matrice: <code>matrix</code>. Il est toutefois utile de connaitre l’ordre de positionnement des éléments. Reprenons la création avec <code>matrix</code>, horizontalement… </p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prenom_nom_hmatrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="st">&quot;Modibo&quot;</span>, <span class="st">&quot;Moussa&quot;</span>, <span class="st">&quot;Alpha Oumar&quot;</span>, <span class="st">&quot;Amadou Toumani&quot;</span>, <span class="st">&quot;Ibrahim Boubacar&quot;</span>,
+                             <span class="st">&quot;Keïta&quot;</span>,  <span class="st">&quot;Traoré&quot;</span>, <span class="st">&quot;Konaré&quot;</span>, <span class="st">&quot;Touré&quot;</span>, <span class="st">&quot;Keïta&quot;</span>),
+                             <span class="dt">byrow =</span> <span class="ot">TRUE</span>,
+                             <span class="dt">nrow =</span> <span class="dv">2</span>,
+                             <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;prenom&quot;</span>, <span class="st">&quot;nom&quot;</span>), <span class="ot">NULL</span>)
+                             )
+prenom_nom_hmatrix</code></pre></div>
+<pre><code>##        [,1]     [,2]     [,3]          [,4]             [,5]              
+## prenom &quot;Modibo&quot; &quot;Moussa&quot; &quot;Alpha Oumar&quot; &quot;Amadou Toumani&quot; &quot;Ibrahim Boubacar&quot;
+## nom    &quot;Keïta&quot;  &quot;Traoré&quot; &quot;Konaré&quot;      &quot;Touré&quot;          &quot;Keïta&quot;</code></pre>
+<p>…et verticalement</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prenom_nom_vmatrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="st">&quot;Modibo&quot;</span>, <span class="st">&quot;Keïta&quot;</span>,
+                               <span class="st">&quot;Moussa&quot;</span>, <span class="st">&quot;Traoré&quot;</span>,
+                               <span class="st">&quot;Alpha Oumar&quot;</span>, <span class="st">&quot;Konaré&quot;</span>, 
+                               <span class="st">&quot;Amadou Toumani&quot;</span>, <span class="st">&quot;Touré&quot;</span>, 
+                               <span class="st">&quot;Ibrahim Boubacar&quot;</span>, <span class="st">&quot;Keïta&quot;</span>),
+                             <span class="dt">byrow =</span> <span class="ot">TRUE</span>,
+                             <span class="dt">ncol =</span> <span class="dv">2</span>,
+                             <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="ot">NULL</span>, <span class="kw">c</span>(<span class="st">&quot;prenom&quot;</span>, <span class="st">&quot;nom&quot;</span>))
+                             )
+prenom_nom_vmatrix</code></pre></div>
+<pre><code>##      prenom             nom     
+## [1,] &quot;Modibo&quot;           &quot;Keïta&quot; 
+## [2,] &quot;Moussa&quot;           &quot;Traoré&quot;
+## [3,] &quot;Alpha Oumar&quot;      &quot;Konaré&quot;
+## [4,] &quot;Amadou Toumani&quot;   &quot;Touré&quot; 
+## [5,] &quot;Ibrahim Boubacar&quot; &quot;Keïta&quot;</code></pre>
+<p>Dans la fonction <code>matrix</code>, les arguments <code>nrow</code>, <code>ncol</code>, <code>byrow</code> et <code>bycol</code> servent à celà. Fonction, arguments…ne vous en faites pas! On y viendra.</p>
+</div>
+<div id="la-matrice-un-objet-bidimensionnel" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> La matrice, un objet bidimensionnel</h3>
+<p>La matrice n’est pas seulement un ensemble de vecteurs. Elle se distingue aussi de par sa bidimensionnalité. Pendant que le vecteur est soit une ligne de plusieurs éléments (1 x n) soit une colonne de plusieurs éléments éléments (n x 1), la matrice, elle, est faite de plusieurs lignes (n rows) et de plusieurs colonnes (n columns). Ici n étant bien sûr supérieur à 1. Nous avions noté que pour connaître le nombre d’éléments dans un vecteur on utilisait la fonction <code>length</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(prenom_nom)</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>La même chose marche-t-elle pour le vecteur?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(prenom_nom_vmatrix)</code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<p>En l’occurence, non! <code>length</code> ne rend pas compte de la bidimensionnalité. Il y a une autre fonction pour ça: <code>dim</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(prenom_nom_vmatrix)</code></pre></div>
+<pre><code>## [1] 5 2</code></pre>
+<p>La bidimensionnalité se lit aussi dans le nom des rangées.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dimnames</span>(prenom_nom_vmatrix)</code></pre></div>
+<pre><code>## [[1]]
+## NULL
+## 
+## [[2]]
+## [1] &quot;prenom&quot; &quot;nom&quot;</code></pre>
+<p>Comme nous avons vu plus haut, l’on peut nommer les rangées depuis la création de la matrice. Reprenons la création de <code>prenom_nom_vmatrix</code> en nommant toutes les rangées, aussi bien horizontales que verticales.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prenom_nom_vmatrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="st">&quot;Modibo&quot;</span>, <span class="st">&quot;Keïta&quot;</span>,
+                               <span class="st">&quot;Moussa&quot;</span>, <span class="st">&quot;Traoré&quot;</span>,
+                               <span class="st">&quot;Alpha Oumar&quot;</span>, <span class="st">&quot;Konaré&quot;</span>, 
+                               <span class="st">&quot;Amadou Toumani&quot;</span>, <span class="st">&quot;Touré&quot;</span>, 
+                               <span class="st">&quot;Ibrahim Boubacar&quot;</span>, <span class="st">&quot;Keïta&quot;</span>),
+                             <span class="dt">byrow =</span> <span class="ot">TRUE</span>,
+                             <span class="dt">ncol =</span> <span class="dv">2</span>,
+                             <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;1er&quot;</span>, <span class="st">&quot;2ème&quot;</span>, <span class="st">&quot;3ème&quot;</span>, <span class="st">&quot;4ème&quot;</span>, <span class="st">&quot;5ème&quot;</span>), 
+                                             <span class="kw">c</span>(<span class="st">&quot;prenom&quot;</span>, <span class="st">&quot;nom&quot;</span>))
+                             )</code></pre></div>
+<p>Imprimons la matrice.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(prenom_nom_vmatrix)</code></pre></div>
+<pre><code>##      prenom             nom     
+## 1er  &quot;Modibo&quot;           &quot;Keïta&quot; 
+## 2ème &quot;Moussa&quot;           &quot;Traoré&quot;
+## 3ème &quot;Alpha Oumar&quot;      &quot;Konaré&quot;
+## 4ème &quot;Amadou Toumani&quot;   &quot;Touré&quot; 
+## 5ème &quot;Ibrahim Boubacar&quot; &quot;Keïta&quot;</code></pre>
+<p>Examinons la matrice à travers différentes fonctions que nous avons vues en haut:</p>
+<ul>
+<li>la dimension, c’est-à-dire le nombre de lignes et le nombre de colonnes;</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(prenom_nom_vmatrix)</code></pre></div>
+<pre><code>## [1] 5 2</code></pre>
+<ul>
+<li>les noms des lignes et des colonnes;</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dimnames</span>(prenom_nom_vmatrix)</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;1er&quot;  &quot;2ème&quot; &quot;3ème&quot; &quot;4ème&quot; &quot;5ème&quot;
+## 
+## [[2]]
+## [1] &quot;prenom&quot; &quot;nom&quot;</code></pre>
+<ul>
+<li>le nombre de lignes uniquement;</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(prenom_nom_vmatrix)</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<ul>
+<li>le nom des lignes uniquement;</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rownames</span>(prenom_nom_vmatrix)</code></pre></div>
+<pre><code>## [1] &quot;1er&quot;  &quot;2ème&quot; &quot;3ème&quot; &quot;4ème&quot; &quot;5ème&quot;</code></pre>
+<ul>
+<li>le nombre de colonnes uniquement;</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(prenom_nom_vmatrix)</code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<ul>
+<li>le nom des colonnes uniquements.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(prenom_nom_vmatrix)</code></pre></div>
+<pre><code>## [1] &quot;prenom&quot; &quot;nom&quot;</code></pre>
+</div>
+<div id="operations-sur-matrices" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Opérations sur matrices</h3>
+<div id="une-autre-matrice" class="section level4">
+<h4><span class="header-section-number">2.4.3.1</span> Une autre matrice</h4>
+<p>A l’instar des vecteurs, les matrices se prêtent elles aussi à une variété d’opérations. Explorons-en quelques unes.</p>
+<p>Reprenons notre exemple sur les présidents maliens et considérons les années d’évènements majeurs: naissance, arrivée au pouvoir et départ du pouvoir.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_evenement_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1915</span>, <span class="dv">1936</span>, <span class="dv">1946</span>, <span class="dv">1948</span>, <span class="dv">1945</span>,
+                                   <span class="dv">1960</span>, <span class="dv">1968</span>, <span class="dv">1992</span>, <span class="dv">2002</span>, <span class="dv">2013</span>,
+                                   <span class="dv">1968</span>, <span class="dv">1991</span>, <span class="dv">2002</span>, <span class="dv">2012</span>, <span class="ot">NA</span>),
+                                 <span class="dt">byrow =</span> <span class="ot">TRUE</span>,
+                                 <span class="dt">ncol =</span> <span class="dv">5</span>,
+                                 <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;Naissance&quot;</span>, <span class="st">&quot;Arrivée&quot;</span>, <span class="st">&quot;Départ&quot;</span>),
+                                                 <span class="kw">c</span>(<span class="st">&quot;M. Keïta&quot;</span>, <span class="st">&quot;M. Traoré&quot;</span>, <span class="st">&quot;A.O. Konaré&quot;</span>, <span class="st">&quot;A.T. Touré&quot;</span>, <span class="st">&quot;I.B. Keïta&quot;</span>)))
+annee_evenement_matrix</code></pre></div>
+<pre><code>##           M. Keïta M. Traoré A.O. Konaré A.T. Touré I.B. Keïta
+## Naissance     1915      1936        1946       1948       1945
+## Arrivée       1960      1968        1992       2002       2013
+## Départ        1968      1991        2002       2012         NA</code></pre>
+</div>
+<div id="questions-logiques" class="section level4">
+<h4><span class="header-section-number">2.4.3.2</span> Questions logiques</h4>
+<p>Maintenant que nous avons notre matrice, amusons-nous avec. Prenons un grand-père née vers 1949 (oui, il fait partie des <em>né vers</em>), marié à l’âge de 22 ans, père 1 an plus tard, grand-père 18 ans plus tard et décédé à l’âge de 61 ans. Quels sont les évènements qui se sont passés de son vivant?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ce_que_grandpa_a_vu &lt;-<span class="st"> </span>annee_evenement_matrix <span class="op">&gt;</span><span class="st"> </span><span class="dv">1949</span> <span class="op">&amp;</span><span class="st"> </span>annee_evenement_matrix <span class="op">&lt;</span><span class="st"> </span>(<span class="dv">1949</span> <span class="op">+</span><span class="st"> </span><span class="dv">61</span>)
+ce_que_grandpa_a_vu</code></pre></div>
+<pre><code>##           M. Keïta M. Traoré A.O. Konaré A.T. Touré I.B. Keïta
+## Naissance    FALSE     FALSE       FALSE      FALSE      FALSE
+## Arrivée       TRUE      TRUE        TRUE       TRUE      FALSE
+## Départ        TRUE      TRUE        TRUE      FALSE         NA</code></pre>
+<p>Apparemment, il en a vu beaucoup, mais tous les présidents le dépassent en âge. On vient d’introduire ici la notion d’addition dans les critères (dans le prochain chapitre, la question sera plus développée).</p>
+</div>
+<div id="extraction-par-position" class="section level4">
+<h4><span class="header-section-number">2.4.3.3</span> Extraction par position</h4>
+<p>Comme pour les vecteurs, des éléments peuvent être explicitement sélectionnés à l’intérieur des matrices. Comme pour ceux-ci également, le signe <code>[]</code> peut être utilisé. Revenons à notre matrice <code>annee_evenement_matrix</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_evenement_matrix</code></pre></div>
+<pre><code>##           M. Keïta M. Traoré A.O. Konaré A.T. Touré I.B. Keïta
+## Naissance     1915      1936        1946       1948       1945
+## Arrivée       1960      1968        1992       2002       2013
+## Départ        1968      1991        2002       2012         NA</code></pre>
+<p>Supposons que l’on veuille connaître l’élément qui est dans la cellule de la 3ème ligne et le 2ème colonne.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_evenement_matrix[<span class="dv">3</span>, <span class="dv">2</span>]</code></pre></div>
+<pre><code>## [1] 1991</code></pre>
+<p>Ou la 3ème ligne toute entière.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_evenement_matrix[<span class="dv">3</span>, ]</code></pre></div>
+<pre><code>##    M. Keïta   M. Traoré A.O. Konaré  A.T. Touré  I.B. Keïta 
+##        1968        1991        2002        2012          NA</code></pre>
+<p>Ou la 2ème colonne toute entière.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_evenement_matrix[ , <span class="dv">2</span>]</code></pre></div>
+<pre><code>## Naissance   Arrivée    Départ 
+##      1936      1968      1991</code></pre>
+<p>Avec les matrices, l’on spécifie deux éléments à l’intérieur des crochets. Le premier désigne la ligne à sélectionner et le deuxième la colonne.</p>
+</div>
+<div id="extraction-par-nom" class="section level4">
+<h4><span class="header-section-number">2.4.3.4</span> Extraction par nom</h4>
+<p>Si les rangées sont nommés, alors il est aussi possible de passer par ces noms pour les sélectionner. Vous vous rappelez <code>rownames</code> ou <code>colnames</code>? Si la réponse est non, je saurai que vous n’avez pas tout suivi! Passons par ces fonctions pour sélectionner des lignes et colonnes d’intérêt dans notre matrice.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rownames</span>(annee_evenement_matrix)</code></pre></div>
+<pre><code>## [1] &quot;Naissance&quot; &quot;Arrivée&quot;   &quot;Départ&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(annee_evenement_matrix)</code></pre></div>
+<pre><code>## [1] &quot;M. Keïta&quot;    &quot;M. Traoré&quot;   &quot;A.O. Konaré&quot; &quot;A.T. Touré&quot;  &quot;I.B. Keïta&quot;</code></pre>
+<p>Séléctionnons la ligne relative aux années de naissance.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_evenement_matrix[<span class="kw">rownames</span>(annee_evenement_matrix) <span class="op">==</span><span class="st"> &quot;Naissance&quot;</span>, ]</code></pre></div>
+<pre><code>##    M. Keïta   M. Traoré A.O. Konaré  A.T. Touré  I.B. Keïta 
+##        1915        1936        1946        1948        1945</code></pre>
+<p>Et cherchons les éléments concernant le président Modibo Keïta.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">annee_evenement_matrix[, <span class="kw">colnames</span>(annee_evenement_matrix) <span class="op">==</span><span class="st"> &quot;M. Keïta&quot;</span>]</code></pre></div>
+<pre><code>## Naissance   Arrivée    Départ 
+##      1915      1960      1968</code></pre>
+</div>
+</div>
+<div id="operations-sur-matrices-consolidation" class="section level3">
+<h3><span class="header-section-number">2.4.4</span> Opérations sur matrices: consolidation</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Il arrive qu&#39;on souhaite consolider une matrice, y ajouter de nouvelles informations.</span>
+<span class="co"># Considérons ici les âges à l&#39;arrivée au et au départ du pouvoir.</span>
+<span class="co"># Recalculons les à partir des matrices.</span>
+age_arrivee_pouvoir &lt;-<span class="st"> </span>annee_evenement_matrix[<span class="kw">rownames</span>(annee_evenement_matrix) <span class="op">==</span><span class="st"> &quot;Arrivée&quot;</span>, ] <span class="op">-</span><span class="st"> </span>
+<span class="st">  </span>annee_evenement_matrix[<span class="kw">rownames</span>(annee_evenement_matrix) <span class="op">==</span><span class="st"> &quot;Naissance&quot;</span>, ]
+age_depart_pouvoir &lt;-<span class="st"> </span>annee_evenement_matrix[<span class="kw">rownames</span>(annee_evenement_matrix) <span class="op">==</span><span class="st"> &quot;Départ&quot;</span>, ] <span class="op">-</span><span class="st"> </span>
+<span class="st">  </span>annee_evenement_matrix[<span class="kw">rownames</span>(annee_evenement_matrix) <span class="op">==</span><span class="st"> &quot;Naissance&quot;</span>, ]
+<span class="co"># Ajoutons maintenant c&#39;est deux nouveaux vecteurs à notre matrice</span>
+annee_evenement_matrix_cons &lt;-<span class="st"> </span><span class="kw">rbind</span>(annee_evenement_matrix, 
+                                     <span class="st">&quot;Âge d&#39;arrivée au pouvoir&quot;</span> =<span class="st">  </span>age_arrivee_pouvoir, 
+                                     <span class="st">&quot;Âge de départ du pouvoir&quot;</span> =<span class="st"> </span>age_depart_pouvoir)
+<span class="co"># Voyons la matrice</span>
+annee_evenement_matrix_cons</code></pre></div>
+<pre><code>##                          M. Keïta M. Traoré A.O. Konaré A.T. Touré
+## Naissance                    1915      1936        1946       1948
+## Arrivée                      1960      1968        1992       2002
+## Départ                       1968      1991        2002       2012
+## Âge d&#39;arrivée au pouvoir       45        32          46         54
+## Âge de départ du pouvoir       53        55          56         64
+##                          I.B. Keïta
+## Naissance                      1945
+## Arrivée                        2013
+## Départ                           NA
+## Âge d&#39;arrivée au pouvoir         68
+## Âge de départ du pouvoir         NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Nous sommes passés par la fonction &quot;rbind()&quot;. Sachez qu&#39;il y a plusieurs solutions!</span>
+<span class="co"># Remarquez-vous &quot;NA&quot; dans une nouvelle cellule? Pouvez-vous expliquer pourquoi?</span></code></pre></div>
+
+</div>
+<div id="operations-sur-matrices-calculs" class="section level3">
+<h3><span class="header-section-number">2.4.5</span> Opérations sur matrices: calculs</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Comme pour les vecteurs, des calculs sont possibles sur les matrices.</span>
+<span class="co"># Pour ce faire, limitons-nous à deux informations de la matrice: les âges.</span>
+<span class="co"># Ajoutons aussi la durée de la période passée au pouvoir.</span>
+age_pouvoir_matrix &lt;-<span class="st"> </span><span class="kw">rbind</span>(annee_evenement_matrix_cons[<span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>),],
+                            <span class="st">&quot;Durée au pouvoir&quot;</span> =<span class="st"> </span>annee_evenement_matrix_cons[<span class="dv">5</span>, ] <span class="op">-</span><span class="st"> </span>
+<span class="st">                              </span>annee_evenement_matrix_cons[<span class="dv">4</span>, ])
+age_pouvoir_matrix[, <span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>)] <span class="co"># -c(1): juste pour une commodité d&#39;impression.</span></code></pre></div>
+<pre><code>##                          M. Traoré A.O. Konaré A.T. Touré I.B. Keïta
+## Âge d&#39;arrivée au pouvoir        32          46         54         68
+## Âge de départ du pouvoir        55          56         64         NA
+## Durée au pouvoir                23          10         10         NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculons la moyenne pour chacune des lignes (âges moyens, durées moyennes)</span>
+<span class="kw">rowMeans</span>(age_pouvoir_matrix)</code></pre></div>
+<pre><code>## Âge d&#39;arrivée au pouvoir Âge de départ du pouvoir         Durée au pouvoir 
+##                       49                       NA                       NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># On voit des &quot;NA&quot;. R ne traite pas les valeurs inconnues de lui-même. On lui instruit de les ignorer.</span>
+<span class="kw">rowMeans</span>(age_pouvoir_matrix, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Âge d&#39;arrivée au pouvoir Âge de départ du pouvoir         Durée au pouvoir 
+##                    49.00                    57.00                    12.75</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Comme pour beaucoup de fonctions dans R, tout ce qu&#39;il y avec &quot;row&quot; existe avec &quot;col&quot; </span>
+<span class="co"># Testez les fonctions suivantes: colSums(), rowSums(), colMeans() et rowMeans().</span></code></pre></div>
+
+</div>
+</div>
+<div id="data-frames" class="section level2">
+<h2><span class="header-section-number">2.5</span> <em>Data frames</em></h2>
+<div id="le-data-frame-au-dela-de-la-matrice-1" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Le <em>data frame</em>, au-délà de la matrice (1)</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Jusque là, nous avons travaillé avec des éléments de même nature.</span>
+<span class="co"># Et pourtant le data scientist ne peut pleinement mener ses</span>
+<span class="co"># ses investigations avec une telle contrainte.</span>
+<span class="co"># Il a besoin d&#39;explorer en même temps des informations de diverses natures.</span>
+<span class="co"># D&#39;où le data frame. Qu&#39;est-ce que c&#39;est au juste?</span>
+<span class="co"># Un format d&#39;organisation de données en forme rectangulaire.</span>
+<span class="co"># Toutefois, contrairement à la matrice, elle respecte la nature des données qu&#39;elle contient.</span>
+<span class="co"># Explorons l&#39;idée. Rassemblons verticalement les différents vecteurs que nous avons crééés</span>
+presidents_df &lt;-<span class="st"> </span><span class="kw">cbind</span>(nom,
+                      prenom,
+                      date_naissance,
+                      region_naissance,
+                      parcours_militaire,
+                      annee_arrivee_pouvoir,
+                      annee_en_pouvoir)
+<span class="co"># Qu&#39;est-ce que ça donne?</span>
+presidents_df</code></pre></div>
+<pre><code>##      nom      prenom             date_naissance region_naissance
+## [1,] &quot;Keïta&quot;  &quot;Modibo&quot;           &quot;-19935&quot;       &quot;1&quot;             
+## [2,] &quot;Traoré&quot; &quot;Moussa&quot;           &quot;-12151&quot;       &quot;2&quot;             
+## [3,] &quot;Konaré&quot; &quot;Alpha Oumar&quot;      &quot;-8734&quot;        &quot;2&quot;             
+## [4,] &quot;Touré&quot;  &quot;Amadou Toumani&quot;   &quot;-7728&quot;        &quot;4&quot;             
+## [5,] &quot;Keïta&quot;  &quot;Ibrahim Boubacar&quot; &quot;-9103&quot;        &quot;3&quot;             
+##      parcours_militaire annee_arrivee_pouvoir annee_en_pouvoir
+## [1,] &quot;FALSE&quot;            &quot;1960&quot;                &quot;8&quot;             
+## [2,] &quot;TRUE&quot;             &quot;1968&quot;                &quot;23&quot;            
+## [3,] &quot;FALSE&quot;            &quot;1992&quot;                &quot;10&quot;            
+## [4,] &quot;TRUE&quot;             &quot;2002&quot;                &quot;10&quot;            
+## [5,] &quot;FALSE&quot;            &quot;2013&quot;                NA</code></pre>
+
+</div>
+<div id="le-data-frame-au-dela-de-la-matrice-2" class="section level3">
+<h3><span class="header-section-number">2.5.2</span> Le <em>data frame</em>, au-délà de la matrice (2)</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Nous avons vu que certaines informations ont été dénaturées.</span>
+<span class="co"># Certaines données ont été coercées à se transformer en autre chose</span>
+<span class="co"># Regardons la classe de l&#39;objet &quot;presidents_df&quot;</span>
+<span class="kw">class</span>(presidents_df)</code></pre></div>
+<pre><code>## [1] &quot;matrix&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(presidents_df)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Les vecteurs ont été rassemblés en matrice (class)</span>
+<span class="co"># Les éléments ont toutefois été coercés en charactères (typeof)</span>
+<span class="co"># C&#39;est en celà que le data frame révèle sa place.</span></code></pre></div>
+
+</div>
+<div id="le-data-frame-au-dela-de-la-matrice-3" class="section level3">
+<h3><span class="header-section-number">2.5.3</span> Le <em>data frame</em>, au-délà de la matrice (3)</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Reprenons l&#39;opération</span>
+presidents_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(nom,
+                            prenom, 
+                            date_naissance, 
+                            region_naissance, 
+                            parcours_militaire, 
+                            annee_arrivee_pouvoir, 
+                            annee_en_pouvoir,
+                            <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+<span class="co"># Regardons à nouveau</span>
+presidents_df</code></pre></div>
+<pre><code>##      nom           prenom date_naissance region_naissance
+## 1  Keïta           Modibo     1915-06-04           Bamako
+## 2 Traoré           Moussa     1936-09-25            Kayes
+## 3 Konaré      Alpha Oumar     1946-02-02            Kayes
+## 4  Touré   Amadou Toumani     1948-11-04            Mopti
+## 5  Keïta Ibrahim Boubacar     1945-01-29         Koutiala
+##   parcours_militaire annee_arrivee_pouvoir annee_en_pouvoir
+## 1              FALSE                  1960                8
+## 2               TRUE                  1968               23
+## 3              FALSE                  1992               10
+## 4               TRUE                  2002               10
+## 5              FALSE                  2013               NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Qu&#39;en est-il de la classe et du type</span>
+<span class="kw">class</span>(presidents_df)</code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+
+</div>
+<div id="le-data-frame-au-dela-de-la-matrice-4" class="section level3">
+<h3><span class="header-section-number">2.5.4</span> Le <em>data frame</em>, au-délà de la matrice (4)</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Maintenant que nous savons à quoi ressemble un data frame, essayons de le définir.</span>
+<span class="co"># Un data frame est une forme d&#39;organisation de données en format rectangulaire où</span>
+<span class="co"># les lignes sont des observations et les colonnes des attributs de ceux-ci.</span>
+<span class="co"># Ici par exemple, nous organisons diverses informations sur les individus qui</span>
+<span class="co"># ont assumé le poste de Président de la République du Mali.</span>
+<span class="co"># Chaque ligne sera dédiée à un président et rassemblera tous les informations sur lui (attributs).</span>
+<span class="co"># Chaque colonne sera dédiée à un seul attribut et couvrira tous les présidents (observations).</span>
+<span class="co"># Introduisons ici la fonction &quot;str&quot; qui permet de visualiser la structure d&#39;un objet dans R</span>
+<span class="co"># Elle permettra de rendre compte de toute la richesse du concept de data frame.</span>
+<span class="kw">str</span>(presidents_df)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  7 variables:
+##  $ nom                  : chr  &quot;Keïta&quot; &quot;Traoré&quot; &quot;Konaré&quot; &quot;Touré&quot; ...
+##  $ prenom               : chr  &quot;Modibo&quot; &quot;Moussa&quot; &quot;Alpha Oumar&quot; &quot;Amadou Toumani&quot; ...
+##  $ date_naissance       : Date, format: &quot;1915-06-04&quot; &quot;1936-09-25&quot; ...
+##  $ region_naissance     : Factor w/ 4 levels &quot;Bamako&quot;,&quot;Kayes&quot;,..: 1 2 2 4 3
+##  $ parcours_militaire   : logi  FALSE TRUE FALSE TRUE FALSE
+##  $ annee_arrivee_pouvoir: num  1960 1968 1992 2002 2013
+##  $ annee_en_pouvoir     : num  8 23 10 10 NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># On a une synthèse: nombre d&#39;observations et nombre de variables - comme avec la fonction dim().</span>
+<span class="co"># On voit aussi que pour chaque variable, on a :</span>
+<span class="co"># - le nom</span>
+<span class="co"># - la classe</span>
+<span class="co"># - quelques observations</span></code></pre></div>
+
+</div>
+<div id="operations-sur-data-frame-selection-de-cellules" class="section level3">
+<h3><span class="header-section-number">2.5.5</span> Opérations sur <em>data frame</em>: sélection de cellules</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># En matière de sélection, la data frame hérite beaucoup de la matrice.</span>
+<span class="co"># Les principes demeurent</span>
+<span class="co"># Si l&#39;on veut la ligne 2 de la colonne 4, on fait:</span>
+presidents_df[<span class="dv">2</span>, <span class="dv">4</span>]</code></pre></div>
+<pre><code>## [1] Kayes
+## Levels: Bamako Kayes Koutiala Mopti</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Si l&#39;on veut la ligne 5 (un président, une observation)</span>
+presidents_df[<span class="dv">2</span>, ]</code></pre></div>
+<pre><code>##      nom prenom date_naissance region_naissance parcours_militaire
+## 2 Traoré Moussa     1936-09-25            Kayes               TRUE
+##   annee_arrivee_pouvoir annee_en_pouvoir
+## 2                  1968               23</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Ou encore la colonne 4 (une variable, un attribut)</span>
+presidents_df[, <span class="dv">4</span>]</code></pre></div>
+<pre><code>## [1] Bamako   Kayes    Kayes    Mopti    Koutiala
+## Levels: Bamako Kayes Koutiala Mopti</code></pre>
+
+</div>
+<div id="operations-sur-data-frame-selection-de-variables" class="section level3">
+<h3><span class="header-section-number">2.5.6</span> Opérations sur <em>data frame</em>: sélection de variables</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Comme pour la matrice, avec le data frame, on peut utiliser le nom des colonnes (variables) </span>
+<span class="co"># pour accéder aux éléments. Regardons juste la variable &quot;date_naissance&quot;.</span>
+presidents_df[, <span class="st">&quot;date_naissance&quot;</span>]</code></pre></div>
+<pre><code>## [1] &quot;1915-06-04&quot; &quot;1936-09-25&quot; &quot;1946-02-02&quot; &quot;1948-11-04&quot; &quot;1945-01-29&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Le data frame offre en plus une alternative: les variables y sont accessibles avec le signe &quot;$&quot;.</span>
+presidents_df<span class="op">$</span>date_naissance</code></pre></div>
+<pre><code>## [1] &quot;1915-06-04&quot; &quot;1936-09-25&quot; &quot;1946-02-02&quot; &quot;1948-11-04&quot; &quot;1945-01-29&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Cependant, la première solution se prête à la sélection de plusieurs variables.</span>
+presidents_df[, <span class="kw">c</span>(<span class="st">&quot;date_naissance&quot;</span>, <span class="st">&quot;region_naissance&quot;</span>)]</code></pre></div>
+<pre><code>##   date_naissance region_naissance
+## 1     1915-06-04           Bamako
+## 2     1936-09-25            Kayes
+## 3     1946-02-02            Kayes
+## 4     1948-11-04            Mopti
+## 5     1945-01-29         Koutiala</code></pre>
+
+</div>
+<div id="operations-sur-data-frame-creation-de-variables" class="section level3">
+<h3><span class="header-section-number">2.5.7</span> Opérations sur <em>data frame</em>: création de variables</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Comme avec les matrices, souvent, l&#39;analyse peut souhaiter ajouter une nouvelle variable à son data frame.</span>
+<span class="co"># Procédons comme avec les matrices à la génération de deux nouvelles variables:</span>
+<span class="co"># l&#39;âge d&#39;arrivée au pouvoir et l&#39;âge de départ du pouvoir.</span>
+<span class="co"># Pour commencer, générons l&#39;année de naissance</span>
+presidents_df<span class="op">$</span>annee_naissance &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">format</span>(presidents_df<span class="op">$</span>date_naissance,<span class="st">&#39;%Y&#39;</span>))
+<span class="co"># Ensuite on génère l&#39;âge d&#39;arrivée au pouvoir</span>
+presidents_df<span class="op">$</span>age_arrivee_pouvoir &lt;-<span class="st"> </span>presidents_df<span class="op">$</span>annee_arrivee_pouvoir <span class="op">-</span><span class="st"> </span>presidents_df<span class="op">$</span>annee_naissance
+<span class="co"># Ensuite l&#39;âge de départ du pouvoir</span>
+presidents_df<span class="op">$</span>age_depart_pouvoir &lt;-<span class="st"> </span>presidents_df<span class="op">$</span>age_arrivee_pouvoir <span class="op">+</span><span class="st"> </span>presidents_df<span class="op">$</span>annee_en_pouvoir
+<span class="co"># Regardons notre nouveau data frame</span>
+<span class="kw">str</span>(presidents_df)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  10 variables:
+##  $ nom                  : chr  &quot;Keïta&quot; &quot;Traoré&quot; &quot;Konaré&quot; &quot;Touré&quot; ...
+##  $ prenom               : chr  &quot;Modibo&quot; &quot;Moussa&quot; &quot;Alpha Oumar&quot; &quot;Amadou Toumani&quot; ...
+##  $ date_naissance       : Date, format: &quot;1915-06-04&quot; &quot;1936-09-25&quot; ...
+##  $ region_naissance     : Factor w/ 4 levels &quot;Bamako&quot;,&quot;Kayes&quot;,..: 1 2 2 4 3
+##  $ parcours_militaire   : logi  FALSE TRUE FALSE TRUE FALSE
+##  $ annee_arrivee_pouvoir: num  1960 1968 1992 2002 2013
+##  $ annee_en_pouvoir     : num  8 23 10 10 NA
+##  $ annee_naissance      : num  1915 1936 1946 1948 1945
+##  $ age_arrivee_pouvoir  : num  45 32 46 54 68
+##  $ age_depart_pouvoir   : num  53 55 56 64 NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A travers cette création, on voit comment on peut mener des opérations entre des colonnes d&#39;un data frame.</span></code></pre></div>
+
+</div>
+<div id="operations-sur-data-frame-suppression-de-variables" class="section level3">
+<h3><span class="header-section-number">2.5.8</span> Opérations sur <em>data frame</em>: suppression de variables</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Dans notre exemple, nous avons crééé l&#39;année de naissance comme étape transitoire vers une </span>
+<span class="co"># autre variable. Sachant que nous avons la même information dans la date de naissance, </span>
+<span class="co"># l&#39;on peut éviter la redondance, donc la supprimer.</span>
+<span class="co"># Comment s&#39;y prend-on dans R?</span>
+presidents_df<span class="op">$</span>annee_naissance &lt;-<span class="st"> </span><span class="ot">NULL</span>
+<span class="co"># Vérifions si cette colonne est partie.</span>
+<span class="kw">str</span>(presidents_df)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  9 variables:
+##  $ nom                  : chr  &quot;Keïta&quot; &quot;Traoré&quot; &quot;Konaré&quot; &quot;Touré&quot; ...
+##  $ prenom               : chr  &quot;Modibo&quot; &quot;Moussa&quot; &quot;Alpha Oumar&quot; &quot;Amadou Toumani&quot; ...
+##  $ date_naissance       : Date, format: &quot;1915-06-04&quot; &quot;1936-09-25&quot; ...
+##  $ region_naissance     : Factor w/ 4 levels &quot;Bamako&quot;,&quot;Kayes&quot;,..: 1 2 2 4 3
+##  $ parcours_militaire   : logi  FALSE TRUE FALSE TRUE FALSE
+##  $ annee_arrivee_pouvoir: num  1960 1968 1992 2002 2013
+##  $ annee_en_pouvoir     : num  8 23 10 10 NA
+##  $ age_arrivee_pouvoir  : num  45 32 46 54 68
+##  $ age_depart_pouvoir   : num  53 55 56 64 NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Mission accomplie!</span></code></pre></div>
+
+</div>
+<div id="operations-sur-data-frame-selection-dobservations" class="section level3">
+<h3><span class="header-section-number">2.5.9</span> Opérations sur <em>data frame</em>: sélection d’observations</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Nous avons vu que comme la matrice, les éléments du data frame sont accessibles grâce aux numéros de lignes.</span>
+<span class="co"># Ici, nous allons voir qu&#39;il est aussi possible de passer par des critères spécifiques aux variables</span>
+<span class="co"># pour sélectionner des observations.</span>
+<span class="co"># Cherchons seulement la date de naissance des présidents nés dans la région de &quot;Kayes&quot;.</span>
+presidents_df[presidents_df<span class="op">$</span>region_naissance <span class="op">==</span><span class="st"> &quot;Kayes&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;nom&quot;</span>, <span class="st">&quot;prenom&quot;</span>)]</code></pre></div>
+<pre><code>##      nom      prenom
+## 2 Traoré      Moussa
+## 3 Konaré Alpha Oumar</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Il est possible d&#39;aboutir au même résultat avec une fonction intégrée à R: &quot;subset&quot;</span>
+<span class="co"># Expérimentons</span>
+<span class="kw">subset</span>(<span class="dt">x =</span> presidents_df, <span class="dt">subset =</span> region_naissance <span class="op">==</span><span class="st"> &quot;Kayes&quot;</span>, <span class="dt">select =</span> <span class="kw">c</span>(nom, prenom))</code></pre></div>
+<pre><code>##      nom      prenom
+## 2 Traoré      Moussa
+## 3 Konaré Alpha Oumar</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Vous voyez? </span>
+<span class="co"># Avec R, tous les chemins mènent...à Roundé.</span>
+<span class="co"># (Rome est trop loin pour moi! Même s&#39;il comment par R).</span></code></pre></div>
+
+</div>
+<div id="operations-sur-data-frame-ordonner-les-observations" class="section level3">
+<h3><span class="header-section-number">2.5.10</span> Opérations sur <em>data frame</em>: ordonner les observations</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># On peut souvent souhaiter  ordonner son data frame selon une variable donnée.</span>
+<span class="co"># Rearrangeons nos données selon l&#39;année de naissance des présidents</span>
+ordre_age &lt;-<span class="st"> </span><span class="kw">order</span>(presidents_df<span class="op">$</span>date_naissance)
+ordre_age</code></pre></div>
+<pre><code>## [1] 1 2 5 3 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A l&#39;aide de ce classement, regardons les nom, prénom et date de naissance</span>
+presidents_df[ordre_age, <span class="kw">c</span>(<span class="st">&quot;nom&quot;</span>, <span class="st">&quot;prenom&quot;</span>, <span class="st">&quot;date_naissance&quot;</span>)]</code></pre></div>
+<pre><code>##      nom           prenom date_naissance
+## 1  Keïta           Modibo     1915-06-04
+## 2 Traoré           Moussa     1936-09-25
+## 5  Keïta Ibrahim Boubacar     1945-01-29
+## 3 Konaré      Alpha Oumar     1946-02-02
+## 4  Touré   Amadou Toumani     1948-11-04</code></pre>
+
+</div>
+<div id="data-frame-le-meilleur-reste-a-venir" class="section level3">
+<h3><span class="header-section-number">2.5.11</span> <em>Data frame</em>: le meilleur reste à venir</h3>
+<p>Le <em>data frame</em> est la pièce maîtresse de l’analyse dans <a href="http://r-project.org"></a>, comme dans beaucoup d’autres langages. D’ailleurs, d’autres langages ont développé des concepts similaires. En prenant <a href="https://www.python.org/"></a> par exemple, on trouve la notion de <em>DataFrame</em>, une adaption du concept de <em>data frame</em> tel que défini dans R. Pour dire combien l’idée englobée dans le <em>data frame</em> est puissante. D’où son rôle capital dans le reste de ce cours.</p>
+<p>C’est avec le <em>data frame</em> que nous:</p>
+<ul>
+<li><p>procéderons à des manipulations de données: du nettoyage à la transformation ;</p></li>
+<li><p>explorerons des données par la visualisation ;</p></li>
+<li><p>introduirons l’application de modèles à des données.</p></li>
+</ul>
+</div>
+</div>
+<div id="listes" class="section level2">
+<h2><span class="header-section-number">2.6</span> Listes</h2>
+<div id="les-listes-que-faire-de-lordre-et-de-la-structure" class="section level3">
+<h3><span class="header-section-number">2.6.1</span> Les listes, que faire de l’ordre et de la structure?</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># La liste (list en anglais et dans R) apporte elle aussi sa particularité.</span>
+<span class="co"># Elle permet de créer un espace pour les données non structurées dans R</span>
+<span class="co"># Créons de nouveaux éléments</span>
+<span class="co"># Commençons par les pays voisins du Mali: un vecteur en caractères</span>
+voisins_vec_char &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&quot;Algérie&quot;</span>, <span class="st">&quot;Burkina-Faso&quot;</span>, <span class="st">&quot;Côte d&#39;Ivoire&quot;</span>, <span class="st">&quot;Guinée&quot;</span>, <span class="st">&quot;Mauritanie&quot;</span>, <span class="st">&quot;Niger&quot;</span>, <span class="st">&quot;Sénégal&quot;</span>)
+<span class="co"># Ajoutons des données sur le population (à partir de 1976, 1987, 1998 et 2009)</span>
+<span class="co"># ça nous fait une matrice en nombres (entiers).</span>
+population_matrix_int &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="dv">3123733</span>, <span class="dv">3269185</span>, <span class="dv">6392918</span>, 
+                                         <span class="dv">3760711</span>, <span class="dv">3935638</span>, <span class="dv">7696349</span>,
+                                         <span class="dv">4856023</span>, <span class="dv">4954889</span>, <span class="dv">9810912</span>,
+                                         <span class="dv">7204990</span>, <span class="dv">7323672</span>, <span class="dv">14528662</span>),
+                                <span class="dt">byrow =</span> <span class="ot">TRUE</span>,
+                                <span class="dt">nrow =</span> <span class="dv">4</span>,
+                                <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1976</span>, <span class="dv">1987</span>, <span class="dv">1998</span>, <span class="dv">2009</span>), 
+                                                <span class="kw">c</span>(<span class="st">&quot;Hommes&quot;</span>, <span class="st">&quot;Femmes&quot;</span>, <span class="st">&quot;Total&quot;</span>)))
+<span class="co"># Ajoutons un dernier élément: lesquels de nos présidents sont encore vivants?</span>
+<span class="co"># Mettons ça sous forme boléén.</span>
+presidents_en_vie_vec_logi &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>)
+
+<span class="co"># Nous avons là un beau monde. Rassemblons tout ça dans une liste!</span>
+mali_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">presidents =</span> presidents_df,
+                  <span class="dt">voisins =</span> voisins_vec_char,
+                  <span class="dt">population =</span> population_matrix_int,
+                  <span class="dt">presidents_en_vie =</span> presidents_en_vie_vec_logi)
+<span class="co"># De par leurs différences en nature, forme et taille, rien ne prédispose ses objets à être contenus</span>
+<span class="co"># dans le même objet! Et pourtant ça tient dans notre liste.</span>
+<span class="co"># Explorons-là!</span></code></pre></div>
+
+</div>
+<div id="listes-un-contenant-de-contenants-1" class="section level3">
+<h3><span class="header-section-number">2.6.2</span> Listes, un contenant de contenants (1)</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Commençons par la structure de la liste. Que voit-on?</span>
+<span class="kw">str</span>(mali_list)</code></pre></div>
+<pre><code>## List of 4
+##  $ presidents       :&#39;data.frame&#39;:   5 obs. of  9 variables:
+##   ..$ nom                  : chr [1:5] &quot;Keïta&quot; &quot;Traoré&quot; &quot;Konaré&quot; &quot;Touré&quot; ...
+##   ..$ prenom               : chr [1:5] &quot;Modibo&quot; &quot;Moussa&quot; &quot;Alpha Oumar&quot; &quot;Amadou Toumani&quot; ...
+##   ..$ date_naissance       : Date[1:5], format: &quot;1915-06-04&quot; ...
+##   ..$ region_naissance     : Factor w/ 4 levels &quot;Bamako&quot;,&quot;Kayes&quot;,..: 1 2 2 4 3
+##   ..$ parcours_militaire   : logi [1:5] FALSE TRUE FALSE TRUE FALSE
+##   ..$ annee_arrivee_pouvoir: num [1:5] 1960 1968 1992 2002 2013
+##   ..$ annee_en_pouvoir     : num [1:5] 8 23 10 10 NA
+##   ..$ age_arrivee_pouvoir  : num [1:5] 45 32 46 54 68
+##   ..$ age_depart_pouvoir   : num [1:5] 53 55 56 64 NA
+##  $ voisins          : chr [1:7] &quot;Algérie&quot; &quot;Burkina-Faso&quot; &quot;Côte d&#39;Ivoire&quot; &quot;Guinée&quot; ...
+##  $ population       : num [1:4, 1:3] 3123733 3760711 4856023 7204990 3269185 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:4] &quot;1976&quot; &quot;1987&quot; &quot;1998&quot; &quot;2009&quot;
+##   .. ..$ : chr [1:3] &quot;Hommes&quot; &quot;Femmes&quot; &quot;Total&quot;
+##  $ presidents_en_vie: logi [1:5] FALSE TRUE TRUE TRUE TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Qu&#39;en est-il des noms</span>
+<span class="kw">names</span>(mali_list)</code></pre></div>
+<pre><code>## [1] &quot;presidents&quot;        &quot;voisins&quot;           &quot;population&quot;       
+## [4] &quot;presidents_en_vie&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Les noms assignés aux objets sont bien reconduits</span>
+<span class="co"># Voyons voir si à l&#39;instar des matrices et des data frames, ces noms peuvent être utilisés</span>
+<span class="co"># pour accéder aux éléments qui y sont stockés.</span>
+knitr<span class="op">::</span><span class="kw">asis_output</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">normalsize&quot;</span>)</code></pre></div>
+
+</div>
+<div id="listes-un-contenant-de-contenants-2" class="section level3">
+<h3><span class="header-section-number">2.6.3</span> Listes, un contenant de contenants (2)</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Prenons le vecteur sur les pays voisins.</span>
+mali_list[[<span class="st">&quot;voisins&quot;</span>]]</code></pre></div>
+<pre><code>## [1] &quot;Algérie&quot;       &quot;Burkina-Faso&quot;  &quot;Côte d&#39;Ivoire&quot; &quot;Guinée&quot;       
+## [5] &quot;Mauritanie&quot;    &quot;Niger&quot;         &quot;Sénégal&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Le même résultat doit être possible par l&#39;ordre de l&#39;objet dans la liste, le 2ème.</span>
+mali_list[[<span class="dv">2</span>]]</code></pre></div>
+<pre><code>## [1] &quot;Algérie&quot;       &quot;Burkina-Faso&quot;  &quot;Côte d&#39;Ivoire&quot; &quot;Guinée&quot;       
+## [5] &quot;Mauritanie&quot;    &quot;Niger&quot;         &quot;Sénégal&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Peut-on utiliser le signe &quot;$&quot; comme avec les data frame</span>
+mali_list<span class="op">$</span>voisins</code></pre></div>
+<pre><code>## [1] &quot;Algérie&quot;       &quot;Burkina-Faso&quot;  &quot;Côte d&#39;Ivoire&quot; &quot;Guinée&quot;       
+## [5] &quot;Mauritanie&quot;    &quot;Niger&quot;         &quot;Sénégal&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Donc, on a l&#39;embarra du choix.</span></code></pre></div>
+
+</div>
+<div id="listes-un-contenant-de-contenants-3" class="section level3">
+<h3><span class="header-section-number">2.6.4</span> Listes, un contenant de contenants (3)</h3>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Maitenant qu&#39;on peut accéder aux objets à l&#39;intérieur d&#39;un liste,</span>
+<span class="co"># qu&#39;en est-il des éléments stockés à l&#39;intérieur de cet objet lui-même.</span>
+<span class="co"># Cherchons le 2ème élément du vecteur des pays voisins</span>
+mali_list[[<span class="st">&quot;voisins&quot;</span>]][<span class="dv">2</span>]</code></pre></div>
+<pre><code>## [1] &quot;Burkina-Faso&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Qu&#39;en est-il de &quot;mali_list[[2]]&quot; et de &quot;mali_list$voisins[2]&quot;?</span>
+<span class="co"># Testez avec eux pour voir.</span>
+
+<span class="co"># Un autre exemple: la 3ème colonne de la matrice sur la population</span>
+mali_list[[<span class="st">&quot;population&quot;</span>]][, <span class="dv">3</span>]</code></pre></div>
+<pre><code>##     1976     1987     1998     2009 
+##  6392918  7696349  9810912 14528662</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># La ligne suivante aussi marche</span>
+mali_list[[<span class="st">&quot;population&quot;</span>]][, <span class="st">&quot;Total&quot;</span>]</code></pre></div>
+<pre><code>##     1976     1987     1998     2009 
+##  6392918  7696349  9810912 14528662</code></pre>
+
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2><span class="header-section-number">2.7</span> Conclusion</h2>
+<div id="et-ce-nest-que-le-debut" class="section level3">
+<h3><span class="header-section-number">2.7.1</span> Et ce n’est que le début</h3>
+<p>Avec une introduction à ces objets, on pose les bases de l’analyse de données dans R. Bien que, pour des raisons pédagogiques, chaque objet ait été présenté par rapport aux limites du précédent, ils demeurent tous utiles, chacun avec ses avantages (compétitifs). Il revient au data scientist de connaître quand, où et comment faire intervenir un au lieu des autres. Contribuer à vous outiller pour faire ces choix - parmi tant d’autres - est l’un des objectifs de ce cours.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["dswr_book.pdf", "dswr_book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
