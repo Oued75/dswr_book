@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapitre 3 S’exprimer dans R | Data Science avec R</title>
+  <meta name="description" content="Chapitre 3 S’exprimer dans R | Data Science avec R">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapitre 3 S’exprimer dans R | Data Science avec R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 3 S’exprimer dans R | Data Science avec R" />
+  
+  
+  
+
+<meta name="author" content="Fousseynou Bah">
+
+
+<meta name="date" content="2019-03-05">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="objets-dans-r.html">
+<link rel="next" href="importer-des-donnees-dans-r.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science avec R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#un-autre-livre-sur-la-data-science-vraiment"><i class="fa fa-check"></i><b>1.1</b> Un autre livre sur la <em>data science</em>! Vraiment?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#la-data-science"><i class="fa fa-check"></i><b>1.2</b> La <em>data science</em></a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#le-data-scientist"><i class="fa fa-check"></i><b>1.3</b> Le <em>data scientist</em></a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#r"><i class="fa fa-check"></i><b>1.4</b> R</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#quest-ce-que-cest-que-r"><i class="fa fa-check"></i><b>1.4.1</b> Qu’est-ce que c’est que R?</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#pourquoi-r"><i class="fa fa-check"></i><b>1.4.2</b> Pourquoi R?</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#r-dans-lecosysteme-des-langages"><i class="fa fa-check"></i><b>1.4.3</b> R dans l’écosystème des langages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#rstudio"><i class="fa fa-check"></i><b>1.5</b> RStudio</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#quest-ce-que-cest-que-rstudio"><i class="fa fa-check"></i><b>1.5.1</b> Qu’est-ce que c’est que RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="objets-dans-r.html"><a href="objets-dans-r.html"><i class="fa fa-check"></i><b>2</b> Objets dans R</a><ul>
+<li class="chapter" data-level="2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-dobjet-dans-r"><i class="fa fa-check"></i><b>2.2</b> La notion d’objet dans R</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-objet"><i class="fa fa-check"></i><b>2.2.1</b> Qu’est-ce qu’un objet?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oranges-et-bananes"><i class="fa fa-check"></i><b>2.2.2</b> Oranges et bananes</a></li>
+<li class="chapter" data-level="2.2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#ce-qui-se-ressemblent-sassemblent"><i class="fa fa-check"></i><b>2.2.3</b> Ce qui se ressemblent s’assemblent</a></li>
+<li class="chapter" data-level="2.2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quelques-objets-dans-r"><i class="fa fa-check"></i><b>2.2.4</b> Quelques objets dans R</a></li>
+<li class="chapter" data-level="2.2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-de-classe-et-de-type"><i class="fa fa-check"></i><b>2.2.5</b> La notion de classe et de type</a></li>
+<li class="chapter" data-level="2.2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vers-dautres-types-dobjets"><i class="fa fa-check"></i><b>2.2.6</b> Vers d’autres types d’objets</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vecteurs"><i class="fa fa-check"></i><b>2.3</b> Vecteurs</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-vecteur"><i class="fa fa-check"></i><b>2.3.1</b> Qu’est-ce qu’un vecteur?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#creons-en-des-vecteurs"><i class="fa fa-check"></i><b>2.3.2</b> Créons-en, des vecteurs!</a></li>
+<li class="chapter" data-level="2.3.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vrai-pour-un-vrai-pour-plusieurs"><i class="fa fa-check"></i><b>2.3.3</b> Vrai pour un, vrai pour plusieurs</a></li>
+<li class="chapter" data-level="2.3.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#nommer-les-elements-dun-vecteur"><i class="fa fa-check"></i><b>2.3.4</b> Nommer les éléments d’un vecteur</a></li>
+<li class="chapter" data-level="2.3.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-vecteurs"><i class="fa fa-check"></i><b>2.3.5</b> Opérations sur vecteurs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#matrices"><i class="fa fa-check"></i><b>2.4</b> Matrices</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-ensemble-de-vecteurs"><i class="fa fa-check"></i><b>2.4.1</b> La matrice, un ensemble de vecteurs</a></li>
+<li class="chapter" data-level="2.4.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-objet-bidimensionnel"><i class="fa fa-check"></i><b>2.4.2</b> La matrice, un objet bidimensionnel</a></li>
+<li class="chapter" data-level="2.4.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-matrices"><i class="fa fa-check"></i><b>2.4.3</b> Opérations sur matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#data-frames"><i class="fa fa-check"></i><b>2.5</b> <em>Data frames</em></a><ul>
+<li class="chapter" data-level="2.5.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-data-frame-au-dela-de-la-matrice"><i class="fa fa-check"></i><b>2.5.1</b> Le <em>data frame</em>, au-délà de la matrice</a></li>
+<li class="chapter" data-level="2.5.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame"><i class="fa fa-check"></i><b>2.5.2</b> Opérations sur <em>data frame</em></a></li>
+<li class="chapter" data-level="2.5.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-meilleur-reste-a-venir"><i class="fa fa-check"></i><b>2.5.3</b> Le meilleur reste à venir</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#listes"><i class="fa fa-check"></i><b>2.6</b> Listes</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oublier-lordre-et-la-structure"><i class="fa fa-check"></i><b>2.6.1</b> Oublier l’ordre et la structure</a></li>
+<li class="chapter" data-level="2.6.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#un-contenant-de-contenants"><i class="fa fa-check"></i><b>2.6.2</b> Un contenant de contenants</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="objets-dans-r.html"><a href="objets-dans-r.html#conclusion"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#et-ce-nest-que-le-debut"><i class="fa fa-check"></i><b>2.7.1</b> Et ce n’est que le début</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html"><i class="fa fa-check"></i><b>3</b> S’exprimer dans R</a><ul>
+<li class="chapter" data-level="3.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#objectif"><i class="fa fa-check"></i><b>3.1.1</b> Objectif</a></li>
+<li class="chapter" data-level="3.1.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#outils"><i class="fa fa-check"></i><b>3.1.2</b> Outils</a></li>
+<li class="chapter" data-level="3.1.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#donnees"><i class="fa fa-check"></i><b>3.1.3</b> Données</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-declarations"><i class="fa fa-check"></i><b>3.2</b> Les déclarations</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#formulations-simples"><i class="fa fa-check"></i><b>3.2.1</b> Formulations simples</a></li>
+<li class="chapter" data-level="3.2.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-additifs-et"><i class="fa fa-check"></i><b>3.2.2</b> Critères additifs: <em>et</em> = <code>&amp;</code></a></li>
+<li class="chapter" data-level="3.2.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-alternatifs-ou"><i class="fa fa-check"></i><b>3.2.3</b> Critères alternatifs: <em>ou</em> = <code>|</code></a></li>
+<li class="chapter" data-level="3.2.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-opposes-contraire"><i class="fa fa-check"></i><b>3.2.4</b> Critères opposés: <em>contraire</em> = <code>!</code></a></li>
+<li class="chapter" data-level="3.2.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#conditionalites"><i class="fa fa-check"></i><b>3.2.5</b> Conditionalités</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-boucles"><i class="fa fa-check"></i><b>3.3</b> Les boucles</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-solution-aux-taches-repetititives"><i class="fa fa-check"></i><b>3.3.1</b> La solution aux tâches répétititives</a></li>
+<li class="chapter" data-level="3.3.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-fonction-for"><i class="fa fa-check"></i><b>3.3.2</b> La fonction <em>for</em></a></li>
+<li class="chapter" data-level="3.3.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-vecteurs"><i class="fa fa-check"></i><b>3.3.3</b> Application sur vecteurs</a></li>
+<li class="chapter" data-level="3.3.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-matrices"><i class="fa fa-check"></i><b>3.3.4</b> Application sur matrices</a></li>
+<li class="chapter" data-level="3.3.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-data-frame"><i class="fa fa-check"></i><b>3.3.5</b> Application sur <em>data frame</em></a></li>
+<li class="chapter" data-level="3.3.6" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-listes"><i class="fa fa-check"></i><b>3.3.6</b> Application sur listes</a></li>
+<li class="chapter" data-level="3.3.7" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#arretons-nous-un-instant"><i class="fa fa-check"></i><b>3.3.7</b> Arrêtons-nous un instant!</a></li>
+<li class="chapter" data-level="3.3.8" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#paradigme-split-apply-combine-illustration-avec-lapply"><i class="fa fa-check"></i><b>3.3.8</b> Paradigme <em>split-apply-combine</em>: illustration avec <em>lapply</em></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-fonctions"><i class="fa fa-check"></i><b>3.4</b> Les fonctions</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#lepine-dorsale-de-r"><i class="fa fa-check"></i><b>3.4.1</b> L’épine dorsale de R</a></li>
+<li class="chapter" data-level="3.4.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#retour-sur-quelques-fonctions"><i class="fa fa-check"></i><b>3.4.2</b> Retour sur quelques fonctions</a></li>
+<li class="chapter" data-level="3.4.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#pourquoi-faire-une-fonction"><i class="fa fa-check"></i><b>3.4.3</b> Pourquoi faire une fonction?</a></li>
+<li class="chapter" data-level="3.4.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-basiques-de-la-fonction"><i class="fa fa-check"></i><b>3.4.4</b> Les basiques de la fonction</a></li>
+<li class="chapter" data-level="3.4.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#fonctions-et-boucles"><i class="fa fa-check"></i><b>3.4.5</b> Fonctions et boucles</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html"><i class="fa fa-check"></i><b>4</b> Importer des données dans R</a><ul>
+<li class="chapter" data-level="4.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#objectif-de-ce-cours"><i class="fa fa-check"></i><b>4.1.1</b> Objectif de ce cours</a></li>
+<li class="chapter" data-level="4.1.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#que-nous-faut-il"><i class="fa fa-check"></i><b>4.1.2</b> Que nous faut-il?</a></li>
+<li class="chapter" data-level="4.1.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#donnees-1"><i class="fa fa-check"></i><b>4.1.3</b> Données</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#fichiers-plats-cas-du-format-csv"><i class="fa fa-check"></i><b>4.2</b> Fichiers plats: cas du format <em>CSV</em></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu"><i class="fa fa-check"></i><b>4.2.1</b> Aperçu</a></li>
+<li class="chapter" data-level="4.2.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv"><i class="fa fa-check"></i><b>4.2.2</b> Importation avec <em>R-base</em>: <code>read.csv</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv2"><i class="fa fa-check"></i><b>4.2.3</b> Importation avec <em>R-base</em>: <code>read.csv2</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readr"><i class="fa fa-check"></i><b>4.2.4</b> Importation avec <code>readr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#excel-xls-xlsx"><i class="fa fa-check"></i><b>4.3</b> Excel: <code>xls</code>, <code>xlsx</code></a><ul>
+<li class="chapter" data-level="4.3.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-2"><i class="fa fa-check"></i><b>4.3.1</b> Aperçu</a></li>
+<li class="chapter" data-level="4.3.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-xlsx-read.xlsx"><i class="fa fa-check"></i><b>4.3.2</b> Importation avec <code>xlsx</code>: <code>read.xlsx</code></a></li>
+<li class="chapter" data-level="4.3.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readxl-read_excel"><i class="fa fa-check"></i><b>4.3.3</b> Importation avec <code>readxl</code>: <code>read_excel</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#formats-issues-dautres-logiciels-statistiques-stata-et-spss"><i class="fa fa-check"></i><b>4.4</b> Formats issues d’autres logiciels statistiques: <code>Stata</code> et <code>SPSS</code></a><ul>
+<li class="chapter" data-level="4.4.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-3"><i class="fa fa-check"></i><b>4.4.1</b> Aperçu</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-foreign"><i class="fa fa-check"></i><b>4.5</b> Importation avec <code>foreign</code></a></li>
+<li class="chapter" data-level="4.6" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#base-de-donnees-relationnelles"><i class="fa fa-check"></i><b>4.6</b> Base de données relationnelles</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-4"><i class="fa fa-check"></i><b>4.6.1</b> Aperçu</a></li>
+<li class="chapter" data-level="4.6.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-rodbc"><i class="fa fa-check"></i><b>4.6.2</b> Importation avec <em>RODBC</em></a></li>
+<li class="chapter" data-level="4.6.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-odbc"><i class="fa fa-check"></i><b>4.6.3</b> Importation avec <code>odbc</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#depuis-internet"><i class="fa fa-check"></i><b>4.7</b> Depuis Internet</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-5"><i class="fa fa-check"></i><b>4.7.1</b> Aperçu</a></li>
+<li class="chapter" data-level="4.7.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#chargement-de-fichier-csv"><i class="fa fa-check"></i><b>4.7.2</b> Chargement de fichier CSV</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publié avec bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science avec R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sexprimer-dans-r" class="section level1">
+<h1><span class="header-section-number">Chapitre 3</span> S’exprimer dans R</h1>
+<div id="introduction-2" class="section level2">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
+<div id="objectif" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Objectif</h3>
+<p>Dans le chapitre précédent, il a été question d’objets dans R. Certains types ont été présentés. Il a surtout été fait état de la différence qui les sépare, de ce en quoi ils se démarquent les uns des autres. Ici, nous allons continuer en explorant l’expression dans R.</p>
+<p>Les objets permettent de stocker des données. Celles-ci ne deviennent vivantes et parlantes qu’à travers le dialogue que le <em>data scientist</em> entretient avec elles. Et en quels termes ce dialogue se pose-t-il? Là est le début de notre démarche ici.</p>
+<p>Nous allons:</p>
+<ul>
+<li><p>revenir sur les questions logiques;</p></li>
+<li><p>introduire déclarations conditionnelles;</p></li>
+<li><p>introduire la notion de boucle et de fonction.</p></li>
+</ul>
+</div>
+<div id="outils" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Outils</h3>
+<p>Que nous faut-il?</p>
+<ul>
+<li><p>R (évidemment);</p></li>
+<li><p>RStudio (de préférence);</p></li>
+<li><p>Les données utilisées dans le cadre du présent chapitre.</p></li>
+</ul>
+</div>
+<div id="donnees" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Données</h3>
+<p>Dans le présent chapitre, nous allons utiliser des données tirées des Recensements Généraux de la Population et de l’Habitat au Mali en 1976, 1987, 1998 et 2009. Des rapports sont disponibles cette <a href="http://www.instat-mali.org/index.php/publications/conditions-vie-societe/demographie">adresse</a>.</p>
+<p>Quant aux données extraites et formatées pour le présent cours, elles sont disponibles à cette <a href="https://github.com/fousseynoubah/dswr_slides/blob/master/3_Sexprimer_dans_R/data/data.RData?raw=true">adresse</a>.</p>
+<p>Nous</p>
+<p>Balayons du regard les objets qui meublent notre environnement.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
+<pre><code>## [1] &quot;pop_groupage_list&quot;</code></pre>
+<p>Regardons la structure de cet objet.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(pop_groupage_list)</code></pre></div>
+<pre><code>## List of 4
+##  $ 1976:&#39;data.frame&#39;:    18 obs. of  5 variables:
+##   ..$ annee   : num [1:18] 1976 1976 1976 1976 1976 ...
+##   ..$ groupage: Ord.factor w/ 18 levels &quot;0-4&quot;&lt;&quot;5-9&quot;&lt;&quot;10-14&quot;&lt;..: 1 2 3 4 5 6 7 8 9 10 ...
+##   ..$ femme   : num [1:18] 589394 482851 321959 333508 265842 ...
+##   ..$ homme   : num [1:18] 587015 492272 342807 308607 218391 ...
+##   ..$ total   : num [1:18] 1176409 975123 664766 642115 484233 ...
+##  $ 1987:&#39;data.frame&#39;:    18 obs. of  5 variables:
+##   ..$ annee   : num [1:18] 1987 1987 1987 1987 1987 ...
+##   ..$ groupage: Ord.factor w/ 18 levels &quot;0-4&quot;&lt;&quot;5-9&quot;&lt;&quot;10-14&quot;&lt;..: 1 2 3 4 5 6 7 8 9 10 ...
+##   ..$ femme   : num [1:18] 713507 611562 414302 379522 315753 ...
+##   ..$ homme   : num [1:18] 719804 633206 452166 348200 260215 ...
+##   ..$ total   : num [1:18] 1433311 1244768 866468 727722 575968 ...
+##  $ 1998:&#39;data.frame&#39;:    18 obs. of  5 variables:
+##   ..$ annee   : num [1:18] 1998 1998 1998 1998 1998 ...
+##   ..$ groupage: Ord.factor w/ 18 levels &quot;0-4&quot;&lt;&quot;5-9&quot;&lt;&quot;10-14&quot;&lt;..: 1 2 3 4 5 6 7 8 9 10 ...
+##   ..$ femme   : num [1:18] 824505 797057 589603 529270 409584 ...
+##   ..$ homme   : num [1:18] 839795 830211 637495 492480 364333 ...
+##   ..$ total   : num [1:18] 1664300 1627268 1227098 1021750 773917 ...
+##  $ 2009:&#39;data.frame&#39;:    18 obs. of  5 variables:
+##   ..$ annee   : num [1:18] 2009 2009 2009 2009 2009 ...
+##   ..$ groupage: Ord.factor w/ 18 levels &quot;0-4&quot;&lt;&quot;5-9&quot;&lt;&quot;10-14&quot;&lt;..: 1 2 3 4 5 6 7 8 9 10 ...
+##   ..$ femme   : num [1:18] 1321275 1178850 882725 799081 624565 ...
+##   ..$ homme   : num [1:18] 1353418 1225145 935796 745757 538927 ...
+##   ..$ total   : num [1:18] 2674693 2403995 1818521 1544838 1163492 ...</code></pre>
+<p>Il s’agit d’une liste. Les données portent sur la population par groupe d’âge.</p>
+</div>
+</div>
+<div id="les-declarations" class="section level2">
+<h2><span class="header-section-number">3.2</span> Les déclarations</h2>
+<p>Nous allons présenter ici la notion de déclaration et l’illustrer à partir de nos données. Qu’est-ce qu’une déclaration? Tout simplement une affirmation que l’on formule et que l’on soumet à la machine… Pour être plus exact, nous soumettons la déclaration aux données et regardons leur réaction!</p>
+<div id="formulations-simples" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Formulations simples</h3>
+<p>Affirmons qu’au Mali, pour les groupes d’âge identifiés, il y a plus de femmes que d’hommes. Est-ce vrai ou faux? Qu’en disent nos données? Pour faire simple, prenons le recensement le plus récent, celui de 2009, pour vérifier la véracité de notre déclaration.</p>
+<p>Pour commencer, tirons de la liste les données relative à l’année d’intérêt.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_groupage_<span class="dv">2009</span> &lt;-<span class="st"> </span>pop_groupage_list[[<span class="st">&quot;2009&quot;</span>]]</code></pre></div>
+<p>Maintenant, regardons la structure de ce <em>data frame</em>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(pop_groupage_<span class="dv">2009</span>)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    18 obs. of  5 variables:
+##  $ annee   : num  2009 2009 2009 2009 2009 ...
+##  $ groupage: Ord.factor w/ 18 levels &quot;0-4&quot;&lt;&quot;5-9&quot;&lt;&quot;10-14&quot;&lt;..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ femme   : num  1321275 1178850 882725 799081 624565 ...
+##  $ homme   : num  1353418 1225145 935796 745757 538927 ...
+##  $ total   : num  2674693 2403995 1818521 1544838 1163492 ...</code></pre>
+<p>Regardons la tête, les 3 premières observations par exemple.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">n =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>##    annee groupage   femme   homme   total
+## 55  2009      0-4 1321275 1353418 2674693
+## 56  2009      5-9 1178850 1225145 2403995
+## 57  2009    10-14  882725  935796 1818521</code></pre>
+<p>Regardons la queue, les 3 dernières observations par exemple.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">n =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>##    annee groupage femme homme total
+## 70  2009    75-79 36949 41667 78616
+## 71  2009      80+ 44504 42779 87283
+## 72  2009       ND     0     0     0</code></pre>
+<p>Nous voyons qu’il y a une colonne pour les hommes <code>homme</code> et une autre pour les femmes, <code>femme</code>. Tirons du <em>data frame</em> les vecteurs relatifs à ces deux groupes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_femme_<span class="dv">2009</span> &lt;-<span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme
+pop_homme_<span class="dv">2009</span> &lt;-<span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme</code></pre></div>
+<p>Maintenant posons la condition suivante: <code>pop_femme_2009 &gt; pop_homme_2009</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_femme_<span class="dv">2009</span> <span class="op">&gt;</span><span class="st"> </span>pop_homme_<span class="dv">2009</span></code></pre></div>
+<pre><code>##  [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE
+## [12] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
+<p>Pour une meilleur lisibilité, insérons ce résultat dans le data frame</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme_sup_homme &lt;-<span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme <span class="op">&gt;</span><span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme</code></pre></div>
+<p>En assignant le résultat de l’opération à une nouvelle variable du <em>data frame</em>, R crée lui-même une variable boléenne (<code>TRUE</code>/<code>FALSE</code>). Regardons les groupes d’âge qui répondent au critère posé.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_groupage_<span class="dv">2009</span>[pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme_sup_homme, ]</code></pre></div>
+<pre><code>##    annee groupage  femme  homme   total femme_sup_homme
+## 58  2009    15-19 799081 745757 1544838            TRUE
+## 59  2009    20-24 624565 538927 1163492            TRUE
+## 60  2009    25-29 557627 457139 1014766            TRUE
+## 61  2009    30-34 436501 391919  828420            TRUE
+## 62  2009    35-39 333542 330907  664449            TRUE
+## 63  2009    40-44 281004 276149  557153            TRUE
+## 65  2009    50-54 196356 192875  389231            TRUE
+## 71  2009      80+  44504  42779   87283            TRUE</code></pre>
+<p>Le même résultat s’obtient avec la fonction <code>subset</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> femme_sup_homme <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>##    annee groupage  femme  homme   total femme_sup_homme
+## 58  2009    15-19 799081 745757 1544838            TRUE
+## 59  2009    20-24 624565 538927 1163492            TRUE
+## 60  2009    25-29 557627 457139 1014766            TRUE
+## 61  2009    30-34 436501 391919  828420            TRUE
+## 62  2009    35-39 333542 330907  664449            TRUE
+## 63  2009    40-44 281004 276149  557153            TRUE
+## 65  2009    50-54 196356 192875  389231            TRUE
+## 71  2009      80+  44504  42779   87283            TRUE</code></pre>
+<p>L’on peut utiliser directement introduire le critère à l’intérieur du <em>data frame</em>…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_groupage_<span class="dv">2009</span>[pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme <span class="op">&gt;</span><span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme, ]</code></pre></div>
+<pre><code>##    annee groupage  femme  homme   total femme_sup_homme
+## 58  2009    15-19 799081 745757 1544838            TRUE
+## 59  2009    20-24 624565 538927 1163492            TRUE
+## 60  2009    25-29 557627 457139 1014766            TRUE
+## 61  2009    30-34 436501 391919  828420            TRUE
+## 62  2009    35-39 333542 330907  664449            TRUE
+## 63  2009    40-44 281004 276149  557153            TRUE
+## 65  2009    50-54 196356 192875  389231            TRUE
+## 71  2009      80+  44504  42779   87283            TRUE</code></pre>
+<p>…ou à l’intérieur de la fonctio <code>subset</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> femme <span class="op">&gt;</span><span class="st"> </span>homme)</code></pre></div>
+<pre><code>##    annee groupage  femme  homme   total femme_sup_homme
+## 58  2009    15-19 799081 745757 1544838            TRUE
+## 59  2009    20-24 624565 538927 1163492            TRUE
+## 60  2009    25-29 557627 457139 1014766            TRUE
+## 61  2009    30-34 436501 391919  828420            TRUE
+## 62  2009    35-39 333542 330907  664449            TRUE
+## 63  2009    40-44 281004 276149  557153            TRUE
+## 65  2009    50-54 196356 192875  389231            TRUE
+## 71  2009      80+  44504  42779   87283            TRUE</code></pre>
+<p>Cette dernière approche se révèle simple. A partir de maintenant, nous allons privilégier la fonction <code>subset</code>.</p>
+<p>Sur la base de ces résultats, on voit clairement que R sait comparer des valeurs numériques. Juste pour confirmer, reprenons sur le groupe d’âge 0-4 ans.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1353418</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">1321275</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Qu’en est-il des rééls?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="fl">1.000002</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span> </code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># (Notez que l&#39;assignation ses fait avec &quot;=&quot;, mais le test d&#39;égalité se fait avec &quot;==&quot;)</span></code></pre></div>
+<p>De toute évidence, ça marche avec les nombres. Qu’en est-il des caractères? Testons!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;MALI&quot;</span> <span class="op">==</span><span class="st"> &quot;Mali&quot;</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Cette égalité est rejetée par que R est sensible à la taille des lettres (majuscule/minuscule). Maintenant regardons la logique.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">TRUE</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Vous rappelez-vous quand, dans le cours précédent, nous avons coercé une vecteur de valeurs logiques en y ajoutant un réel comment <code>TRUE</code> est devenu <code>1</code> et <code>FALSE</code> <code>0</code>? Et bien, c’est la preuve que pour R, <code>TRUE</code> == <code>1</code>.</p>
+</div>
+<div id="criteres-additifs-et" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Critères additifs: <em>et</em> = <code>&amp;</code></h3>
+<p>Il est souvent possible que l’on souhaite combiner plusieurs critères dans la même déclaration. Supposons que l’on veuille connaître les groupes d’âge pour lesquels:</p>
+<ul>
+<li><p>les femmes sont plus nombreuses que les hommes; et</p></li>
+<li><p>la population totale (hommes + femmes) est en dessous de 1 millions de personnes.</p></li>
+</ul>
+<p>Nous commençons par définir nos critères.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># femme &gt; homme</span>
+pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme_sup_homme &lt;-<span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme <span class="op">&gt;</span><span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme
+<span class="co"># total &gt; 1000000</span>
+pop_groupage_<span class="dv">2009</span><span class="op">$</span>moins_de_1_million &lt;-<span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>total <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000000</span></code></pre></div>
+<p>Maintenant, combinons les!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## subset(x = pop_groupage_2009, subset = femme_sup_homme &amp; moins_de_1_million)</code></pre></div>
+<p>Avec l’insertion directe des résultats, l’on obtient la même chose.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> femme <span class="op">&gt;</span><span class="st"> </span>homme <span class="op">&amp;</span><span class="st"> </span>total <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000000</span>)</code></pre></div>
+<pre><code>##    annee groupage  femme  homme  total femme_sup_homme moins_de_1_million
+## 61  2009    30-34 436501 391919 828420            TRUE               TRUE
+## 62  2009    35-39 333542 330907 664449            TRUE               TRUE
+## 63  2009    40-44 281004 276149 557153            TRUE               TRUE
+## 65  2009    50-54 196356 192875 389231            TRUE               TRUE
+## 71  2009      80+  44504  42779  87283            TRUE               TRUE</code></pre>
+<p>L’addition de critères se fait avec l’opérateur <code>&amp;</code>. Le résultat donne les observations qui répondent à toutes les conditions posées.</p>
+</div>
+<div id="criteres-alternatifs-ou" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> Critères alternatifs: <em>ou</em> = <code>|</code></h3>
+<p>La combinaison de critères dans une déclaration ne se pose pas toujours sous la forme additive. Il arrive qu’on veuille procéder sur la base de: soit…soit… Dans ce cas, il faut une autre expression.</p>
+<p>Cherchons par exemple, à connaître les groupe pour lequels:</p>
+<ul>
+<li><p>soit les femmes sont plus nombreuses que les hommes;</p></li>
+<li><p>soit la population totale (hommes + femmes) est en dessous de 1 millions de personnes.</p></li>
+</ul>
+<p>Au lieu du signe <code>&amp;</code>, nous utilisons le signe <code>|</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> femme <span class="op">&gt;</span><span class="st"> </span>homme <span class="op">|</span><span class="st"> </span>total <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000000</span>)</code></pre></div>
+<pre><code>##    annee groupage  femme  homme   total femme_sup_homme moins_de_1_million
+## 58  2009    15-19 799081 745757 1544838            TRUE              FALSE
+## 59  2009    20-24 624565 538927 1163492            TRUE              FALSE
+## 60  2009    25-29 557627 457139 1014766            TRUE              FALSE
+## 61  2009    30-34 436501 391919  828420            TRUE               TRUE
+## 62  2009    35-39 333542 330907  664449            TRUE               TRUE
+## 63  2009    40-44 281004 276149  557153            TRUE               TRUE
+## 64  2009    45-49 221709 232779  454488           FALSE               TRUE
+## 65  2009    50-54 196356 192875  389231            TRUE               TRUE
+## 66  2009    55-59 136852 151319  288171           FALSE               TRUE
+## 67  2009    60-64 126022 129916  255938           FALSE               TRUE
+## 68  2009    65-69  78677  89929  168606           FALSE               TRUE
+## 69  2009    70-74  67433  68569  136002           FALSE               TRUE
+## 70  2009    75-79  36949  41667   78616           FALSE               TRUE
+## 71  2009      80+  44504  42779   87283            TRUE               TRUE
+## 72  2009       ND      0      0       0           FALSE               TRUE</code></pre>
+<p>Ici, la validation de l’une des conditions suffit. On voit des groupes au dessus de 1 million de personnes (violation du critère n°2). Toutefois, les femmes y sont plus nombreuses (validation du critère n°1). A l’inverse, certains groupes ont moins de femmes (violation du critère n°1), mais comptent moins d’1 millions de personnes (validation du critère n°2).</p>
+<p>Souvent, il arrive qu’on veuille accumuler des critères à l’intérieur d’une seule variable. Supposons que l’on souhaite voir les informations concernant juste les moins de 15 ans. On sait que, dans ce cas, on aura à sélectionner trois groupes d’âge: 0-4, 5-9, et 10-14. La variable <code>groupage</code> doit être égale à l’une de ses valeurs. Reprenons la logique des critères alternatifs (soit…soit…).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> groupage <span class="op">==</span><span class="st"> &quot;0-4&quot;</span> <span class="op">|</span><span class="st"> </span>groupage <span class="op">==</span><span class="st"> &quot;5-9&quot;</span> <span class="op">|</span><span class="st"> </span>groupage <span class="op">==</span><span class="st"> &quot;10-14&quot;</span>)</code></pre></div>
+<pre><code>##    annee groupage   femme   homme   total femme_sup_homme
+## 55  2009      0-4 1321275 1353418 2674693           FALSE
+## 56  2009      5-9 1178850 1225145 2403995           FALSE
+## 57  2009    10-14  882725  935796 1818521           FALSE
+##    moins_de_1_million
+## 55              FALSE
+## 56              FALSE
+## 57              FALSE</code></pre>
+<p>Maintenant, ajoutons au critère de <em>moins de 15 ans</em> un autre, celui d’un total de moins de 2 millions, donc <code>total &lt; 2000000</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> (groupage <span class="op">==</span><span class="st"> &quot;0-4&quot;</span> <span class="op">|</span><span class="st"> </span>groupage <span class="op">==</span><span class="st"> &quot;5-9&quot;</span> <span class="op">|</span><span class="st"> </span>groupage <span class="op">==</span><span class="st"> &quot;10-14&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(total <span class="op">&lt;</span><span class="st"> </span><span class="dv">2000000</span>) )</code></pre></div>
+<pre><code>##    annee groupage  femme  homme   total femme_sup_homme moins_de_1_million
+## 57  2009    10-14 882725 935796 1818521           FALSE              FALSE</code></pre>
+<p>Il a suffit d’isoler les critères alternatifs entre parenthèses et d’y le critère additif.</p>
+</div>
+<div id="criteres-opposes-contraire" class="section level3">
+<h3><span class="header-section-number">3.2.4</span> Critères opposés: <em>contraire</em> = <code>!</code></h3>
+<p>Souvent, il arrive que l’on souhaite sélectionner sur la base de l’opposition à un critère. Explorons à travers un exemple.</p>
+<p>Plus haut, nous avons défini les groupes où <code>femme &gt; homme</code>. Ceci revient à définir les groupes où la condition <code>homme &gt;= femme</code> est violée. Voyons comment on part de la négation pour parvenir à ce même résultat.</p>
+<p>Rappelons</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> femme <span class="op">&gt;</span><span class="st"> </span>homme)</code></pre></div>
+<pre><code>##    annee groupage  femme  homme   total femme_sup_homme moins_de_1_million
+## 58  2009    15-19 799081 745757 1544838            TRUE              FALSE
+## 59  2009    20-24 624565 538927 1163492            TRUE              FALSE
+## 60  2009    25-29 557627 457139 1014766            TRUE              FALSE
+## 61  2009    30-34 436501 391919  828420            TRUE               TRUE
+## 62  2009    35-39 333542 330907  664449            TRUE               TRUE
+## 63  2009    40-44 281004 276149  557153            TRUE               TRUE
+## 65  2009    50-54 196356 192875  389231            TRUE               TRUE
+## 71  2009      80+  44504  42779   87283            TRUE               TRUE</code></pre>
+<p>Passons maintenant par l’opposé.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> <span class="op">!</span>(femme <span class="op">&lt;=</span><span class="st"> </span>homme))</code></pre></div>
+<pre><code>##    annee groupage  femme  homme   total femme_sup_homme moins_de_1_million
+## 58  2009    15-19 799081 745757 1544838            TRUE              FALSE
+## 59  2009    20-24 624565 538927 1163492            TRUE              FALSE
+## 60  2009    25-29 557627 457139 1014766            TRUE              FALSE
+## 61  2009    30-34 436501 391919  828420            TRUE               TRUE
+## 62  2009    35-39 333542 330907  664449            TRUE               TRUE
+## 63  2009    40-44 281004 276149  557153            TRUE               TRUE
+## 65  2009    50-54 196356 192875  389231            TRUE               TRUE
+## 71  2009      80+  44504  42779   87283            TRUE               TRUE</code></pre>
+<p>En termes d’aperçu, nous avons le même résultat. Pour confirmer, sauvegardons les deux résultats sous forme de nouvelles variables dans le <em>data frame</em>, puis comparons-les.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme_sup_homme &lt;-<span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme <span class="op">&gt;</span><span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme
+pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme_pas_sup_femme &lt;-<span class="st"> </span><span class="op">!</span>(pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme <span class="op">&gt;=</span><span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme)
+pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme_sup_homme <span class="op">==</span><span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme_pas_sup_femme</code></pre></div>
+<pre><code>##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [15] TRUE TRUE TRUE TRUE</code></pre>
+<p>Souvent le nombre d’observations est trop grand pour que l’on puisse inspecter à l’oeil le résultat de la déclaration pour toutes les observations. Il existe des fonctions qui permettent de conduire l’examen au niveau global. C’est le cas de la fonction <code>identical</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme_sup_homme, pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme_pas_sup_femme)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Les deux vecteurs sont donc identiques. Les deux procédés mènent donc au même résultat.</p>
+<p>La négation revèle toute son utilité quand on cherche à examiner les données sur la base de l’exclusion plutôt que celle de la sélection. Prenons un exemple dans notre cas. Supposons que nous souhaitions faire la somme des populations sans les enfants de moins de 5 ans. Dans ce cas, plutôt que de sélectionner les groupes qui sont au dessus de 5 ans, il s’avère plus commode d’exclure les moins de 5 ans.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Les groupes homme, femme et total, avec l&#39;exclusion de 0-4 ans</span>
+pop_groupage_2009_plus5ans &lt;-<span class="st"> </span><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> groupage <span class="op">!=</span><span class="st"> &quot;0-4&quot;</span>, <span class="dt">select =</span> <span class="kw">c</span>(homme, femme, total))</code></pre></div>
+<p>Le résultat est la même chose que la ligne suivante.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Les groupes homme, femme et total, avec l&#39;exclusion de 0-4 ans</span>
+pop_groupage_2009_plus5ans &lt;-<span class="st"> </span><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> <span class="op">!</span>(groupage <span class="op">==</span><span class="st"> &quot;0-4&quot;</span>), <span class="dt">select =</span> <span class="kw">c</span>(homme, femme, total))</code></pre></div>
+<p>La preuve.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(<span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> groupage <span class="op">!=</span><span class="st"> &quot;ND&quot;</span>),
+          <span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">subset =</span> <span class="op">!</span>(groupage <span class="op">==</span><span class="st"> &quot;ND&quot;</span>)))</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Faisons les sommes pour la population restrainte.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Vous rappelez-vous la fonction colSums du chapitre précédent?</span>
+<span class="kw">colSums</span>(pop_groupage_2009_plus5ans)</code></pre></div>
+<pre><code>##    homme    femme    total 
+##  5851572  6002397 11853969</code></pre>
+<p>Et maintenant, juste pour comparer, regardons sur la population globale.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Les groupes homme, femme et total, sans aucun critère</span>
+pop_groupage_2009_avec5ans &lt;-<span class="st"> </span><span class="kw">subset</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">select =</span> <span class="kw">c</span>(homme, femme, total))
+<span class="co"># Les sommmes</span>
+<span class="kw">colSums</span>(pop_groupage_2009_avec5ans)</code></pre></div>
+<pre><code>##    homme    femme    total 
+##  7204990  7323672 14528662</code></pre>
+</div>
+<div id="conditionalites" class="section level3">
+<h3><span class="header-section-number">3.2.5</span> Conditionalités</h3>
+<p>Jusque là, nous avons parlé de déclarations dans une formulation simple. Nous les avons pas inscrites dans le cadre d’un arbre de décision. Il s’agit du schéma suivant: “si condition remplie, alors action 1, sinon action 2”. On délègue à la machine l’exécution de tâches sur la base de critères définis…ce qui est pratiquement le début de l’intelligence artificielle.</p>
+<p>Dans notre example, nous avons vu qu’entre les hommes et les femmes, la supériorité numérique varie d’un groupe d’âge à un autre. Nous pouvons souhaiter générer une variable qui indiquera lequel des groupes est plus nombreux. Pour ce faire, R dispose de la fonction <code>ifelse</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_groupage_<span class="dv">2009</span><span class="op">$</span>sup_num &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="co"># condition</span>
+                                    <span class="dt">test =</span> pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme <span class="op">&gt;</span><span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme, 
+                                    <span class="co"># action si condition satisfaite</span>
+                                     <span class="dt">yes =</span> <span class="st">&quot;femme &gt; homme&quot;</span>, 
+                                    <span class="co"># action si condition non satisfaite</span>
+                                     <span class="dt">no =</span> <span class="st">&quot;femme &lt;= homme&quot;</span> 
+                                     )</code></pre></div>
+<p>Regardons ce que celà donne.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(pop_groupage_<span class="dv">2009</span>)</code></pre></div>
+<pre><code>##    annee groupage   femme   homme   total        sup_num
+## 55  2009      0-4 1321275 1353418 2674693 femme &lt;= homme
+## 56  2009      5-9 1178850 1225145 2403995 femme &lt;= homme
+## 57  2009    10-14  882725  935796 1818521 femme &lt;= homme
+## 58  2009    15-19  799081  745757 1544838  femme &gt; homme
+## 59  2009    20-24  624565  538927 1163492  femme &gt; homme
+## 60  2009    25-29  557627  457139 1014766  femme &gt; homme</code></pre>
+<p>Avec cette nouvelle variable, nous pouvons déterminer, par exemple, le nombre de groupes pour lesquels il y a plus de femmes que d’hommes et vice-versa.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(pop_groupage_<span class="dv">2009</span><span class="op">$</span>sup_num)</code></pre></div>
+<pre><code>## 
+## femme &lt;= homme  femme &gt; homme 
+##             10              8</code></pre>
+</div>
+</div>
+<div id="les-boucles" class="section level2">
+<h2><span class="header-section-number">3.3</span> Les boucles</h2>
+<div id="la-solution-aux-taches-repetititives" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> La solution aux tâches répétititives</h3>
+<p>Un grand avantage de la programmation est la capacité de déléguer à la machine l’exécution de tâches répétitives. R dispose de diverses fonctions qui permettent d’effectuer celles-ci en boucle. Ceci est très commode surtout quand le nombre de répétitions est élevé. Toutefois, la nécessité des boucles varie d’un objet à un autre. Si pour certains, des solutions alternatives et plus simples existent, pour d’autres, elles sont la meilleure option.</p>
+<p>Dans ce chapitre, nous allons nous limiter à la fonction <em>for</em>. Vous pouvez regarder la fonction <em>while</em>. Entrez dans la console: <em>help(“while”)</em>.</p>
+</div>
+<div id="la-fonction-for" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> La fonction <em>for</em></h3>
+<p>La fonction <code>for</code> est très pratique pour l’exécution des boucles dans <code>R</code>. Elle est structurée de la façon suivante:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(var <span class="cf">in</span> seq){
+  expr
+}</code></pre></div>
+<p>où <code>var</code> désigner une variable dans la séquence <code>seq</code> et <code>expr</code> la transformation à laquelle l’on soumet les éléments de cette dernière. Un exemple.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)){
+  <span class="kw">print</span>(i<span class="op">^</span><span class="dv">2</span>)
+  }</code></pre></div>
+<pre><code>## [1] 1
+## [1] 4
+## [1] 9
+## [1] 16
+## [1] 25
+## [1] 36
+## [1] 49
+## [1] 64
+## [1] 81
+## [1] 100</code></pre>
+<p>Pour chaque <em>i</em> élément de la séquence allant de 1 à 10, nous affichons le carré de <em>i</em>.</p>
+</div>
+<div id="application-sur-vecteurs" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Application sur vecteurs</h3>
+<p>Prenons un vecteur de chiffres.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</code></pre></div>
+<p>Utilisons une boucle avec la fonction <code>for</code> pour élever les éléments à leur carré et stockons dans un vecteur nommé <code>y</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Création d&#39;une coquille vide de vecteur.</span>
+y &lt;-<span class="st"> </span><span class="kw">c</span>() 
+  <span class="co"># Pour chaque élément dans le vecteur x,</span>
+<span class="cf">for</span>(i <span class="cf">in</span> x){ 
+  <span class="co"># créer un élément dans le vecteur y qui en serait le carré.</span>
+  y[[i]] &lt;-<span class="st"> </span>i<span class="op">^</span><span class="dv">2</span> 
+  }</code></pre></div>
+<p>Regardons y</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y</code></pre></div>
+<pre><code>##  [1]   1   4   9  16  25  36  49  64  81 100</code></pre>
+<p>Ici, la boucle marche parfaitement, mais on peut s’en passer. Reprenons l’opération, mais avec une approche différente.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Le vecteur de départ</span>
+x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)
+<span class="co"># L&#39;élévation au carré</span>
+y &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>
+y</code></pre></div>
+<pre><code>##  [1]   1   4   9  16  25  36  49  64  81 100</code></pre>
+<p>Même résultat. Moins de codage. Donc solution optimale! La fonction native (^) s’exécute déjà en boucle sur tous les éléments du vecteur.</p>
+<p>Pour nous assurer que cette règle n’est pas limité qu’aux chiffres, testons avec les lettres. Prenons un vecteur de caractères.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mamadou&quot;</span>, <span class="st">&quot;Amadou&quot;</span>, <span class="st">&quot;Ahmed&quot;</span>, <span class="st">&quot;Ahmad&quot;</span>, <span class="st">&quot;Abdoul&quot;</span>, <span class="st">&quot;Zan&quot;</span>, <span class="st">&quot;Tchiè&quot;</span>, <span class="st">&quot;Mady&quot;</span>)</code></pre></div>
+<p>Cherchons à détecter les prénoms qui contiennent la lettre “a” (en minuscule). R a des fonctions natives qui peuvent exécuter cette tâche dont <code>grepl</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Création d&#39;une coquille vide de vecteur.</span>
+y &lt;-<span class="st"> </span><span class="kw">c</span>() 
+  <span class="co"># Pour chaque élément dans le vecteur x,</span>
+<span class="cf">for</span>(i <span class="cf">in</span> x){ 
+  <span class="co"># identifier les éléments contenant la lettre &quot;a&quot;.</span>
+  y[i] &lt;-<span class="st"> </span><span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;(a)&quot;</span>, <span class="dt">x =</span> i) 
+}</code></pre></div>
+<p>Regardons y.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y</code></pre></div>
+<pre><code>## Mamadou  Amadou   Ahmed   Ahmad  Abdoul     Zan   Tchiè    Mady 
+##    TRUE    TRUE   FALSE    TRUE   FALSE    TRUE   FALSE    TRUE</code></pre>
+<p>Encore une fois, on peut remarquer que R est sensible à la taille de la lettre (minuscule/majuscule). Regardez les résultats pour <code>Ahmad</code> et <code>Ahmed</code>. Reprenons en appliquant directement la formule au vecteur directement.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;(a)&quot;</span>, x)
+y</code></pre></div>
+<pre><code>## [1]  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE</code></pre>
+<p>Même résultat. Moins de codage. Donc solution optimale! La fonction native <code>grepl</code> s’exécute déjà en boucle sur tous les éléments du vecteur. Leçon: chaque fois, qu’une fonction native existe et peut exécuter une tâche, il est préférable de se passer de la boucle.</p>
+</div>
+<div id="application-sur-matrices" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> Application sur matrices</h3>
+<p>Maintenant, essayons sur une matrice.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
+x</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    6    7    8
+## [3,]    9   10   11   12</code></pre>
+<p>Comme avant, élévons les éléments à leur carré et stockons dans une matrice nommée <code>y</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Création d&#39;une coquille vide de matrice</span>
+y &lt;-<span class="st"> </span><span class="kw">c</span>() 
+  <span class="co"># Pour chaque élément dans la matrice x,</span>
+<span class="cf">for</span>(i <span class="cf">in</span> x){ 
+  <span class="co"># créer un élément dans la matrice y qui en serait le carré.</span>
+  y[[i]] &lt;-<span class="st"> </span>i<span class="op">^</span><span class="dv">2</span> 
+}</code></pre></div>
+<p>Regardons y.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y</code></pre></div>
+<pre><code>##  [1]   1   4   9  16  25  36  49  64  81 100 121 144</code></pre>
+<p>Ici la boucle donne le bon résultat, mais pas le bon format. Nous cherchons une matrice, mais c’est un vecteur que nous avons eu. Apparemment, la boucle doit aussi tenir compte du format. Ajustons-donc le format de la matrice qui recevra les résultats. Créons une coquille vide de matrice.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dt">times =</span> <span class="dv">12</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>) 
+y</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]   NA   NA   NA   NA
+## [2,]   NA   NA   NA   NA
+## [3,]   NA   NA   NA   NA</code></pre>
+<p>Et reprenons la boucle.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># Pour chaque ligne (i) de la matrice x, et</span>
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(x)){ 
+    <span class="co"># pour chaque colonne (j) de la matrice x,</span>
+  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(x)){ 
+    <span class="co"># créer un élément dans la matrice y qui en serait le carré.</span>
+    y[i, j] &lt;-<span class="st"> </span>x[i, j]<span class="op">^</span><span class="dv">2</span> 
+  }
+}</code></pre></div>
+<p>Regardons y.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    4    9   16
+## [2,]   25   36   49   64
+## [3,]   81  100  121  144</code></pre>
+<p>Nous avons le bon résultat et le bon format. Mais que de lignes de codes!!!! Il doit y avoir une voie plus simple!</p>
+<p>Maintenant, regardons une autre solution: l’implémentation directe du la formule (^2) sur la matrice de départ.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>
+y</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    4    9   16
+## [2,]   25   36   49   64
+## [3,]   81  100  121  144</code></pre>
+<p>A l’instar du vecteur, l’on peut appliquer des formules directements aux matrices. L’objet qui en résulte hérite de la structure et du format de la matrice de départ.</p>
+<p>Ce qui marche pour les chiffres, marche-t-il pour les lettres aussi? Comme pour les vecteurs, testons avec une matrice de caractères. Considérons la matrice suivante.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="st">&quot;Zégoua&quot;</span>, <span class="st">&quot;Hamdallaye&quot;</span>, <span class="st">&quot;Zanbougou&quot;</span>,
+                     <span class="st">&quot;Farimaké&quot;</span>,<span class="st">&quot;Cinzani&quot;</span>, <span class="st">&quot;Tinzawatene&quot;</span>,
+                     <span class="st">&quot;Nara&quot;</span>, <span class="st">&quot;Hawa Dembaya&quot;</span>, <span class="st">&quot;Bozobougou&quot;</span>), 
+            <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
+x</code></pre></div>
+<pre><code>##      [,1]       [,2]           [,3]         
+## [1,] &quot;Zégoua&quot;   &quot;Hamdallaye&quot;   &quot;Zanbougou&quot;  
+## [2,] &quot;Farimaké&quot; &quot;Cinzani&quot;      &quot;Tinzawatene&quot;
+## [3,] &quot;Nara&quot;     &quot;Hawa Dembaya&quot; &quot;Bozobougou&quot;</code></pre>
+<p>Cherchons-y dans les éléments qui contiennent la lettre “z” (minuscule!). Appliquons directement la formule à la matrice <code>x</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;(z)&quot;</span>, x)
+y</code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE</code></pre>
+<p>Nous avons le bon résultat, mais pas le bon format. R a généré le résultat sous format de vecteur. Ce qui en érode fortement la lisibilité. Ajustons! Nous pouvons générer le résultat et le déclarer sous le format de matrice.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># étape 1</span>
+y &lt;-<span class="st"> </span><span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;(z)&quot;</span>, x) 
+<span class="co"># étape 2</span>
+y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> y, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>) 
+y</code></pre></div>
+<pre><code>##       [,1]  [,2]  [,3]
+## [1,] FALSE FALSE FALSE
+## [2,] FALSE  TRUE FALSE
+## [3,] FALSE  TRUE  TRUE</code></pre>
+<p>Ou tout simplement combiner les deux étapes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combinaison des 2 étapes</span>
+y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;(z)&quot;</span>, x), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>) 
+y</code></pre></div>
+<pre><code>##       [,1]  [,2]  [,3]
+## [1,] FALSE FALSE FALSE
+## [2,] FALSE  TRUE FALSE
+## [3,] FALSE  TRUE  TRUE</code></pre>
+<p>Malgré cet ajustement, l’application directe de la formule est préférable à la boucle car une fonction native existe déjà pour l’exécution de la tâche souhaitée. Sachant que les matrices sont fortement sollicitées en algèbre, il n’est pas surprenant de trouver que le format est respecté quand les opérations pour sur des chiffres, mais défait quand il s’agit de lettres ou caractères.</p>
+</div>
+<div id="application-sur-data-frame" class="section level3">
+<h3><span class="header-section-number">3.3.5</span> Application sur <em>data frame</em></h3>
+<p>Partant de ce qu’on a vu avec les vecteurs et les matrices, on peut se douter que les boucles ne sont pas toujours le meilleur choix pour les data frame non plus.</p>
+<p>Supposons que l’on veuille calculer pour chaque groupe d’âge de notre data frame l’écart entre les femmes et les hommes: <code>femme</code> - <code>homme</code>. On pourrait faire une boucle:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ecart_femme_homme &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(pop_groupage_<span class="dv">2009</span>)){
+  ecart_femme_homme[i] &lt;-<span class="st"> </span>pop_groupage_<span class="dv">2009</span>[i, <span class="st">&quot;femme&quot;</span>] <span class="op">-</span><span class="st"> </span>pop_groupage_<span class="dv">2009</span>[i, <span class="st">&quot;homme&quot;</span>]
+}
+ecart_femme_homme</code></pre></div>
+<pre><code>##  [1] -32143 -46295 -53071  53324  85638 100488  44582   2635   4855 -11070
+## [11]   3481 -14467  -3894 -11252  -1136  -4718   1725      0</code></pre>
+<p>Un détour for peu utile quand on peut faire plus simple.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_groupage_<span class="dv">2009</span><span class="op">$</span>ecart_femme_homme &lt;-<span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>femme <span class="op">-</span><span class="st"> </span>pop_groupage_<span class="dv">2009</span><span class="op">$</span>homme
+<span class="kw">head</span>(<span class="dt">x =</span> pop_groupage_<span class="dv">2009</span>, <span class="dt">n =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>##    annee groupage   femme   homme   total        sup_num ecart_femme_homme
+## 55  2009      0-4 1321275 1353418 2674693 femme &lt;= homme            -32143
+## 56  2009      5-9 1178850 1225145 2403995 femme &lt;= homme            -46295
+## 57  2009    10-14  882725  935796 1818521 femme &lt;= homme            -53071</code></pre>
+</div>
+<div id="application-sur-listes" class="section level3">
+<h3><span class="header-section-number">3.3.6</span> Application sur listes</h3>
+<p>C’est avec les listes que les boucles prennent tout leur sens. Les vecteurs, matrices et data frame constituent tous des objets unitaires eux-mêmes. Ils ont leur propriétés propres à eux-mêmes (structure et comportements). Ceci veut dire qu’ils prêtent à l’assimilation par les fonctions. Celles-ci vont systématiquement s’appliquer sur tous les éléments désignés au sein de l’objet. Qu’il s’agisse d’une opération mathématiques (élévation au carré) ou de l’examen de texte (détection d’un caractère), l’objet peut servir d’intrant direct à la fonction utilisée dans la boucle.</p>
+<p>Avec la liste, les choses sont différentes. La liste est un objet <em>hôte</em>. Bien qu’elle ait ses propriétés, elle sert de contenant à d’autres objets. De ce fait, elle peut abriter plusieurs objets sur lesquels l’on peut souhaiter exécuter la même opération en boucle. Et c’est là, qu’on est content que les boucles existent!</p>
+<p>Illustrons!</p>
+<p>Rappelons d’abord les noms des objets contenus dans notre liste <code>pop_groupage_list</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(pop_groupage_list)</code></pre></div>
+<pre><code>## [1] &quot;1976&quot; &quot;1987&quot; &quot;1998&quot; &quot;2009&quot;</code></pre>
+<p>Maintenant, commençons avec le simple affichage de la première observation de tous les <em>data frame</em> de la liste.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># Pour chaque élément de la liste</span>
+<span class="cf">for</span>(i <span class="cf">in</span> pop_groupage_list) { 
+  <span class="co"># Assigner l&#39;affichage de la 1ère observation à une variable</span>
+  obs1 &lt;-<span class="st"> </span><span class="kw">head</span>(<span class="dt">x =</span> i, <span class="dt">n =</span> <span class="dv">1</span>) 
+  <span class="co"># Affiche toutes les 1ères variables extraites</span>
+  <span class="kw">print</span>(obs1)
+}</code></pre></div>
+<pre><code>##   annee groupage  femme  homme   total
+## 1  1976      0-4 589394 587015 1176409
+##    annee groupage  femme  homme   total
+## 19  1987      0-4 713507 719804 1433311
+##    annee groupage  femme  homme   total
+## 37  1998      0-4 824505 839795 1664300
+##    annee groupage   femme   homme   total
+## 55  2009      0-4 1321275 1353418 2674693</code></pre>
+<p>Nous avons vu plus haut qu’avec les déclarations conditionnelles, l’on peut exécuter des tâches sur la base d’un arbre de décision. Maintenant, imaginez que vous avez à répéter une même tâche sur plusieurs objets. Nous avons vu que la liste contient 4 data frames, tirés de 4 recensements (1976, 1987, 1998 et 2009). Imaginez que vous souhaitez déterminer qui des hommes et des femmes sont les plus nombreux et ce pour tous les années de recensement. Là, vous allez devoir définir une tâche et l’exécuter en boucle. Pensez-vous comme un agent de vaccination qui passe dans toutes les concessions (<em>data frame</em>) d’une rue (liste) pour vacciner des enfants (le test <code>femme</code> &gt; <code>homme</code>). Générons dans chacun des <em>data frame</em> une variable <code>femme_sup_homme</code> qui est vrai (<code>TRUE</code>) quand <code>femme</code> &gt; <code>homme</code> et faux (<code>FALSE</code>) dans le cas contraire.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># Pour chaque élément &quot;i&quot; de la liste &quot;pop_groupage_list&quot;</span>
+<span class="cf">for</span>(i <span class="cf">in</span> pop_groupage_list){
+  <span class="co"># Exécuter l&#39;opération &quot;femme &gt; homme&quot;</span>
+  i[, <span class="st">&quot;femme_sup_homme&quot;</span>] &lt;-<span class="st"> </span>i[, <span class="st">&quot;femme&quot;</span>] <span class="op">&gt;</span><span class="st"> </span>i[, <span class="st">&quot;homme&quot;</span>] 
+  <span class="co"># Assigner l&#39;affichage des 3 premières observations à une variable</span>
+  obs3 &lt;-<span class="st"> </span><span class="kw">head</span>(<span class="dt">x =</span> i, <span class="dt">n =</span> <span class="dv">3</span>) 
+  <span class="co"># Afficher toutes les 3 premières observations extraites.</span>
+  <span class="kw">print</span>(obs3) 
+}</code></pre></div>
+<pre><code>##   annee groupage  femme  homme   total femme_sup_homme
+## 1  1976      0-4 589394 587015 1176409            TRUE
+## 2  1976      5-9 482851 492272  975123           FALSE
+## 3  1976    10-14 321959 342807  664766           FALSE
+##    annee groupage  femme  homme   total femme_sup_homme
+## 19  1987      0-4 713507 719804 1433311           FALSE
+## 20  1987      5-9 611562 633206 1244768           FALSE
+## 21  1987    10-14 414302 452166  866468           FALSE
+##    annee groupage  femme  homme   total femme_sup_homme
+## 37  1998      0-4 824505 839795 1664300           FALSE
+## 38  1998      5-9 797057 830211 1627268           FALSE
+## 39  1998    10-14 589603 637495 1227098           FALSE
+##    annee groupage   femme   homme   total femme_sup_homme
+## 55  2009      0-4 1321275 1353418 2674693           FALSE
+## 56  2009      5-9 1178850 1225145 2403995           FALSE
+## 57  2009    10-14  882725  935796 1818521           FALSE</code></pre>
+<p>Allons plus loin en enrichissant les conditions. Voici la démarche:</p>
+<ul>
+<li><p>sélectionnons seulement les moins de 15 ans: groupage est 0-4 ou 5-9 ou 10-14;</p></li>
+<li><p>créons ensuite une colonne <code>test_max</code> qui indique qui des hommes ou des femmes a la supériorité numérique;</p></li>
+<li><p>créons ensuite une colonne <code>valeur_max</code> qui donne la valeur de la population.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># Pour chaque élément &quot;i&quot; de la liste &quot;pop_groupage_list&quot;</span>
+<span class="cf">for</span>(i <span class="cf">in</span> pop_groupage_list){
+  <span class="co"># sélection des groupes d&#39;âge dans 0-15 ans.</span>
+  i &lt;-<span class="st"> </span>i[i[<span class="st">&quot;groupage&quot;</span>]<span class="op">==</span><span class="st">&quot;0-4&quot;</span> <span class="op">|</span><span class="st"> </span>i[<span class="st">&quot;groupage&quot;</span>]<span class="op">==</span><span class="st">&quot;5-9&quot;</span> <span class="op">|</span><span class="st"> </span>i[<span class="st">&quot;groupage&quot;</span>]<span class="op">==</span><span class="st">&quot;10-14&quot;</span>,]
+  <span class="co"># déclarations conditionnelles pour les variables &quot;test_max&quot; et &quot;valeur_max&quot;.</span>
+  i[, <span class="st">&quot;test_max&quot;</span>] &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="co"># condition</span>
+                            <span class="dt">test =</span> i[,<span class="st">&quot;femme&quot;</span>] <span class="op">&gt;</span><span class="st"> </span>i[,<span class="st">&quot;homme&quot;</span>], 
+                            <span class="co"># action si condition satisfaite </span>
+                            <span class="dt">yes =</span> <span class="st">&quot;femme&quot;</span>, 
+                            <span class="co"># action si condition non satisfaite</span>
+                            <span class="dt">no =</span> <span class="st">&quot;homme&quot;</span>) 
+  i[, <span class="st">&quot;valeur_max&quot;</span>] &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="co"># condition</span>
+                              <span class="dt">test =</span> i[,<span class="st">&quot;femme&quot;</span>] <span class="op">&gt;</span><span class="st"> </span>i[,<span class="st">&quot;homme&quot;</span>], 
+                              <span class="co"># action si condition satisfaite </span>
+                              <span class="dt">yes =</span> i[,<span class="st">&quot;femme&quot;</span>], 
+                              <span class="co"># action si condition non satisfaite</span>
+                              <span class="dt">no =</span> i[,<span class="st">&quot;homme&quot;</span>]) 
+  <span class="co"># Afficher toutes les 2 premières extraites.</span>
+  <span class="kw">print</span>(<span class="kw">head</span>(<span class="dt">x =</span> i, <span class="dt">n =</span> <span class="dv">2</span>)) 
+}</code></pre></div>
+<pre><code>##   annee groupage  femme  homme   total test_max valeur_max
+## 1  1976      0-4 589394 587015 1176409    femme     589394
+## 2  1976      5-9 482851 492272  975123    homme     492272
+##    annee groupage  femme  homme   total test_max valeur_max
+## 19  1987      0-4 713507 719804 1433311    homme     719804
+## 20  1987      5-9 611562 633206 1244768    homme     633206
+##    annee groupage  femme  homme   total test_max valeur_max
+## 37  1998      0-4 824505 839795 1664300    homme     839795
+## 38  1998      5-9 797057 830211 1627268    homme     830211
+##    annee groupage   femme   homme   total test_max valeur_max
+## 55  2009      0-4 1321275 1353418 2674693    homme    1353418
+## 56  2009      5-9 1178850 1225145 2403995    homme    1225145</code></pre>
+</div>
+<div id="arretons-nous-un-instant" class="section level3">
+<h3><span class="header-section-number">3.3.7</span> Arrêtons-nous un instant!</h3>
+<p>Qu’avons-nous vu jusque là? Nous avons vu comment:</p>
+<ul>
+<li><p>poser des critères et les insérer dans des déclarations ;</p></li>
+<li><p>poser un raisonnement en arbre de décision avec les déclarations conditionnelles ;</p></li>
+<li><p>les boucles marchent avec divers objets (vecteurs, matrices, data frame et listes).</p></li>
+</ul>
+<p>Nous avons vu que c’est avec les listes que les boucles révèlent leur plus grande utilité. Il se trouve que R contient aussi des fonctions taillées spécialement pour tourner des fonctions en boucle sur les éléments d’une liste. Dans R-base seulement, il y a une grande famille de fonction dont <code>lapply</code>, <code>sapply</code>, <code>vapply</code>, <code>tapply</code>, <code>mapply</code>, <code>rapply</code>, <code>eapply</code>… Toutes ces fonctions sont des outils du paradigme <code>split-apply-combine</code> qui consiste à :</p>
+<ul>
+<li><p>diviser des données en morceaux ;</p></li>
+<li><p>à appliquer sur chaque morceau une fonction donnée ;</p></li>
+<li><p>à rassembler les résultats en un nouveau morceau.</p></li>
+</ul>
+<p>Nous allons nous limiter à <code>lapply</code> ici. Explorons <code>lapply</code> avec quelques exemples.</p>
+</div>
+<div id="paradigme-split-apply-combine-illustration-avec-lapply" class="section level3">
+<h3><span class="header-section-number">3.3.8</span> Paradigme <em>split-apply-combine</em>: illustration avec <em>lapply</em></h3>
+<p>Considérons la liste suivante avec deux vecteurs et deux matrices:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">malist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">monvect2 =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">0.5</span>),
+               <span class="dt">monvect1 =</span> <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dt">mean =</span> <span class="fl">9.88</span>, <span class="dt">sd =</span> <span class="fl">1.23</span>),
+               <span class="dt">mamat1 =</span> <span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>), <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>),
+               <span class="dt">mamat2 =</span> <span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">rnorm</span>(<span class="dv">20</span>, <span class="dt">mean =</span> <span class="fl">7.43</span>, <span class="dt">sd =</span> <span class="fl">1.80</span>), <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
+               )</code></pre></div>
+<p>Regardons le contenu.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(malist)</code></pre></div>
+<pre><code>## List of 4
+##  $ monvect2: num [1:41] 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 ...
+##  $ monvect1: num [1:20] 9.75 10.53 9.34 11.43 8.51 ...
+##  $ mamat1  : int [1:4, 1:5] 1 6 11 16 2 7 12 17 3 8 ...
+##  $ mamat2  : num [1:4, 1:5] 8.65 7.59 9.9 6.88 7.49 ...</code></pre>
+<p>Pour chaque objet de la liste, procédons à une agrégation avec la fonction <code>sum</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> malist){
+  <span class="kw">print</span>(<span class="kw">sum</span>(i))
+  }</code></pre></div>
+<pre><code>## [1] 410
+## [1] 200.8776
+## [1] 210
+## [1] 160.1925</code></pre>
+<p>Faisons la même chose avec “lapply”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(<span class="dt">X =</span> malist, <span class="dt">FUN =</span> sum)</code></pre></div>
+<pre><code>## $monvect2
+## [1] 410
+## 
+## $monvect1
+## [1] 200.8776
+## 
+## $mamat1
+## [1] 210
+## 
+## $mamat2
+## [1] 160.1925</code></pre>
+<p>Le même résultat est obtenu avec <code>lapply</code>, sous la forme d’une nouvelle liste.</p>
+<p>Testons encore! Au lieu des sommes, générons cette fois-ci les moyennes de chaque objet de la liste. Avec la boucle…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> malist){
+  <span class="kw">print</span>(<span class="kw">mean</span>(i))
+  }</code></pre></div>
+<pre><code>## [1] 10
+## [1] 10.04388
+## [1] 10.5
+## [1] 8.009627</code></pre>
+<p>…et avec <code>lapply</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(<span class="dt">X =</span> malist, <span class="dt">FUN =</span> mean)</code></pre></div>
+<pre><code>## $monvect2
+## [1] 10
+## 
+## $monvect1
+## [1] 10.04388
+## 
+## $mamat1
+## [1] 10.5
+## 
+## $mamat2
+## [1] 8.009627</code></pre>
+<p>Vous voyez la logique?</p>
+<p>Nous avons vu que, pour les matrices et les vecteurs, l’on trouve souvent des fonctions qui sont déjà capables d’exécuter les tâches souhaitées (ne paniquez pas, avec la pratique, votre répertoire de fonctions s’agrandira!) Et quand celà est possible, une boucle n’est pas nécessaire. Le même principe va pour les listes. Quand il y a des fonctions natives qui peuvent a) exécuter la tâche souhaitée (générer une somme ou une moyenne par exemple) et b) insérer cette tâche dans une boucle (exécuter sur tous les objets d’une liste), alors, il est préférable d’embrasser cette voie. Les exemples précédents ont clairement illustré celà.</p>
+<p>Contiuons avec d’autres exemples pour illustrer davantage. Cherchons à connaître les dimensions des objets de la liste (nombre de lignes, nombres de colonnes).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(<span class="dt">X =</span> pop_groupage_list, <span class="dt">FUN =</span> dim)</code></pre></div>
+<pre><code>## $`1976`
+## [1] 18  5
+## 
+## $`1987`
+## [1] 18  5
+## 
+## $`1998`
+## [1] 18  5
+## 
+## $`2009`
+## [1] 18  5</code></pre>
+<p>Et le nom des variables?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(<span class="dt">X =</span> pop_groupage_list, <span class="dt">FUN =</span> colnames)</code></pre></div>
+<pre><code>## $`1976`
+## [1] &quot;annee&quot;    &quot;groupage&quot; &quot;femme&quot;    &quot;homme&quot;    &quot;total&quot;   
+## 
+## $`1987`
+## [1] &quot;annee&quot;    &quot;groupage&quot; &quot;femme&quot;    &quot;homme&quot;    &quot;total&quot;   
+## 
+## $`1998`
+## [1] &quot;annee&quot;    &quot;groupage&quot; &quot;femme&quot;    &quot;homme&quot;    &quot;total&quot;   
+## 
+## $`2009`
+## [1] &quot;annee&quot;    &quot;groupage&quot; &quot;femme&quot;    &quot;homme&quot;    &quot;total&quot;</code></pre>
+<p>C’est simple et efficace. N’est-ce pas?</p>
+<p>Maintenant, supposons qu’on veut déterminer la population totale pour chaque année en faisant la somme de la colonne <code>total</code>. Comment faire ? Avec une boucle, c’est facile.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> pop_groupage_list){
+  <span class="kw">print</span>(<span class="kw">sum</span>(i[<span class="st">&quot;total&quot;</span>]))
+  }</code></pre></div>
+<pre><code>## [1] 6392918
+## [1] 7696349
+## [1] 9810912
+## [1] 14528662</code></pre>
+<p>Avec <code>lapply</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(<span class="dt">X =</span> pop_groupage_list, <span class="dt">FUN =</span> sum)</code></pre></div>
+<pre><code>## Error in FUN(X[[i]], ...): only defined on a data frame with all numeric variables</code></pre>
+<p><code>lapply</code> n’arrive pas à s’exécuter car nous n’avons pas spécifié qu’à l’intérieur de chaque <em>data frame</em>, il fallait prendre la variable <code>total</code>! Certes, <code>lapply</code> est destinée à exécuter les tâches en boucle, mais encore faudrait-il que celles-ci soient bien définies. Et c’est ça que fait une fonction. Elle exécute des tâches! Et ça, c’est le début d’un autre pan de la Data Science: la programmtion fonctionnelle. Dans ce terme, on va englober, l’art de faire des fonctions. Tout y passe: de la conception à la rapidité. Dans la prochaine, nous allons reprendre les idées déjà présentées, mais cette fois-ci en raisonnant en termes de fonctions.</p>
+</div>
+</div>
+<div id="les-fonctions" class="section level2">
+<h2><span class="header-section-number">3.4</span> Les fonctions</h2>
+<div id="lepine-dorsale-de-r" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> L’épine dorsale de R</h3>
+<p>Pour un data scientist, les fonctions sont d’une importance capitale car son flux de travail consiste à faire passer les données d’une fonction à une autre pour recadrer ses questions ou trouver des réponses à celles-ci. Depuis le début, nous parlons de fonctions. Qu’est-ce que c’est? Dans R, la fonction agit comme dans les mathématiques. C’est un règle ou une procédure qui détermine la transformation d’un intrant en extrant. Prenons l’exemple suivant:</p>
+<p><span class="math display">\[y = f(x) = x^2\]</span></p>
+<p>Dans cet exemple, la fonction élève les intrants au carré pour donner les extrants. Dans R, c’est la même chose! Nous avons déjà mentionnées certaines fonctions et avons montré ce qu’elles font. Revenons sur quelques unes.</p>
+</div>
+<div id="retour-sur-quelques-fonctions" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> Retour sur quelques fonctions</h3>
+<p>Prenons le vecteur suivant:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">monvect &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</code></pre></div>
+<p>Si nous voulons compter le nombre d’éléments composants cet éléments, une fonction…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(monvect)</code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<p>…faire la somme de ces éléments, une fonction…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(monvect)</code></pre></div>
+<pre><code>## [1] 55</code></pre>
+<p>…faire la moyenne de ces éléments, une fonction…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(monvect)</code></pre></div>
+<pre><code>## [1] 5.5</code></pre>
+<p>Revenons a notre liste. Pour voir sa structure, une fonction…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(pop_groupage_list)</code></pre></div>
+<pre><code>## List of 4
+##  $ 1976:&#39;data.frame&#39;:    18 obs. of  5 variables:
+##   ..$ annee   : num [1:18] 1976 1976 1976 1976 1976 ...
+##   ..$ groupage: Ord.factor w/ 18 levels &quot;0-4&quot;&lt;&quot;5-9&quot;&lt;&quot;10-14&quot;&lt;..: 1 2 3 4 5 6 7 8 9 10 ...
+##   ..$ femme   : num [1:18] 589394 482851 321959 333508 265842 ...
+##   ..$ homme   : num [1:18] 587015 492272 342807 308607 218391 ...
+##   ..$ total   : num [1:18] 1176409 975123 664766 642115 484233 ...
+##  $ 1987:&#39;data.frame&#39;:    18 obs. of  5 variables:
+##   ..$ annee   : num [1:18] 1987 1987 1987 1987 1987 ...
+##   ..$ groupage: Ord.factor w/ 18 levels &quot;0-4&quot;&lt;&quot;5-9&quot;&lt;&quot;10-14&quot;&lt;..: 1 2 3 4 5 6 7 8 9 10 ...
+##   ..$ femme   : num [1:18] 713507 611562 414302 379522 315753 ...
+##   ..$ homme   : num [1:18] 719804 633206 452166 348200 260215 ...
+##   ..$ total   : num [1:18] 1433311 1244768 866468 727722 575968 ...
+##  $ 1998:&#39;data.frame&#39;:    18 obs. of  5 variables:
+##   ..$ annee   : num [1:18] 1998 1998 1998 1998 1998 ...
+##   ..$ groupage: Ord.factor w/ 18 levels &quot;0-4&quot;&lt;&quot;5-9&quot;&lt;&quot;10-14&quot;&lt;..: 1 2 3 4 5 6 7 8 9 10 ...
+##   ..$ femme   : num [1:18] 824505 797057 589603 529270 409584 ...
+##   ..$ homme   : num [1:18] 839795 830211 637495 492480 364333 ...
+##   ..$ total   : num [1:18] 1664300 1627268 1227098 1021750 773917 ...
+##  $ 2009:&#39;data.frame&#39;:    18 obs. of  5 variables:
+##   ..$ annee   : num [1:18] 2009 2009 2009 2009 2009 ...
+##   ..$ groupage: Ord.factor w/ 18 levels &quot;0-4&quot;&lt;&quot;5-9&quot;&lt;&quot;10-14&quot;&lt;..: 1 2 3 4 5 6 7 8 9 10 ...
+##   ..$ femme   : num [1:18] 1321275 1178850 882725 799081 624565 ...
+##   ..$ homme   : num [1:18] 1353418 1225145 935796 745757 538927 ...
+##   ..$ total   : num [1:18] 2674693 2403995 1818521 1544838 1163492 ...</code></pre>
+<p>Pour voir le nom des éléments qu’elle contient, une fonction</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(pop_groupage_list)</code></pre></div>
+<pre><code>## [1] &quot;1976&quot; &quot;1987&quot; &quot;1998&quot; &quot;2009&quot;</code></pre>
+<p>Vous voyez l’idée?</p>
+</div>
+<div id="pourquoi-faire-une-fonction" class="section level3">
+<h3><span class="header-section-number">3.4.3</span> Pourquoi faire une fonction?</h3>
+<p>Vu la richesse de R on peut bien être amené à se demander pourquoi se donner la peine de faire une fonction. N’en exist-il pas déjà dans R ? La plupart du temps, oui! Mais pas tout le temps.</p>
+<p>Autant, sont nombreuses les questions que la data scientist soulève, autant les voies qui s’offrent à lui pour y répondre sont variées. Les particularités de la question peuvent faire qu’il est souhaitable voire indispensable de <code>personnaliser</code> la réponse. D’où la nécéssité de créer de nouvelles fonctions. Celles-ci peuvent aussi bien s’incorporer dans le flux de travail que prendre intégralement celui-ci en charge.</p>
+</div>
+<div id="les-basiques-de-la-fonction" class="section level3">
+<h3><span class="header-section-number">3.4.4</span> Les basiques de la fonction</h3>
+<p>Bien que tous les sept milliards d’humains peuplant la terre partagent cette appélation commune, il demeure que l’on s’attache à donner à chacun d’entre eux une appélation particulière: le prénom! N’est-ce pas? De même, une fonction a besoin d’un <em>nom</em>! A ce niveu, il est utile d’indiquer qu’il y a des mots réservés qui ne peuvent pas être utilisés. Voir:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="st">&quot;reserved&quot;</span>)</code></pre></div>
+<p>Après le nom, il y a les <em>arguments.</em> Ceci est l’appélation donnée aux intrants. Ensuite on a le <em>corps</em> qui est la procédure à laquelle sont soumis ces intrants. Schématisons tout ça!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mafonction &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+  x<span class="op">^</span><span class="dv">2</span>
+  }</code></pre></div>
+<p>Nous avons défini ici une fonction, <code>mafonction</code>, où <code>x</code> est l’argument et la procédure à laquelle il est soumis est l’élévation au carré. Testons le résultat.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mafonction</span>(<span class="dt">x =</span> <span class="dv">25</span>)</code></pre></div>
+<pre><code>## [1] 625</code></pre>
+<p>Juste pour ironiser un peu, rappelons que c’est par une fonction, <code>function</code>, que nous venons de créer une fonction. Trop méta, R !!!!!!</p>
+<p>Avançons un peu ici en créant une fonction avec deux arguments: x et y.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mafonction &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){
+  x <span class="op">+</span><span class="st"> </span>y
+  }</code></pre></div>
+<p>Testons</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mafonction</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>Souvent, il est possible d’assigner à un argument ou à tous une valeur par défaut.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mafonction &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">y =</span> <span class="dv">10</span>){
+  x <span class="op">+</span><span class="st"> </span>y
+  }</code></pre></div>
+<p>Regardons ce qu’on obtient quand on ne spécifie pas la valeur passée à l’argument y.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mafonction</span>(<span class="dt">x =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1] 13</code></pre>
+<p>Certaines fonctions contiennent plusieurs arguments. Par commodité, on a assigne à beaucoup des valeurs par défaut qui sont validées sauf si l’utilisateur en décide autrement.</p>
+<p>Souvent, la fonction comprends des étapes intermédiaires. A vrai dire, c’est dans ça que réside la nécéssité des fonctions, le séquençage de procédures multiples en une seule commande. Revenant à notre example, nous pouvons assigner le résultat à une variable intermédiaire z.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mafonction &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">y =</span> <span class="dv">10</span>){
+  z &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y
+  }
+<span class="kw">mafonction</span>(<span class="dt">x =</span> <span class="dv">3</span>)</code></pre></div>
+<p>L’exécution de la fonction sur le chiffre 3 n’a pas donné de résultat car nous n’avons pas demandé à la fonction d’afficher celui-ci. Pour que le résultat sorte, il faut expliciter.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mafonction &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">y =</span> <span class="dv">10</span>){
+  z &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y
+  <span class="kw">return</span>(z)
+  }
+<span class="kw">mafonction</span>(<span class="dt">x =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1] 13</code></pre>
+<p><code>return()</code> est très commode quand on doit passer par plusieurs étapes à l’intérieur de la fonction.</p>
+</div>
+<div id="fonctions-et-boucles" class="section level3">
+<h3><span class="header-section-number">3.4.5</span> Fonctions et boucles</h3>
+<p>Les fonctions (écriture, évaluation, etc.) constitue un domaine vaste de la data science. Nous ne pourrons pas tout voir d’un seul coup. La maîtrise des règles (les do’s et les don’t’s) viennent avec la pratique. Ayant couvert les basiques, nous allons retourner à nos données pour illustrer. Vous vous rappelez la boucle suivante…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> pop_groupage_list){
+  <span class="kw">print</span>(<span class="kw">sum</span>(i[<span class="st">&quot;total&quot;</span>]))
+  }</code></pre></div>
+<pre><code>## [1] 6392918
+## [1] 7696349
+## [1] 9810912
+## [1] 14528662</code></pre>
+<p>…qu’on avait pas réussi à insérer dans la fonction <code>lapply</code>? Elle marche. La raison est simple. <code>lapply</code> exécute des fonctions sur les objets contenus dans une liste. Elle ne peut pas systématiquement atteindre les éléments contenus dans ces objets. Nous avons pu faire des moyennes et des médianes sur des vecteurs et matrices à partir de <code>lapply</code>. La raison était simple: ces objets sont des ensembles homogènes. Ils contenaient tous des chiffres, qui sont des éléments assimilables par <code>mean</code> et <code>median</code>. Or, le <code>data frame</code> est un objet hétérogène, contenant des chiffres et des lettres. Les fonctions natives qu’on a utilisées ne peuvent faire la différence d’elles-mêmes. Elles doivent être guidées. De ce fait, nous devons inscrire la procédure souhaitée dans une fonction avant de passer celle-ci à <code>lapply</code> qui va l’exécuter en boucle sur tous les objets de la liste. Voici la fonction:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop_somme &lt;-<span class="st"> </span><span class="cf">function</span>(df){
+  <span class="kw">sum</span>(df[<span class="st">&quot;total&quot;</span>])
+  }</code></pre></div>
+<p>Nous venons de définir une fonction où <code>df</code> est l’argument principal. On s’attend à un <em>data frame</em> comme intrant. On s’attend à ce que celui-ci ait une colonne nommée <code>total</code> dont les éléments seront agrégés par la fonction <code>sum</code>. Vous voyez ? C’est une solution très personnalisée! Regardons les résultats!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> pop_groupage_list){
+  <span class="kw">print</span>(<span class="kw">sum</span>(i[<span class="st">&quot;total&quot;</span>]))
+}</code></pre></div>
+<pre><code>## [1] 6392918
+## [1] 7696349
+## [1] 9810912
+## [1] 14528662</code></pre>
+<p>Voici le résultat pour <code>lapply</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(<span class="dt">X =</span> pop_groupage_list, <span class="dt">FUN =</span> pop_somme)</code></pre></div>
+<pre><code>## $`1976`
+## [1] 6392918
+## 
+## $`1987`
+## [1] 7696349
+## 
+## $`1998`
+## [1] 9810912
+## 
+## $`2009`
+## [1] 14528662</code></pre>
+<p>Qu’est-ce qui est préférable? Comme avant, les fonctions existantes sont toujours meilleures. <code>lapply</code> est intégrée à R. Elle constitue une meilleure boucle. Aussi, elle peut génère en extrant une liste, qui peut être assignée à un objet donné.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="objets-dans-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="importer-des-donnees-dans-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["dswr_book.pdf", "dswr_book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

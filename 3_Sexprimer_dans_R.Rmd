@@ -1,0 +1,898 @@
+# S'exprimer dans R
+
+## Introduction
+
+### Objectif
+
+Dans le chapitre précédent, il a été question d'objets dans R.
+Certains types ont été présentés.
+Il a surtout été fait état de la différence qui les sépare, de ce en quoi ils se démarquent les uns des autres.
+Ici, nous allons continuer en explorant l'expression dans R.
+
+Les objets permettent de stocker des données.
+Celles-ci ne deviennent vivantes et parlantes qu'à travers le dialogue que le *data scientist* entretient avec elles.
+Et en quels termes ce dialogue se pose-t-il?
+Là est le début de notre démarche ici.
+
+Nous allons:
+
+- revenir sur les questions logiques;
+
+- introduire déclarations conditionnelles;
+
+- introduire la notion de boucle et de fonction.
+
+### Outils
+
+Que nous faut-il?
+
+- R (évidemment);
+
+- RStudio (de préférence);
+
+- Les données utilisées dans le cadre du présent chapitre.
+
+### Données
+
+Dans le présent chapitre, nous allons utiliser des données tirées des Recensements Généraux de la Population et de l'Habitat au Mali en 1976, 1987, 1998 et 2009.
+Des rapports sont disponibles cette [adresse](http://www.instat-mali.org/index.php/publications/conditions-vie-societe/demographie).
+
+Quant aux données extraites et formatées pour le présent cours, elles sont disponibles à cette [adresse](https://github.com/fousseynoubah/dswr_slides/blob/master/3_Sexprimer_dans_R/data/data.RData?raw=true).
+
+```{r, echo=FALSE}
+rm(list = ls())
+load(url("https://github.com/fousseynoubah/dswr_slides/blob/master/3_Sexprimer_dans_R/data/data.RData?raw=true"))
+```
+
+Nous
+
+Balayons du regard les objets qui meublent notre environnement.
+```{r}
+ls()
+```
+Regardons la structure de cet objet.
+```{r}
+str(pop_groupage_list)
+```
+Il s'agit d'une liste.
+Les données portent sur la population par groupe d'âge.
+
+
+## Les déclarations
+
+Nous allons présenter ici la notion de déclaration et l'illustrer à partir de nos données.
+Qu'est-ce qu'une déclaration?
+Tout simplement une affirmation que l'on formule et que l'on soumet à la machine...
+Pour être plus exact, nous soumettons la déclaration aux données et regardons leur réaction!
+
+### Formulations simples
+
+Affirmons qu'au Mali, pour les groupes d'âge identifiés, il y a plus de femmes que d'hommes.
+Est-ce vrai ou faux?
+Qu'en disent nos données?
+Pour faire simple, prenons le recensement le plus récent, celui de 2009, pour vérifier la véracité de notre déclaration.
+
+Pour commencer, tirons de la liste les données relative à l'année d'intérêt.
+```{r}
+pop_groupage_2009 <- pop_groupage_list[["2009"]]
+```
+
+Maintenant, regardons la structure de ce *data frame*.
+```{r}
+str(pop_groupage_2009)
+```
+Regardons la tête, les 3 premières observations par exemple.
+```{r}
+head(x = pop_groupage_2009, n = 3)
+```
+Regardons la queue, les 3 dernières observations par exemple.
+```{r}
+tail(x = pop_groupage_2009, n = 3)
+```
+
+Nous voyons qu'il y a une colonne pour les hommes `homme` et une autre pour les femmes, `femme`.
+Tirons du *data frame* les vecteurs relatifs à ces deux groupes.
+```{r}
+pop_femme_2009 <- pop_groupage_2009$femme
+pop_homme_2009 <- pop_groupage_2009$homme
+```
+Maintenant posons la condition suivante: `pop_femme_2009 > pop_homme_2009`.
+```{r}
+pop_femme_2009 > pop_homme_2009
+```
+Pour une meilleur lisibilité, insérons ce résultat dans le data frame
+```{r}
+pop_groupage_2009$femme_sup_homme <- pop_groupage_2009$femme > pop_groupage_2009$homme
+```
+En assignant le résultat de l'opération à une nouvelle variable du *data frame*, R crée lui-même une variable boléenne (`TRUE`/`FALSE`).
+Regardons les groupes d'âge qui répondent au critère posé.
+```{r}
+pop_groupage_2009[pop_groupage_2009$femme_sup_homme, ]
+```
+Le même résultat s'obtient avec la fonction `subset`.
+```{r}
+subset(x = pop_groupage_2009, subset = femme_sup_homme == TRUE)
+```
+L'on peut utiliser directement introduire le critère à l'intérieur du *data frame*...
+```{r}
+pop_groupage_2009[pop_groupage_2009$femme > pop_groupage_2009$homme, ]
+```
+...ou à l'intérieur de la fonctio `subset`.
+```{r}
+subset(x = pop_groupage_2009, subset = femme > homme)
+```
+Cette dernière approche se révèle simple.
+A partir de maintenant, nous allons privilégier la fonction `subset`.
+
+Sur la base de ces résultats, on voit clairement que R sait comparer des valeurs numériques.
+Juste pour confirmer, reprenons sur le groupe d'âge 0-4 ans.
+```{r}
+1353418 < 1321275
+```
+Qu'en est-il des rééls?
+```{r}
+1.000002 > 1 
+# (Notez que l'assignation ses fait avec "=", mais le test d'égalité se fait avec "==")
+```
+De toute évidence, ça marche avec les nombres. 
+Qu'en est-il des caractères? 
+Testons!
+```{r}
+"MALI" == "Mali"
+```
+Cette égalité est rejetée par que R est sensible à la taille des lettres (majuscule/minuscule).
+Maintenant regardons la logique.
+```{r}
+TRUE == 1
+```
+Vous rappelez-vous quand, dans le cours précédent, nous avons coercé une vecteur de valeurs logiques en y ajoutant un réel comment `TRUE` est devenu `1` et `FALSE` `0`?
+Et bien, c'est la preuve que pour R, `TRUE` == `1`.
+
+### Critères additifs: *et* = `&`
+
+Il est souvent possible que l'on souhaite combiner plusieurs critères dans la même déclaration.
+Supposons que l'on veuille connaître les groupes d'âge pour lesquels:
+
+- les femmes sont plus nombreuses que les hommes; et
+
+- la population totale (hommes + femmes) est en dessous de 1 millions de personnes.
+
+Nous commençons par définir nos critères.
+```{r}
+# femme > homme
+pop_groupage_2009$femme_sup_homme <- pop_groupage_2009$femme > pop_groupage_2009$homme
+# total > 1000000
+pop_groupage_2009$moins_de_1_million <- pop_groupage_2009$total < 1000000
+```
+Maintenant, combinons les!
+```{r, eval=-c(1)}
+subset(x = pop_groupage_2009, subset = femme_sup_homme & moins_de_1_million)
+```
+Avec l'insertion directe des résultats, l'on obtient la même chose.
+```{r}
+subset(x = pop_groupage_2009, subset = femme > homme & total < 1000000)
+```
+L'addition de critères se fait avec l'opérateur `&`.
+Le résultat donne les observations qui répondent à toutes les conditions posées.
+
+
+### Critères alternatifs: *ou* = `|`
+
+La combinaison de critères dans une déclaration ne se pose pas toujours sous la forme additive.
+Il arrive qu'on veuille procéder sur la base de: soit...soit...
+Dans ce cas, il faut une autre expression.
+
+Cherchons par exemple, à connaître les groupe pour lequels:
+
+- soit les femmes sont plus nombreuses que les hommes;
+
+- soit la population totale (hommes + femmes) est en dessous de 1 millions de personnes.
+
+Au lieu du signe `&`, nous utilisons le signe `|`
+```{r}
+subset(x = pop_groupage_2009, subset = femme > homme | total < 1000000)
+```
+Ici, la validation de l'une des conditions suffit.
+On voit des groupes au dessus de 1 million de personnes (violation du critère n°2).
+Toutefois, les femmes y sont plus nombreuses (validation du critère n°1).
+A l'inverse, certains groupes ont moins de femmes (violation du critère n°1), mais comptent moins d'1 millions de personnes (validation du critère n°2).
+
+Souvent, il arrive qu'on veuille accumuler des critères à l'intérieur d'une seule variable.
+Supposons que l'on souhaite voir les informations concernant juste les moins de 15 ans.
+On sait que, dans ce cas, on aura à sélectionner trois groupes d'âge: 0-4, 5-9, et 10-14.
+La variable `groupage` doit être égale à l'une de ses valeurs.
+Reprenons la logique des critères alternatifs (soit...soit...).
+```{r}
+subset(x = pop_groupage_2009, subset = groupage == "0-4" | groupage == "5-9" | groupage == "10-14")
+```
+Maintenant, ajoutons au critère de *moins de 15 ans* un autre, celui d'un total de moins de 2 millions, donc `total < 2000000`.
+```{r}
+subset(x = pop_groupage_2009, subset = (groupage == "0-4" | groupage == "5-9" | groupage == "10-14") & (total < 2000000) )
+```
+Il a suffit d'isoler les critères alternatifs entre parenthèses et d'y le critère additif.
+
+### Critères opposés: *contraire* = `!`
+
+Souvent, il arrive que l'on souhaite sélectionner sur la base de l'opposition à un critère.
+Explorons à travers un exemple.
+
+Plus haut, nous avons défini les groupes où `femme > homme`.
+Ceci revient à définir les groupes où la condition `homme >= femme` est violée.
+Voyons comment on part de la négation pour parvenir à ce même résultat.
+
+Rappelons
+```{r}
+subset(x = pop_groupage_2009, subset = femme > homme)
+```
+Passons maintenant par l'opposé.
+```{r}
+subset(x = pop_groupage_2009, subset = !(femme <= homme))
+```
+En termes d'aperçu, nous avons le même résultat.
+Pour confirmer, sauvegardons les deux résultats sous forme de nouvelles variables dans le *data frame*, puis comparons-les.
+```{r}
+pop_groupage_2009$femme_sup_homme <- pop_groupage_2009$femme > pop_groupage_2009$homme
+pop_groupage_2009$homme_pas_sup_femme <- !(pop_groupage_2009$homme >= pop_groupage_2009$femme)
+pop_groupage_2009$femme_sup_homme == pop_groupage_2009$homme_pas_sup_femme
+```
+Souvent le nombre d'observations est trop grand pour que l'on puisse inspecter à l'oeil le résultat de la déclaration pour toutes les observations.
+Il existe des fonctions qui permettent de conduire l'examen au niveau global.
+C'est le cas de la fonction `identical`.
+```{r}
+identical(pop_groupage_2009$femme_sup_homme, pop_groupage_2009$homme_pas_sup_femme)
+```
+Les deux vecteurs sont donc identiques.
+Les deux procédés mènent donc au même résultat.
+
+La négation revèle toute son utilité quand on cherche à examiner les données sur la base de l'exclusion plutôt que celle de la sélection.
+Prenons un exemple dans notre cas.
+Supposons que nous souhaitions faire la somme des populations sans les enfants de moins de 5 ans.
+Dans ce cas, plutôt que de sélectionner les groupes qui sont au dessus de 5 ans, il s'avère plus commode d'exclure les moins de 5 ans.
+```{r}
+# Les groupes homme, femme et total, avec l'exclusion de 0-4 ans
+pop_groupage_2009_plus5ans <- subset(x = pop_groupage_2009, subset = groupage != "0-4", select = c(homme, femme, total))
+```
+Le résultat est la même chose que la ligne suivante.
+```{r}
+# Les groupes homme, femme et total, avec l'exclusion de 0-4 ans
+pop_groupage_2009_plus5ans <- subset(x = pop_groupage_2009, subset = !(groupage == "0-4"), select = c(homme, femme, total))
+```
+La preuve.
+```{r}
+identical(subset(x = pop_groupage_2009, subset = groupage != "ND"),
+          subset(x = pop_groupage_2009, subset = !(groupage == "ND")))
+```
+Faisons les sommes pour la population restrainte.
+```{r}
+# Vous rappelez-vous la fonction colSums du chapitre précédent?
+colSums(pop_groupage_2009_plus5ans)
+```
+Et maintenant, juste pour comparer, regardons sur la population globale.
+```{r}
+# Les groupes homme, femme et total, sans aucun critère
+pop_groupage_2009_avec5ans <- subset(x = pop_groupage_2009, select = c(homme, femme, total))
+# Les sommmes
+colSums(pop_groupage_2009_avec5ans)
+```
+
+
+### Conditionalités
+
+Jusque là, nous avons parlé de déclarations dans une formulation simple.
+Nous les avons pas inscrites dans le cadre d'un arbre de décision.
+Il s'agit du schéma suivant: "si condition remplie, alors action 1, sinon action 2".
+On délègue à la machine l'exécution de tâches sur la base de critères définis...ce qui est pratiquement le début de l'intelligence artificielle.
+
+Dans notre example, nous avons vu qu'entre les hommes et les femmes, la supériorité numérique varie d'un groupe d'âge à un autre.
+Nous pouvons souhaiter générer une variable qui indiquera lequel des groupes est plus nombreux.
+Pour ce faire, R dispose de la fonction `ifelse`.
+```{r, echo=-c(1)}
+pop_groupage_2009 <- pop_groupage_list[["2009"]]
+pop_groupage_2009$sup_num <- ifelse(# condition
+                                    test = pop_groupage_2009$femme > pop_groupage_2009$homme, 
+                                    # action si condition satisfaite
+                                     yes = "femme > homme", 
+                                    # action si condition non satisfaite
+                                     no = "femme <= homme" 
+                                     )
+```
+Regardons ce que celà donne.
+```{r}
+head(pop_groupage_2009)
+```
+Avec cette nouvelle variable, nous pouvons déterminer, par exemple, le nombre de groupes pour lesquels il y a plus de femmes que d'hommes et vice-versa.
+```{r}
+table(pop_groupage_2009$sup_num)
+```
+
+## Les boucles
+
+
+### La solution aux tâches répétititives
+
+Un grand avantage de la programmation est la capacité de déléguer à la machine l'exécution de tâches répétitives. 
+R dispose de diverses fonctions qui permettent d'effectuer celles-ci en boucle.
+Ceci est très commode surtout quand le nombre de répétitions est élevé.
+Toutefois, la nécessité des boucles varie d'un objet à un autre.
+Si pour certains, des solutions alternatives et plus simples existent, pour d'autres, elles sont la meilleure option.
+
+Dans ce chapitre, nous allons nous limiter à la fonction *for*.
+Vous pouvez regarder la fonction  *while*. 
+Entrez dans la console: *help("while")*.
+
+### La fonction *for*
+
+La fonction `for` est très pratique pour l'exécution des boucles dans `R`.
+Elle est structurée de la façon suivante:
+```{r, eval=FALSE}
+for(var in seq){
+  expr
+}
+```
+où `var` désigner une variable dans la séquence `seq` et `expr` la transformation à laquelle l'on soumet les éléments de cette dernière.
+Un exemple.
+```{r}
+for(i in c(1:10)){
+  print(i^2)
+  }
+```
+Pour chaque *i* élément de la séquence allant de 1 à 10, nous affichons le carré de *i*.
+
+### Application sur vecteurs
+
+Prenons un vecteur de chiffres.
+```{r}
+x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+Utilisons une boucle avec la fonction `for` pour élever les éléments à leur carré et stockons dans un vecteur nommé `y`.
+```{r}
+# Création d'une coquille vide de vecteur.
+y <- c() 
+  # Pour chaque élément dans le vecteur x,
+for(i in x){ 
+  # créer un élément dans le vecteur y qui en serait le carré.
+  y[[i]] <- i^2 
+  }
+```
+Regardons y
+```{r}
+y
+```
+Ici, la boucle marche parfaitement, mais on peut s'en passer.
+Reprenons l'opération, mais avec une approche différente.
+```{r}
+# Le vecteur de départ
+x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+# L'élévation au carré
+y <- x^2
+y
+```
+Même résultat. 
+Moins de codage. 
+Donc solution optimale!
+La fonction native (^) s'exécute déjà en boucle sur tous les éléments du vecteur.
+
+Pour nous assurer que cette règle n'est pas limité qu'aux chiffres, testons avec les lettres.
+Prenons un vecteur de caractères.
+```{r}
+x <- c("Mamadou", "Amadou", "Ahmed", "Ahmad", "Abdoul", "Zan", "Tchiè", "Mady")
+```
+Cherchons à détecter les prénoms qui contiennent la lettre "a" (en minuscule).
+R a des fonctions natives qui peuvent exécuter cette tâche dont `grepl`.
+```{r}
+# Création d'une coquille vide de vecteur.
+y <- c() 
+  # Pour chaque élément dans le vecteur x,
+for(i in x){ 
+  # identifier les éléments contenant la lettre "a".
+  y[i] <- grepl(pattern = "(a)", x = i) 
+}
+```
+Regardons y.
+```{r}
+y
+```
+Encore une fois, on peut remarquer que R est sensible à la taille de la lettre (minuscule/majuscule).
+Regardez les résultats pour `Ahmad` et `Ahmed`.
+Reprenons en appliquant directement la formule au vecteur directement.
+```{r}
+y <- grepl(pattern = "(a)", x)
+y
+```
+Même résultat. 
+Moins de codage. 
+Donc solution optimale!
+La fonction native `grepl` s'exécute déjà en boucle sur tous les éléments du vecteur.
+Leçon: chaque fois, qu'une fonction native existe et peut exécuter une tâche, il est préférable de se passer de la boucle.
+
+### Application sur matrices
+
+Maintenant, essayons sur une matrice.
+```{r}
+x <- matrix(data = c(1:12), nrow = 3, byrow = TRUE)
+x
+```
+Comme avant, élévons les éléments à leur carré et stockons dans une matrice nommée `y`.
+```{r}
+# Création d'une coquille vide de matrice
+y <- c() 
+  # Pour chaque élément dans la matrice x,
+for(i in x){ 
+  # créer un élément dans la matrice y qui en serait le carré.
+  y[[i]] <- i^2 
+}
+```
+Regardons y.
+```{r}
+y
+```
+Ici la boucle donne le bon résultat, mais pas le bon format.
+Nous cherchons une matrice, mais c'est un vecteur que nous avons eu.
+Apparemment, la boucle doit aussi tenir compte du format.
+Ajustons-donc le format de la matrice qui recevra les résultats.
+Créons une coquille vide de matrice.
+```{r}
+y <- matrix(data = rep(NA, times = 12), nrow = 3, byrow = TRUE) 
+y
+```
+Et reprenons la boucle.
+```{r}
+  # Pour chaque ligne (i) de la matrice x, et
+for(i in 1:nrow(x)){ 
+    # pour chaque colonne (j) de la matrice x,
+  for(j in 1:ncol(x)){ 
+    # créer un élément dans la matrice y qui en serait le carré.
+    y[i, j] <- x[i, j]^2 
+  }
+}
+```
+Regardons y.
+```{r}
+y
+```
+Nous avons le bon résultat et le bon format.
+Mais que de lignes de codes!!!!
+Il doit y avoir une voie plus simple!
+
+Maintenant, regardons une autre solution: l'implémentation directe du la formule (^2) sur la matrice de départ.
+```{r}
+y <- x^2
+y
+```
+
+A l'instar du vecteur, l'on peut appliquer des formules directements aux matrices.
+L'objet qui en résulte hérite de la structure et du format de la matrice de départ.
+
+Ce qui marche pour les chiffres, marche-t-il pour les lettres aussi?
+Comme pour les vecteurs, testons avec une matrice de caractères.
+Considérons la matrice suivante.
+```{r}
+x <- matrix(data = c("Zégoua", "Hamdallaye", "Zanbougou",
+                     "Farimaké","Cinzani", "Tinzawatene",
+                     "Nara", "Hawa Dembaya", "Bozobougou"), 
+            nrow = 3, byrow = TRUE)
+x
+```
+Cherchons-y dans les éléments qui contiennent la lettre "z" (minuscule!).
+Appliquons directement la formule à la matrice `x`.
+```{r}
+y <- grepl(pattern = "(z)", x)
+y
+```
+Nous avons le bon résultat, mais pas le bon format.
+R a généré le résultat sous format de vecteur.
+Ce qui en érode fortement la lisibilité.
+Ajustons!
+Nous pouvons générer le résultat et le déclarer sous le format de matrice.
+```{r}
+# étape 1
+y <- grepl(pattern = "(z)", x) 
+# étape 2
+y <- matrix(data = y, nrow = 3, byrow = TRUE) 
+y
+```
+Ou tout simplement combiner les deux étapes.
+```{r}
+# combinaison des 2 étapes
+y <- matrix(data = grepl(pattern = "(z)", x), nrow = 3, byrow = TRUE) 
+y
+```
+Malgré cet ajustement, l'application directe de la formule est préférable à la boucle car une fonction native existe déjà pour l'exécution de la tâche souhaitée.
+Sachant que les matrices sont fortement sollicitées en algèbre, il n'est pas surprenant de trouver que le format est respecté quand les opérations pour sur des chiffres, mais défait quand il s'agit de lettres ou caractères.
+
+### Application sur *data frame*
+
+Partant de ce qu'on a vu avec les vecteurs et les matrices, on peut se douter que les boucles ne sont pas toujours le meilleur choix pour les data frame non plus.
+
+Supposons que l'on veuille calculer pour chaque groupe d'âge de notre data frame l'écart entre les femmes et les hommes: `femme` - `homme`.
+On pourrait faire une boucle:
+```{r}
+ecart_femme_homme <- c()
+for(i in 1:nrow(pop_groupage_2009)){
+  ecart_femme_homme[i] <- pop_groupage_2009[i, "femme"] - pop_groupage_2009[i, "homme"]
+}
+ecart_femme_homme
+```
+Un détour for peu utile quand on peut faire plus simple.
+```{r}
+pop_groupage_2009$ecart_femme_homme <- pop_groupage_2009$femme - pop_groupage_2009$homme
+head(x = pop_groupage_2009, n = 3)
+```
+
+### Application sur listes
+
+C'est avec les listes que les boucles prennent tout leur sens.
+Les vecteurs, matrices et data frame constituent tous des objets unitaires eux-mêmes. 
+Ils ont leur propriétés propres à eux-mêmes (structure et comportements). 
+Ceci veut dire qu'ils prêtent à l'assimilation par les fonctions. 
+Celles-ci vont systématiquement s'appliquer sur tous les éléments désignés au sein de l'objet.
+Qu'il s'agisse d'une opération mathématiques (élévation au carré) ou de l'examen de texte (détection d'un caractère), l'objet peut servir d'intrant direct à la fonction utilisée dans la boucle.
+
+Avec la liste, les choses sont différentes. 
+La liste est un objet *hôte*. 
+Bien qu'elle ait ses propriétés, elle sert de contenant à d'autres objets. 
+De ce fait, elle peut abriter plusieurs objets sur lesquels l'on peut souhaiter exécuter la même opération en boucle. Et c'est là, qu'on est content que les boucles existent!
+
+Illustrons!
+
+Rappelons d'abord les noms des objets contenus dans notre liste `pop_groupage_list`.
+```{r}
+names(pop_groupage_list)
+```
+Maintenant, commençons avec le simple affichage de la première observation de tous les *data frame* de la liste.
+```{r}
+  # Pour chaque élément de la liste
+for(i in pop_groupage_list) { 
+  # Assigner l'affichage de la 1ère observation à une variable
+  obs1 <- head(x = i, n = 1) 
+  # Affiche toutes les 1ères variables extraites
+  print(obs1)
+}
+
+```
+
+Nous avons vu plus haut qu'avec les déclarations conditionnelles, l'on peut exécuter des tâches sur la base d'un arbre de décision.
+Maintenant, imaginez que vous avez à répéter une même tâche sur plusieurs objets.
+Nous avons vu que la liste contient 4 data frames, tirés de 4 recensements (1976, 1987, 1998 et 2009).
+Imaginez que vous souhaitez déterminer qui des hommes et des femmes sont les plus nombreux et ce pour tous les années de recensement.
+Là, vous allez devoir définir une tâche et l'exécuter en boucle.
+Pensez-vous comme un agent de vaccination qui passe dans toutes les concessions (*data frame*) d'une rue (liste) pour vacciner des enfants (le test `femme` > `homme`).
+Générons dans chacun des *data frame* une variable `femme_sup_homme` qui est vrai (`TRUE`) quand `femme` > `homme` et faux (`FALSE`) dans le cas contraire.
+```{r}
+  # Pour chaque élément "i" de la liste "pop_groupage_list"
+for(i in pop_groupage_list){
+  # Exécuter l'opération "femme > homme"
+  i[, "femme_sup_homme"] <- i[, "femme"] > i[, "homme"] 
+  # Assigner l'affichage des 3 premières observations à une variable
+  obs3 <- head(x = i, n = 3) 
+  # Afficher toutes les 3 premières observations extraites.
+  print(obs3) 
+}
+
+```
+
+Allons plus loin en enrichissant les conditions. 
+Voici la démarche:
+
+- sélectionnons seulement les moins de 15 ans: groupage est 0-4 ou 5-9 ou 10-14;
+
+- créons ensuite une colonne `test_max` qui indique qui des hommes ou des femmes a la supériorité numérique;
+
+- créons ensuite une colonne `valeur_max` qui donne la valeur de la population.
+
+```{r}
+  # Pour chaque élément "i" de la liste "pop_groupage_list"
+for(i in pop_groupage_list){
+  # sélection des groupes d'âge dans 0-15 ans.
+  i <- i[i["groupage"]=="0-4" | i["groupage"]=="5-9" | i["groupage"]=="10-14",]
+  # déclarations conditionnelles pour les variables "test_max" et "valeur_max".
+  i[, "test_max"] <- ifelse(# condition
+                            test = i[,"femme"] > i[,"homme"], 
+                            # action si condition satisfaite 
+                            yes = "femme", 
+                            # action si condition non satisfaite
+                            no = "homme") 
+  i[, "valeur_max"] <- ifelse(# condition
+                              test = i[,"femme"] > i[,"homme"], 
+                              # action si condition satisfaite 
+                              yes = i[,"femme"], 
+                              # action si condition non satisfaite
+                              no = i[,"homme"]) 
+  # Afficher toutes les 2 premières extraites.
+  print(head(x = i, n = 2)) 
+}
+
+```
+
+### Arrêtons-nous un instant!
+
+Qu'avons-nous vu jusque là?
+Nous avons vu comment:
+
+- poser des critères et les insérer dans des déclarations ;
+
+- poser un raisonnement en arbre de décision avec les déclarations conditionnelles ;
+
+- les boucles marchent avec divers objets (vecteurs, matrices, data frame et listes).
+
+Nous avons vu que c'est avec les listes que les boucles révèlent leur plus grande utilité.
+Il se trouve que R contient aussi des fonctions taillées spécialement pour tourner des fonctions en boucle sur les éléments d'une liste.
+Dans R-base seulement, il y a une grande famille de fonction dont `lapply`, `sapply`, `vapply`, `tapply`, `mapply`, `rapply`, `eapply`...
+Toutes ces fonctions sont des outils du paradigme `split-apply-combine` qui consiste à :
+
+- diviser des données en morceaux ;
+
+- à appliquer sur chaque morceau une fonction donnée ;
+
+- à rassembler les résultats en un nouveau morceau.
+
+Nous allons nous limiter à `lapply` ici.
+Explorons `lapply` avec quelques exemples.
+
+
+### Paradigme *split-apply-combine*: illustration avec *lapply*
+
+Considérons la liste suivante avec deux vecteurs et deux matrices:
+```{r}
+malist <- list(monvect2 = seq(from = 0, to = 20, by = 0.5),
+               monvect1 = rnorm(20, mean = 9.88, sd = 1.23),
+               mamat1 = matrix(data = c(1:20), nrow = 4, byrow = TRUE),
+               mamat2 = matrix(data = rnorm(20, mean = 7.43, sd = 1.80), nrow = 4, byrow = TRUE)
+               )
+```
+Regardons le contenu.
+```{r}
+str(malist)
+```
+
+Pour chaque objet de la liste, procédons à une agrégation avec la fonction `sum`.
+```{r}
+for(i in malist){
+  print(sum(i))
+  }
+```
+Faisons la même chose avec "lapply"
+```{r}
+lapply(X = malist, FUN = sum)
+```
+Le même résultat est obtenu avec `lapply`, sous la forme d'une nouvelle liste.
+
+Testons encore!
+Au lieu des sommes, générons cette fois-ci les moyennes de chaque objet de la liste.
+Avec la boucle...
+```{r}
+for(i in malist){
+  print(mean(i))
+  }
+```
+...et avec `lapply`
+```{r}
+lapply(X = malist, FUN = mean)
+```
+Vous voyez la logique?
+
+Nous avons vu que, pour les matrices et les vecteurs, l'on trouve souvent des fonctions qui sont déjà capables d'exécuter les tâches souhaitées (ne paniquez pas, avec la pratique, votre répertoire de fonctions s'agrandira!)
+Et quand celà est possible, une boucle n'est pas nécessaire.
+Le même principe va pour les listes.
+Quand il y a des fonctions natives qui peuvent a) exécuter la tâche souhaitée (générer une somme ou une moyenne par exemple) et b) insérer cette tâche dans une boucle (exécuter sur tous les objets d'une liste), alors, il est préférable d'embrasser cette voie.
+Les exemples précédents ont clairement illustré celà.
+
+Contiuons avec d'autres exemples pour illustrer davantage.
+Cherchons à connaître les dimensions des objets de la liste (nombre de lignes, nombres de colonnes).
+```{r}
+lapply(X = pop_groupage_list, FUN = dim)
+```
+Et le nom des variables?
+```{r}
+lapply(X = pop_groupage_list, FUN = colnames)
+```
+C'est simple et efficace. 
+N'est-ce pas?
+
+Maintenant, supposons qu'on veut déterminer la population totale pour chaque année en faisant la somme de la colonne `total`. 
+Comment faire ?
+Avec une boucle, c'est facile.
+```{r}
+for(i in pop_groupage_list){
+  print(sum(i["total"]))
+  }
+```
+Avec `lapply`.
+```{r, error=c(1)}
+lapply(X = pop_groupage_list, FUN = sum)
+```
+`lapply` n'arrive pas à s'exécuter car nous n'avons pas spécifié qu'à l'intérieur de chaque *data frame*, il fallait prendre la variable `total`!
+Certes, `lapply` est destinée à exécuter les tâches en boucle, mais encore faudrait-il que celles-ci soient bien définies.
+Et c'est ça que fait une fonction. 
+Elle exécute des tâches!
+Et ça, c'est le début d'un autre pan de la Data Science: la programmtion fonctionnelle.
+Dans ce terme, on va englober, l'art de faire des fonctions.
+Tout y passe: de la conception à la rapidité.
+Dans la prochaine, nous allons reprendre les idées déjà présentées, mais cette fois-ci en raisonnant en termes de fonctions.
+
+
+## Les fonctions
+
+### L'épine dorsale de R
+
+Pour un data scientist, les fonctions sont d'une importance capitale car son flux de travail consiste à faire passer les données d'une fonction à une autre pour recadrer ses questions ou trouver des réponses à celles-ci.
+Depuis le début, nous parlons de fonctions.
+Qu'est-ce que c'est?
+Dans R, la fonction agit comme dans les mathématiques.
+C'est un règle ou une procédure qui détermine la transformation d'un intrant en extrant.
+Prenons l'exemple suivant:
+
+$$y = f(x) = x^2$$
+
+Dans cet exemple, la fonction élève les intrants au carré pour donner les extrants.
+Dans R, c'est la même chose!
+Nous avons déjà mentionnées certaines fonctions et avons montré ce qu'elles font.
+Revenons sur quelques unes.
+
+### Retour sur quelques fonctions
+
+Prenons le vecteur suivant:
+```{r}
+monvect <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+Si nous voulons compter le nombre d'éléments composants cet éléments, une fonction...
+```{r}
+length(monvect)
+```
+...faire la somme de ces éléments, une fonction...
+```{r}
+sum(monvect)
+```
+...faire la moyenne de ces éléments, une fonction...
+```{r}
+mean(monvect)
+```
+
+Revenons a notre liste. Pour voir sa structure, une fonction...
+```{r}
+str(pop_groupage_list)
+```
+Pour voir le nom des éléments qu'elle contient, une fonction
+```{r}
+names(pop_groupage_list)
+```
+Vous voyez l'idée?
+
+### Pourquoi faire une fonction?
+
+Vu la richesse de R on peut bien être amené à se demander pourquoi se donner la peine de faire une fonction.
+N'en exist-il pas déjà dans R ? 
+La plupart du temps, oui!
+Mais pas tout le temps.
+
+Autant, sont nombreuses les questions que la data scientist soulève, autant les voies qui s'offrent à lui pour y répondre sont variées.
+Les particularités de la question peuvent faire qu'il est souhaitable voire indispensable de `personnaliser` la réponse.
+D'où la nécéssité de créer de nouvelles fonctions.
+Celles-ci peuvent aussi bien s'incorporer dans le flux de travail que prendre intégralement celui-ci en charge.
+
+### Les basiques de la fonction
+
+Bien que tous les sept milliards d'humains peuplant la terre partagent cette appélation commune, il demeure que l'on s'attache à donner à chacun d'entre eux une appélation particulière: le prénom!
+N'est-ce pas?
+De même, une fonction a besoin d'un *nom*!
+A ce niveu, il est utile d'indiquer qu'il y a des mots réservés qui ne peuvent pas être utilisés. 
+Voir:
+```{r, eval=FALSE}
+help("reserved")
+```
+Après le nom, il y a les *arguments.* 
+Ceci est l'appélation donnée aux intrants.
+Ensuite on a le *corps* qui est la procédure à laquelle sont soumis ces intrants.
+Schématisons tout ça!
+```{r}
+mafonction <- function(x){
+  x^2
+  }
+```
+Nous avons défini ici une fonction, `mafonction`, où `x` est l'argument et la procédure à laquelle il est soumis est l'élévation au carré. 
+Testons le résultat.
+```{r}
+mafonction(x = 25)
+```
+Juste pour ironiser un peu, rappelons que c'est par une fonction, `function`, que nous venons de créer une fonction.
+Trop méta, R !!!!!!
+
+
+Avançons un peu ici en créant une fonction avec deux arguments: x et y.
+```{r}
+mafonction <- function(x, y){
+  x + y
+  }
+```
+Testons
+```{r}
+mafonction(x = 1, y = 2)
+```
+Souvent, il est possible d'assigner à un argument ou à tous une valeur par défaut.
+```{r}
+mafonction <- function(x, y = 10){
+  x + y
+  }
+```
+Regardons ce qu'on obtient quand on ne spécifie pas la valeur passée à l'argument y.
+```{r}
+mafonction(x = 3)
+```
+Certaines fonctions contiennent plusieurs arguments.
+Par commodité, on a assigne à beaucoup des valeurs par défaut qui sont validées sauf si l'utilisateur en décide autrement.
+
+Souvent, la fonction comprends des étapes intermédiaires.
+A vrai dire, c'est dans ça que réside la nécéssité des fonctions, le séquençage de procédures multiples en une seule commande.
+Revenant à notre example, nous pouvons assigner le résultat à une variable intermédiaire z.
+```{r}
+mafonction <- function(x, y = 10){
+  z <- x + y
+  }
+mafonction(x = 3)
+```
+L'exécution de la fonction sur le chiffre 3 n'a pas donné de résultat car nous n'avons pas demandé à la fonction d'afficher celui-ci.
+Pour que le résultat sorte, il faut expliciter.
+```{r}
+mafonction <- function(x, y = 10){
+  z <- x + y
+  return(z)
+  }
+mafonction(x = 3)
+```
+`return()` est très commode quand on doit passer par plusieurs étapes à l'intérieur de la fonction.
+
+
+### Fonctions et boucles
+
+Les fonctions (écriture, évaluation, etc.) constitue un domaine vaste de la data science.
+Nous ne pourrons pas tout voir d'un seul coup.
+La maîtrise des règles (les do's et les don't's) viennent avec la pratique.
+Ayant couvert les basiques, nous allons retourner à nos données pour illustrer.
+Vous vous rappelez la boucle suivante...
+```{r}
+for(i in pop_groupage_list){
+  print(sum(i["total"]))
+  }
+```
+...qu'on avait pas réussi à insérer dans la fonction `lapply`?
+Elle marche.
+La raison est simple.
+`lapply` exécute des fonctions sur les objets contenus dans une liste. 
+Elle ne peut pas systématiquement atteindre les éléments contenus dans ces objets.
+Nous avons pu faire des moyennes et des médianes sur des vecteurs et matrices à partir de `lapply`.
+La raison était simple: ces objets sont des ensembles homogènes. 
+Ils contenaient tous des chiffres, qui sont des éléments assimilables par `mean` et `median`.
+Or, le `data frame` est un objet hétérogène, contenant des chiffres et des lettres.
+Les fonctions natives qu'on a utilisées ne peuvent faire la différence d'elles-mêmes.
+Elles doivent être guidées.
+De ce fait, nous devons inscrire la procédure souhaitée dans une fonction avant de passer celle-ci à `lapply` qui va l'exécuter en boucle sur tous les objets de la liste.
+Voici la fonction:
+```{r}
+pop_somme <- function(df){
+  sum(df["total"])
+  }
+
+```
+Nous venons de définir une fonction où `df` est l'argument principal.
+On s'attend à un *data frame* comme intrant.
+On s'attend à ce que celui-ci ait une colonne nommée `total` dont les éléments seront agrégés par la fonction `sum`.
+Vous voyez ? 
+C'est une solution très personnalisée!
+Regardons les résultats!
+
+```{r}
+for(i in pop_groupage_list){
+  print(sum(i["total"]))
+}
+
+```
+Voici le résultat pour `lapply`.
+```{r}
+lapply(X = pop_groupage_list, FUN = pop_somme)
+```
+Qu'est-ce qui est préférable?
+Comme avant, les fonctions existantes sont toujours meilleures.
+`lapply` est intégrée à R. 
+Elle constitue une meilleure boucle.
+Aussi, elle peut génère en extrant une liste, qui peut être assignée à un objet donné.
+

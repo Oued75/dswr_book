@@ -1,6 +1,6 @@
 # Objets dans R
 
-## Objectifs et outils
+## Introduction
 
 Dans ce chapitre, nous allons :
 
@@ -150,7 +150,7 @@ region_naissance <- as.factor("Bamako")
 ### La notion de classe et de type
 
 Quand on a faire à des objets dont on ignore l'identité, l'on peut s'appuyer la fonction `class`.
-Celle-ci permeet de connaître la classe de l'objet.
+Celle-ci permet de connaître la classe de l'objet.
 La classe est un attribut qui contribue à la formation de l'idée d'un objet.
 "Avec quoi se mélange-t-il?"
 "A quelles règles de transformation se soumet-il?"
@@ -202,7 +202,7 @@ Tout comme les constructions peuvent différer entre elles.
 
 ### Vers d'autres types d'objets
 
-La deuxième catégorie d'objets que nous allons voir ici peuvent être pensés comme des objets composites.
+Les objets que nous allons voir ici peuvent être pensés comme des objets composites.
 Nous en verrons quatre types:
 
 - le vecteur;
@@ -227,7 +227,7 @@ La réponse:
 is.vector(nom)
 ```
 Donc nous avons crééé des vecteurs depuis longtemps et on voit qu'un objet d'un seul élément peut être un vecteur.
-Maintenant, compte le nombre d'éléments que compte ce vecteur.
+Maintenant, comptons le nombre d'éléments que compte ce vecteur.
 ```{r}
 length(nom)
 ```
@@ -236,7 +236,7 @@ C'est vraiment un singleton qu'on a là...pour le moment!
 ### Créons-en, des vecteurs!
 
 Décidons d'étendre nos observations à tous les présidents de la République du Mali.
-En voici de quoi nous faire revisiter nos livres d'histoire...ou juste visiter Wikipedia!
+En voici de quoi nous faire revisiter nos livres d'histoire...ou juste consulter Wikipedia!
 
 ```{r}
 # Omettons les périodes de transition (la valeur pédagogique est ce qui est recherché ici!)
@@ -261,7 +261,7 @@ Amusez-vous à expérimenter avec les autres vecteurs.
 
 ### Vrai pour un, vrai pour plusieurs
 
-Vous vous rappelez que plus haut, nous voyions que les opérations n'étaient pas possible entre de différentes natures.
+Vous vous rappelez que plus haut, nous voyions que les opérations n'étaient pas possibles entre de différentes natures.
 Et bien, cette règle, valable à l'échelle des objets élémentaires, l'est aussi aux échelles supérieures.
 
 Prenons nos données et cherchons à déterminer l'âge des présidents à leur arrivée au pouvoir.
@@ -288,7 +288,7 @@ age_arrivee_pouvoir
 On le confirme: les oranges et les bananes ne se mélangent pas.
 Toutefois, R nous fait souvent des cocktails de fruits en coerçant certains éléments.
 Imaginons que l'on veuille rassembler le prénom et le nom dans un seul vecteur.
-Collons avec une fonction de base dans R, `paste`, (ne vous en faites pas, vous ferez progressivement connaissance avec les fonctions!)
+Collons ces éléments à l'aide d'une fonction de base dans R, `paste`, (ne vous en faites pas, vous ferez progressivement connaissance avec les fonctions!)
 ```{r}
 prenom_nom <- paste(prenom, nom)
 prenom_nom
@@ -422,7 +422,7 @@ Imaginons que l'on veuille seulement regarder les informations sans les deux der
 ```{r}
 age_arrivee_pouvoir[-c(4, 5)]
 ```
-Le signe `[]` agit comme une porte d'entrée à l'intérieur du vecteur tandis que les chiffres indiqués sont des index qui indiquent les éléments intérêt.
+Le signe `[]` agit comme une porte d'entrée à l'intérieur du vecteur tandis que les chiffres indiqués sont des index qui indiquent la position des éléments intérêt.
 L'opération peut consister en une sélection ou une exclusion selon que l'opérateur `c` est précédé du signe `-` (exclusion) ou pas (sélection).
 
 #### Sélection à partir de logiques
@@ -430,16 +430,15 @@ L'opération peut consister en une sélection ou une exclusion selon que l'opér
 La sélection à l'intérieur d'un vecteur peut aussi se faire à partir de valeurs logiques.
 L'on peut poser des critères auxquels certains éléments répondraient.
 Et sur la base de leur confirmité au(x) critère(s) posé(s), l'on pourra effectuer la sélection (ou l'exclusion).
-Cette fonctionnalité est très utile le data scientist d'utiliser les questions qu'il se pose pour avoir un aperçu des données qui sont à sa disposition.
+Cette fonctionnalité est très utile car elle permet au data scientist d'utiliser les questions qu'il se pose pour avoir un aperçu des données qui sont à sa disposition.
 
 Explorons la question suivante: quels sont les présidents arrivés au pouvoir avant l'âge de 50 ans?
-
 ```{r}
 president_avant_50ans <- age_arrivee_pouvoir < 50
 president_avant_50ans
 ```
 On transforme maintenant ce vecteur de valeurs logiques en outil de sélection.
-On peut soir regarder le nom de ses présidents:
+On peut soir regarder le nom de ces présidents:
 ```{r}
 prenom_nom[president_avant_50ans]
 ```
@@ -454,7 +453,7 @@ Pendant qu'on y est, dans quelle région sont-ils nés?
 names(region_naissance) <- prenom_nom # nommons d'abord les éléments
 region_naissance[age_arrivee_pouvoir < 50]
 ```
-Vous comprenez la logique.
+Vous comprenez la logique...
 
 #### Statistiques sommaires
 
@@ -485,33 +484,34 @@ age_arrivee_pouvoir
 ```
 Construisons ensuite un vecteur avec le nombre d'années passées au pouvoir.
 ```{r}
-annee_en_pouvoir <- c(8, 23, 10, 10)
+duree_au_pouvoir <- c(8, 23, 10, 10)
 ```
 Maintenant calculons l'année de départ du pouvoir en ajoutant à l'âge d'arrivée au pouvoir le nombre d'années qui y ont été passé.
 ```{r}
-age_depart_pouvoir <- age_arrivee_pouvoir + annee_en_pouvoir
+age_depart_pouvoir <- age_arrivee_pouvoir + duree_au_pouvoir
 age_depart_pouvoir
 ```
 Parvenez-vous à décéler l'erreur?
-Nous avons additionné une vecteur de 5 éléments, `age_arrivee_pouvoir`, avec un vecteur de 4 éléments `annee_en_pouvoir`.
+
+Nous avons additionné un vecteur de 5 éléments, `age_arrivee_pouvoir`, avec un vecteur de 4 éléments, `duree_au_pouvoir`.
 R a recyclé le premier élément du vecteur court (4) pour poursuivre l'opération d'addition entre les deux vecteur et l'a ajouté au 5ème élément du vecteur long.
 D'où la valeur de `76`.
 ```{r}
 68 + 8
 ```
 R avertit, mais conduit l'opération.
-De ce fait, même si les opérations entre les vecteurs de même nature s'exécute sans problème majeur, il reste utile de vérifier leur longueur.
-Pour éviter le recyclage, il faudrait ne pas laisser de videe dans le vecteur court, s'assurer que les vecteurs impliqués dans l'opératio sont de la même taille.
+De ce fait, même si les opérations entre vecteurs de même nature s'exécute sans problème majeur, il reste utile de vérifier leur longueur.
+Pour éviter le recyclage, il faudrait ne pas laisser de vide dans le vecteur court, s'assurer que les vecteurs impliqués dans l'opération sont de la même taille.
 Sur nos 5 présidents, nous n'avons pas ajouté le nombre d'années passées au pouvoir (car le mandat est encore en cours pendant la rédaction du présent document).
 Une solution serait de remplir la position dans le vecteur avec la valeur `NA`, indiquant un valeur manquante.
-Ajoutons-le à è ``
+Ajoutons-le.
 ```{r}
-annee_en_pouvoir <- c(annee_en_pouvoir, NA)
-annee_en_pouvoir
+duree_au_pouvoir <- c(duree_au_pouvoir, NA)
+duree_au_pouvoir
 ```
 Reprenons l'opération.
 ```{r}
-age_depart_pouvoir <- age_arrivee_pouvoir + annee_en_pouvoir
+age_depart_pouvoir <- age_arrivee_pouvoir + duree_au_pouvoir
 age_depart_pouvoir
 ```
 Ne sachant pas comment faire l'opération pour la dernière entrée du vecteur car l'un des composante est `NA`, R reconduit cette valeur.
@@ -543,7 +543,6 @@ Bien que l'on puisse créer une matrice en combinant différents vecteurs, horiz
 Il est toutefois utile de connaitre l'ordre de positionnement des éléments.
 Reprenons la création avec `matrix`, horizontalement...
 ```{r, echo=c(-1, -10)}
-knitr::asis_output("\\tiny")
 prenom_nom_hmatrix <- matrix(c("Modibo", "Moussa", "Alpha Oumar", "Amadou Toumani", "Ibrahim Boubacar",
                              "Keïta",  "Traoré", "Konaré", "Touré", "Keïta"),
                              byrow = TRUE,
@@ -573,8 +572,8 @@ On y viendra.
 
 La matrice n'est pas seulement un ensemble de vecteurs.
 Elle se distingue aussi de par sa bidimensionnalité.
-Pendant que le vecteur est soit une ligne de plusieurs éléments (1 x n) soit une colonne de plusieurs éléments éléments (n x 1), la matrice, elle, est faite de plusieurs lignes (n rows) et de plusieurs colonnes (n columns).
-Ici n étant bien sûr supérieur à 1.
+Pendant que le vecteur est soit une ligne de plusieurs éléments (*1 x n*) soit une colonne de plusieurs éléments éléments (*n x 1*), la matrice, elle, est faite de plusieurs lignes (*n rows*) et de plusieurs colonnes (*n columns*).
+Ici *n* étant bien sûr supérieur à 1.
 Nous avions noté que pour connaître le nombre d'éléments dans un vecteur on utilisait la fonction `length`.
 ```{r}
 length(prenom_nom)
@@ -719,7 +718,7 @@ annee_evenement_matrix[, colnames(annee_evenement_matrix) == "M. Keïta"]
 Il arrive souvent que l'on souhaite consolider une matrice en y ajoutant de nouvelles informations.
 Ces nouvelles informations peuvent même être dérivées d'éléments déjà existants à l'intérieur de la matrice.
 Considérons ici que nous voulions ajouter à notre matrice l'âge à l'arrivée au pouvoir et l'âge au départ du pouvoir.
-Nous passons tout simplement par les techniques que nous avons déjà vues pour générer ces nouveaux ééments.
+Nous passons tout simplement par les techniques que nous avons déjà vues pour générer ces nouveaux éléments.
 ```{r}
 # Un vecteur pour l'âge d'arrivée au pouvoir
 age_arrivee_pouvoir <- 
@@ -729,234 +728,279 @@ age_arrivee_pouvoir <-
 age_depart_pouvoir <- 
   annee_evenement_matrix[rownames(annee_evenement_matrix) == "Départ", ] - 
   annee_evenement_matrix[rownames(annee_evenement_matrix) == "Naissance", ]
-```
-
-# Ajoutons maintenant c'est deux nouveaux vecteurs à notre matrice
+# Un vecteur pour la durée au poivoir
+duree_au_pouvoir <- 
+  annee_evenement_matrix[rownames(annee_evenement_matrix) == "Départ", ] - 
+  annee_evenement_matrix[rownames(annee_evenement_matrix) == "Arrivée", ]
+# Ajoutons maintenant ces trois nouveaux vecteurs à notre matrice
 annee_evenement_matrix_cons <- rbind(annee_evenement_matrix, 
                                      "Âge d'arrivée au pouvoir" =  age_arrivee_pouvoir, 
-                                     "Âge de départ du pouvoir" = age_depart_pouvoir)
+                                     "Âge de départ du pouvoir" = age_depart_pouvoir,
+                                     "Durée au pouvoir" = duree_au_pouvoir)
 # Voyons la matrice
 annee_evenement_matrix_cons
 # Nous sommes passés par la fonction "rbind()". Sachez qu'il y a plusieurs solutions!
-# Remarquez-vous "NA" dans une nouvelle cellule? Pouvez-vous expliquer pourquoi?
-
-
-
-### Opérations sur matrices: calculs
-
-```{r, echo=c(-1, -13)}
-knitr::asis_output("\\tiny")
-# Comme pour les vecteurs, des calculs sont possibles sur les matrices.
-# Pour ce faire, limitons-nous à deux informations de la matrice: les âges.
-# Ajoutons aussi la durée de la période passée au pouvoir.
-age_pouvoir_matrix <- rbind(annee_evenement_matrix_cons[c(4, 5),],
-                            "Durée au pouvoir" = annee_evenement_matrix_cons[5, ] - 
-                              annee_evenement_matrix_cons[4, ])
-age_pouvoir_matrix[, -c(1)] # -c(1): juste pour une commodité d'impression.
-# Calculons la moyenne pour chacune des lignes (âges moyens, durées moyennes)
-rowMeans(age_pouvoir_matrix)
-# On voit des "NA". R ne traite pas les valeurs inconnues de lui-même. On lui instruit de les ignorer.
-rowMeans(age_pouvoir_matrix, na.rm = TRUE)
-# Comme pour beaucoup de fonctions dans R, tout ce qu'il y avec "row" existe avec "col" 
-# Testez les fonctions suivantes: colSums(), rowSums(), colMeans() et rowMeans().
-knitr::asis_output("\\normalsize")
+# Remarquez-vous "NA" dans une nouvelle cellule? Vous rappelez-vous pourquoi?
 ```
+
+#### Calculs
+
+Comme pour les vecteurs, des calculs sont possibles sur les matrices.
+Pour ce faire, limitons-nous à deux informations de la matrice: les âges et les durées.
+Calculons les moyennes.
+D'abord l'âge moyen d'arrivée au pouvoir.
+```{r}
+mean(annee_evenement_matrix_cons["Âge d'arrivée au pouvoir", ])
+```
+Ensuite, l'age moyen de départ du pouvoir.
+```{r}
+mean(annee_evenement_matrix_cons["Âge de départ du pouvoir", ])
+```
+Nous voyons que R nous donne une valeur `NA`.
+Ne sachant quoi faire en présence de cette valeur dans la matrice sélectionnée, R s'est résigné à ne rien faire.
+D'où la sortie de `NA` comme résultat.
+Heureusement, les fonctions comportent aussi des moyens pour contourner ce problème, l'exclusion des valeurs `NA`.
+```{r}
+mean(annee_evenement_matrix_cons["Âge de départ du pouvoir", ], na.rm = TRUE)
+```
+La même technique nous permet de contourner la présence de `NA` dans le vecteur `Durée au pouvoir`.
+```{r}
+mean(annee_evenement_matrix_cons["Durée au pouvoir", ], na.rm = TRUE)
+```
+Il existe nombreuses fonctions qui permettent de faire des calculs sur les matrices: `colSums`, `rowSums`, `colMeans` et `rowMeans`.
 
 
 ## _Data frames_
 
-### Le *data frame*, au-délà de la matrice (1)
+### Le *data frame*, au-délà de la matrice
 
-```{r, echo=c(-1, -c(10:19), -23)}
-knitr::asis_output("\\tiny")
-# Jusque là, nous avons travaillé avec des éléments de même nature.
-# Et pourtant le data scientist ne peut pleinement mener ses
-# ses investigations avec une telle contrainte.
-# Il a besoin d'explorer en même temps des informations de diverses natures.
-# D'où le data frame. Qu'est-ce que c'est au juste?
-# Un format d'organisation de données en forme rectangulaire.
-# Toutefois, contrairement à la matrice, elle respecte la nature des données qu'elle contient.
-# Explorons l'idée. Rassemblons verticalement les différents vecteurs que nous avons crééés
-# echo = FALSE - début
-rm(list = ls())
+Jusque là, nous avons travaillé avec des éléments de même nature.
+Et pourtant le *data scientist* ne peut pleinement mener ses investigations avec une telle contrainte.
+Il a besoin d'explorer en même temps des informations de diverses natures.
+D'où le data frame. 
+Qu'est-ce que c'est au juste?
+Un format d'organisation de données en forme rectangulaire, tout comme la matrice.
+Toutefois, contrairement à la matrice, elle respecte la nature des données qu'elle contient.
+Explorons l'idée. 
+Rassemblons verticalement les différents vecteurs que nous avons crééés.
+Re-créons d'abord les vecteurs.
+```{r}
 nom <- c("Keïta", "Traoré", "Konaré", "Touré", "Keïta")
 prenom <- c("Modibo", "Moussa", "Alpha Oumar", "Amadou Toumani", "Ibrahim Boubacar")
 date_naissance <- as.Date(c("1915-06-04", "1936-09-25", "1946-02-02", "1948-11-04", "1945-01-29"))
 region_naissance <- as.factor(c("Bamako", "Kayes", "Kayes", "Mopti", "Koutiala"))
 annee_arrivee_pouvoir <- c(1960, 1968, 1992, 2002, 2013)
-annee_en_pouvoir <- c(8, 23, 10, 10, NA)
+duree_au_pouvoir <- c(8, 23, 10, 10, NA)
 parcours_militaire <- c(FALSE, TRUE, FALSE, TRUE, FALSE)
-# echo = FALSE - fin
-presidents_df <- cbind(nom,
-                      prenom,
-                      date_naissance,
-                      region_naissance,
-                      parcours_militaire,
-                      annee_arrivee_pouvoir,
-                      annee_en_pouvoir)
-# Qu'est-ce que ça donne?
-presidents_df
-knitr::asis_output("\\normalsize")
 ```
-
-### Le *data frame*, au-délà de la matrice (2)
-
-```{r, echo=c(-1, -10)}
-knitr::asis_output("\\tiny")
-# Nous avons vu que certaines informations ont été dénaturées.
-# Certaines données ont été coercées à se transformer en autre chose
-# Regardons la classe de l'objet "presidents_df"
+Puis, rassemblons-les.
+```{r}
+presidents_df <- cbind(nom,
+                       prenom,
+                       date_naissance,
+                       region_naissance,
+                       parcours_militaire,
+                       annee_arrivee_pouvoir,
+                       duree_au_pouvoir)
+```
+Qu'est-ce que ça donne?
+```{r}
+presidents_df
+```
+Nous remarquons que certaines informations ont été dénaturées.
+Certaines données ont été coercées à se transformer en autre chose.
+Regardons la classe de l'objet `presidents_df`.
+```{r}
 class(presidents_df)
 typeof(presidents_df)
-# Les vecteurs ont été rassemblés en matrice (class)
-# Les éléments ont toutefois été coercés en charactères (typeof)
-# C'est en celà que le data frame révèle sa place.
-knitr::asis_output("\\normalsize")
 ```
+Les vecteurs ont été rassemblés en matrice (`class`).
+Les éléments ont toutefois été coercés en charactères (`typeof`).
+Ceci signifie que nous ne pouvons pas manipuler les éléments qui sont des entières ou des dates.
+C'est en celà que le *data frame* révèle son premier avantage: l'unité dans la diversité.
 
-### Le *data frame*, au-délà de la matrice (3)
-
-```{r, echo=c(-1, -8)}
-knitr::asis_output("\\tiny")
-# Reprenons l'opération
+Reprenons l'opération.
+Cette fois-ci, toutefois, indiquons qu'il s'agit d'un *data frame* avec la fonction `data.frame`.
+```{r}
 presidents_df <- data.frame(nom,
                             prenom, 
                             date_naissance, 
                             region_naissance, 
                             parcours_militaire, 
                             annee_arrivee_pouvoir, 
-                            annee_en_pouvoir,
+                            duree_au_pouvoir,
                             stringsAsFactors = FALSE)
-# Regardons à nouveau
+```
+Regardons à nouveau
+```{r}
 presidents_df
-# Qu'en est-il de la classe et du type
+```
+
+Qu'en est-il de la classe et du type?
+```{r}
 class(presidents_df)
-knitr::asis_output("\\normalsize")
 ```
 
-### Le *data frame*, au-délà de la matrice (4)
+Maintenant que nous savons à quoi ressemble un *data frame*, essayons de le définir.
+Un data frame est une forme d'organisation de données en format rectangulaire où les lignes sont des observations et les colonnes des attributs de ceux-ci.
+Ici par exemple, nous organisons diverses informations sur les individus qui ont assumé le poste de Président de la République du Mali.
+Chaque ligne sera dédiée à un président et rassemblera tous les informations sur lui (attributs).
+Chaque colonne sera dédiée à un seul attribut et couvrira tous les présidents (observations).
 
-```{r, echo=c(-1, -17)}
-knitr::asis_output("\\tiny")
-# Maintenant que nous savons à quoi ressemble un data frame, essayons de le définir.
-# Un data frame est une forme d'organisation de données en format rectangulaire où
-# les lignes sont des observations et les colonnes des attributs de ceux-ci.
-# Ici par exemple, nous organisons diverses informations sur les individus qui
-# ont assumé le poste de Président de la République du Mali.
-# Chaque ligne sera dédiée à un président et rassemblera tous les informations sur lui (attributs).
-# Chaque colonne sera dédiée à un seul attribut et couvrira tous les présidents (observations).
-# Introduisons ici la fonction "str" qui permet de visualiser la structure d'un objet dans R
-# Elle permettra de rendre compte de toute la richesse du concept de data frame.
+A l'instar de la matrice, le *data frame* se prête lui aussi aux fonctions qui renseignent sur ses dimensions.
+```{r}
+dim(presidents_df)
+dimnames(presidents_df)
+colnames(presidents_df)
+rownames(presidents_df)
+```
+Quand les lignes n'ont pas de nom, R affiche tout simplement les index.
+Généralement, on s'intéresse à deux éléments avec les *data frame*: les dimensions et les noms des colonnes (variables ou attributs).
+En ce qui concerne les lignes, il est rare qu'on les nomme vu que les observations peuvent être de nombre très élevé (milliers voire millions).
+De ce fait, l'on peut s'en tenir à deux fonctions.
+```{r}
+dim(presidents_df)
+names(presidents_df)
+
+```
+
+La particularité du *data frame* se lit à travers la fonction `str` qui montre sa structure.
+Cette fonction montre le classe des colonnes qui le constituent.
+```{r}
 str(presidents_df)
-# On a une synthèse: nombre d'observations et nombre de variables - comme avec la fonction dim().
-# On voit aussi que pour chaque variable, on a :
-# - le nom
-# - la classe
-# - quelques observations
-knitr::asis_output("\\normalsize")
 ```
+On a là une synthèse montrant nombre d'observations et nombre de variables comme avec la fonction `dim`;
+On voit aussi que pour chaque variable, on a le nom, la classe et quelques observations.
 
-### Opérations sur _data frame_: sélection de cellules
 
-```{r, echo=c(-1, -10)}
-knitr::asis_output("\\tiny")
-# En matière de sélection, la data frame hérite beaucoup de la matrice.
-# Les principes demeurent
-# Si l'on veut la ligne 2 de la colonne 4, on fait:
+### Opérations sur _data frame_
+
+#### Sélection de cellules
+
+En matière de sélection, le *data frame* hérite beaucoup de la matrice.
+Les principes demeurent les mêmes.
+Si l'on veut la ligne 2 de la colonne 4, on fait:
+```{r}
 presidents_df[2, 4]
-# Si l'on veut la ligne 5 (un président, une observation)
+```
+Si l'on veut la ligne 5 (un président, une observation):
+```{r}
 presidents_df[2, ]
-# Ou encore la colonne 4 (une variable, un attribut)
+```
+Ou encore, la colonne 4 (une variable, un attribut)
+```{r}
 presidents_df[, 4]
-knitr::asis_output("\\normalsize")
 ```
 
-### Opérations sur _data frame_: sélection de variables
 
-```{r, echo=c(-1, -9)}
-knitr::asis_output("\\tiny")
-# Comme pour la matrice, avec le data frame, on peut utiliser le nom des colonnes (variables) 
-# pour accéder aux éléments. Regardons juste la variable "date_naissance".
+#### Sélection de variables
+
+Les techniques de sélections de colonnes sur la matrice sont valables pour le *data frame* aussi.
+Regardons, à titre d'exemple, la variable `date_naissance`.
+On peut y acceder à partir de sa position dans l'ordre des variables.
+```{r}
+presidents_df[, c(3)]
+
+```
+Ou la désigner par son nom directement.
+```{r}
 presidents_df[, "date_naissance"]
-# Le data frame offre en plus une alternative: les variables y sont accessibles avec le signe "$".
+```
+Le *data frame* offre en plus une alternative: les variables y sont accessibles avec le signe `$`.
+```{r}
 presidents_df$date_naissance
-# Cependant, la première solution se prête à la sélection de plusieurs variables.
-presidents_df[, c("date_naissance", "region_naissance")]
-knitr::asis_output("\\normalsize")
 ```
 
-### Opérations sur _data frame_: création de variables
+#### Création de variables
 
-```{r, echo=c(-1, -14)}
-knitr::asis_output("\\tiny")
-# Comme avec les matrices, souvent, l'analyse peut souhaiter ajouter une nouvelle variable à son data frame.
-# Procédons comme avec les matrices à la génération de deux nouvelles variables:
-# l'âge d'arrivée au pouvoir et l'âge de départ du pouvoir.
-# Pour commencer, générons l'année de naissance
+Comme avec les matrices, souvent, l'analyste de données peut souhaiter ajouter une nouvelle variable à son *data frame*.
+Procédons comme avec les matrices à la génération de deux nouvelles variables: l'âge d'arrivée au pouvoir et l'âge de départ du pouvoir.
+Pour commencer, générons l'année de naissance.
+```{r}
 presidents_df$annee_naissance <- as.numeric(format(presidents_df$date_naissance,'%Y'))
-# Ensuite on génère l'âge d'arrivée au pouvoir
+```
+Ensuite on génère l'âge d'arrivée au pouvoir.
+```{r}
 presidents_df$age_arrivee_pouvoir <- presidents_df$annee_arrivee_pouvoir - presidents_df$annee_naissance
-# Ensuite l'âge de départ du pouvoir
-presidents_df$age_depart_pouvoir <- presidents_df$age_arrivee_pouvoir + presidents_df$annee_en_pouvoir
-# Regardons notre nouveau data frame
-str(presidents_df)
-# A travers cette création, on voit comment on peut mener des opérations entre des colonnes d'un data frame.
-knitr::asis_output("\\normalsize")
 ```
+Ensuite l'âge de départ du pouvoir.
+```{r}
+presidents_df$age_depart_pouvoir <- presidents_df$age_arrivee_pouvoir + presidents_df$duree_au_pouvoir
+```
+Regardons notre nouveau data frame.
+```{r}
+str(presidents_df)
+```
+A travers cette création, on voit comment on peut mener des opérations entre des colonnes d'un *data frame*.
 
-### Opérations sur _data frame_: suppression de variables
-
-```{r, echo=c(-1, -10)}
-knitr::asis_output("\\tiny")
-# Dans notre exemple, nous avons crééé l'année de naissance comme étape transitoire vers une 
-# autre variable. Sachant que nous avons la même information dans la date de naissance, 
-# l'on peut éviter la redondance, donc la supprimer.
-# Comment s'y prend-on dans R?
+#### Suppression de variables
+Dans notre exemple, nous avons crééé l'année de naissance comme étape transitoire vers une autre variable. 
+Sachant que nous avons la même information dans la date de naissance, l'on peut éviter la redondance, donc la supprimer.
+Comment s'y prend-on dans R?
+```{r}
 presidents_df$annee_naissance <- NULL
-# Vérifions si cette colonne est partie.
+```
+Vérifions si cette colonne est partie.
+```{r}
 str(presidents_df)
-# Mission accomplie!
-knitr::asis_output("\\normalsize")
 ```
+Mission accomplie!
 
-### Opérations sur _data frame_: sélection d'observations
+#### Sélection d'observations
 
-```{r, echo=c(-1, -13)}
-knitr::asis_output("\\tiny")
-# Nous avons vu que comme la matrice, les éléments du data frame sont accessibles grâce aux numéros de lignes.
-# Ici, nous allons voir qu'il est aussi possible de passer par des critères spécifiques aux variables
-# pour sélectionner des observations.
-# Cherchons seulement la date de naissance des présidents nés dans la région de "Kayes".
+Nous avons vu que comme la matrice, les éléments du *data frame* sont accessibles grâce aux numéros de lignes.
+Ici, nous allons voir qu'il est aussi possible de passer par des critères spécifiques aux variables pour sélectionner des observations.
+Cherchons seulement les noms et prénoms des présidents nés dans la région de "Kayes".
+```{r}
 presidents_df[presidents_df$region_naissance == "Kayes", c("nom", "prenom")]
-# Il est possible d'aboutir au même résultat avec une fonction intégrée à R: "subset"
-# Expérimentons
-subset(x = presidents_df, subset = region_naissance == "Kayes", select = c(nom, prenom))
-# Vous voyez? 
-# Avec R, tous les chemins mènent...à Roundé.
-# (Rome est trop loin pour moi! Même s'il comment par R).
-knitr::asis_output("\\normalsize")
 ```
 
-### Opérations sur _data frame_: ordonner les observations
+Il est possible d'aboutir au même résultat avec une fonction intégrée à R: `subset`.
+Cette fonction offre la commodité de sélectionner à la fois des observations à partir de critères et des variables.
+```{r}
+subset(x = presidents_df, subset = region_naissance == "Kayes", select = c(nom, prenom))
+```
 
-```{r, echo=c(-1, -8)}
-knitr::asis_output("\\tiny")
-# On peut souvent souhaiter  ordonner son data frame selon une variable donnée.
-# Rearrangeons nos données selon l'année de naissance des présidents
+Un autre exemple!
+Voyons le nom, le prénom et la date de naissance pour les présidents arrivés au pouvoir avant l'âge de 50 ans.
+```{r}
+subset(x = presidents_df, subset = age_arrivee_pouvoir < 50, select = c(nom, prenom, date_naissance))
+```
+
+Un autre exemple!
+Voyons le nom, le prénom et la durée au pouvoir pour les présidents ayant fait moins de 10 ans au poste.
+```{r}
+subset(x = presidents_df, subset = duree_au_pouvoir < 10, select = c(nom, prenom, duree_au_pouvoir))
+```
+Vous voyez? 
+Avec R, tous les chemins mènent...à Roundé.
+(Rome est trop loin pour moi! Même s'il comment par R).
+
+#### Ordonner les observations
+On peut souvent souhaiter ordonner son *data frame* selon une variable donnée.
+Rearrangeons nos données selon l'année de naissance des présidents
+```{r}
 ordre_age <- order(presidents_df$date_naissance)
 ordre_age
-# A l'aide de ce classement, regardons les nom, prénom et date de naissance
+```
+Nous pouvons voir que si les premier et second présidents se succèdent en ainesse, le troisième lui il est devancé par le cinquième.
+Pour mieux comprendre, utilons cet ordre pour afficher le *data frame*.
+```{r}
+presidents_df[ordre_age, ]
+```
+Pour plus de commodité, regardons seulement les nom, prénom et date de naissance.
+```{r}
 presidents_df[ordre_age, c("nom", "prenom", "date_naissance")]
-knitr::asis_output("\\normalsize")
 ```
 
-### _Data frame_: le meilleur reste à venir
+
+### Le meilleur reste à venir
 
 Le _data frame_ est la pièce maîtresse de l'analyse dans [\textcolor{blue}{R}](http://r-project.org), comme dans beaucoup d'autres langages.
 D'ailleurs, d'autres langages ont développé des concepts similaires.
 En prenant [\textcolor{blue}{Python}](https://www.python.org/) par exemple, on trouve la notion de *DataFrame*, une adaption du concept de *data frame* tel que défini dans R.
 Pour dire combien l'idée englobée dans le *data frame* est puissante.
-D'où son rôle capital dans le reste de ce cours.
+D'où son rôle capital dans le reste de ce cours et de l'ouvrage.
 
 C'est avec le *data frame* que nous:
 
@@ -966,18 +1010,21 @@ C'est avec le *data frame* que nous:
 
 - introduirons l'application de modèles à des données.
 
+
 ## Listes
 
-### Les listes, que faire de l'ordre et de la structure?
-```{r, echo=c(-1, -19)}
-knitr::asis_output("\\tiny")
-# La liste (list en anglais et dans R) apporte elle aussi sa particularité.
-# Elle permet de créer un espace pour les données non structurées dans R
-# Créons de nouveaux éléments
-# Commençons par les pays voisins du Mali: un vecteur en caractères
+### Oublier l'ordre et la structure
+
+La liste (*list* en anglais et dans R) apporte elle aussi sa particularité.
+Elle permet de créer un espace pour les données non structurées dans R.
+Créons de nouveaux éléments.
+Commençons par les pays voisins du Mali: un vecteur en caractères.
+```{r}
 voisins_vec_char <- c( "Algérie", "Burkina-Faso", "Côte d'Ivoire", "Guinée", "Mauritanie", "Niger", "Sénégal")
-# Ajoutons des données sur le population (à partir de 1976, 1987, 1998 et 2009)
-# ça nous fait une matrice en nombres (entiers).
+```
+Ajoutons des données sur la population à partir des données de recensement de 1976, 1987, 1998 et 2009.
+C'est une matrice d'entiers.
+```{r}
 population_matrix_int <- matrix(data = c(3123733, 3269185, 6392918, 
                                          3760711, 3935638, 7696349,
                                          4856023, 4954889, 9810912,
@@ -986,69 +1033,72 @@ population_matrix_int <- matrix(data = c(3123733, 3269185, 6392918,
                                 nrow = 4,
                                 dimnames = list(c(1976, 1987, 1998, 2009), 
                                                 c("Hommes", "Femmes", "Total")))
-# Ajoutons un dernier élément: lesquels de nos présidents sont encore vivants?
-# Mettons ça sous forme boléén.
+```
+Ajoutons un dernier élément: lesquels de nos présidents sont encore vivants?
+Mettons ça sous forme boléén.
+```{r}
 presidents_en_vie_vec_logi <- c(FALSE, TRUE, TRUE, TRUE, TRUE)
-
-# Nous avons là un beau monde. Rassemblons tout ça dans une liste!
+```
+Nous avons là un beau monde. 
+Rassemblons tout ça dans une liste!
+```{r}
 mali_list <- list(presidents = presidents_df,
                   voisins = voisins_vec_char,
                   population = population_matrix_int,
                   presidents_en_vie = presidents_en_vie_vec_logi)
-# De par leurs différences en nature, forme et taille, rien ne prédispose ses objets à être contenus
-# dans le même objet! Et pourtant ça tient dans notre liste.
-# Explorons-là!
-knitr::asis_output("\\normalsize")
 ```
 
-### Listes, un contenant de contenants (1)
+De par leurs différences en nature, forme et taille, rien ne prédispose ses objets à être contenus dans le même objet! 
+Et pourtant ça tient dans notre liste.
+Explorons celle-ci!
 
-```{r, echo=c(-1, -19)}
-knitr::asis_output("\\tiny")
-# Commençons par la structure de la liste. Que voit-on?
+### Un contenant de contenants
+
+Commençons par la structure de la liste. 
+Que voit-on?
+```{r}
 str(mali_list)
-# Qu'en est-il des noms
+```
+Qu'en est-il des noms
+```{r}
 names(mali_list)
-# Les noms assignés aux objets sont bien reconduits
-# Voyons voir si à l'instar des matrices et des data frames, ces noms peuvent être utilisés
-# pour accéder aux éléments qui y sont stockés.
-knitr::asis_output("\\normalsize")
 ```
-
-
-### Listes, un contenant de contenants (2)
-
-```{r, echo=c(-1, -9)}
-knitr::asis_output("\\tiny")
-# Prenons le vecteur sur les pays voisins.
+Les noms assignés aux objets sont bien reconduits.
+Voyons voir si à l'instar des matrices et des data frames, ces noms peuvent être utilisés pour accéder aux éléments qui y sont stockés.
+Prenons le vecteur sur les pays voisins.
+```{r}
 mali_list[["voisins"]]
-# Le même résultat doit être possible par l'ordre de l'objet dans la liste, le 2ème.
+```
+Le même résultat doit être possible par l'ordre de l'objet dans la liste, le 2ème.
+```{r}
 mali_list[[2]]
-# Peut-on utiliser le signe "$" comme avec les data frame
+```
+Peut-on utiliser le signe `$` comme avec les *data frame*.
+```{r}
 mali_list$voisins
-# Donc, on a l'embarra du choix.
-knitr::asis_output("\\normalsize")
 ```
+Donc, on a l'embarra du choix.
 
-### Listes, un contenant de contenants (3)
-
-```{r, echo=c(-1, -13)}
-knitr::asis_output("\\tiny")
-# Maitenant qu'on peut accéder aux objets à l'intérieur d'un liste,
-# qu'en est-il des éléments stockés à l'intérieur de cet objet lui-même.
-# Cherchons le 2ème élément du vecteur des pays voisins
+Maitenant qu'on peut accéder aux objets à l'intérieur d'une liste, qu'en est-il des éléments stockés à l'intérieur de cette liste elle-même.
+Cherchons le 2ème élément du vecteur des pays voisins.
+```{r}
 mali_list[["voisins"]][2]
-# Qu'en est-il de "mali_list[[2]]" et de "mali_list$voisins[2]"?
-# Testez avec eux pour voir.
-
-# Un autre exemple: la 3ème colonne de la matrice sur la population
-mali_list[["population"]][, 3]
-# La ligne suivante aussi marche
-mali_list[["population"]][, "Total"]
-knitr::asis_output("\\normalsize")
+```
+On peut y accéder avec d'autres voies dont les suivantes.
+```{r}
+mali_list$voisins[2]
+mali_list[[2]][2]
 ```
 
 
+Un autre exemple: la 3ème colonne de la matrice sur la population
+```{r}
+mali_list[["population"]][, 3]
+```
+Pour le même résultat, le code suivant aussi marche.
+```{r}
+mali_list[["population"]][, "Total"]
+```
 
 ## Conclusion
 
@@ -1056,12 +1106,5 @@ knitr::asis_output("\\normalsize")
 
 Avec une introduction à ces objets, on pose les bases de l'analyse de données dans R.
 Bien que, pour des raisons pédagogiques, chaque objet ait été présenté par rapport aux limites du précédent, ils demeurent tous utiles, chacun avec ses avantages (compétitifs).
-Il revient au data scientist de connaître quand, où et comment faire intervenir un au lieu des autres.
-Contribuer à vous outiller pour faire ces choix - parmi tant d'autres - est l'un des objectifs de ce cours.
-
-
-
-
-
-
-
+Il revient au *data scientist* de connaître quand, où et comment faire intervenir un au lieu des autres.
+Contribuer à vous outiller pour faire ces choix - parmi tant d'autres - est l'un des objectifs de ce cours / cet ouvrage.

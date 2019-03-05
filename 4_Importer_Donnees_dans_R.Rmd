@@ -1,0 +1,528 @@
+# Importer des données dans R
+
+## Introduction
+
+### Objectif de ce cours
+
+Dans le flux de travail (*workflow*) du _data scientist_, l'importation constitue très généralement le point de départ.
+Les données ne sont toujours disponibles sous le format qui se prête à l'analyse souhaitée.
+Elles peuvent exister dans un classeur Excel sous format _xls_, _xlsx_ ou _csv_.
+Elles peuvent aussi se trouver dans une base de données relationnelles, où diverses tables sont connectées entres elles.
+Elles peuvent même être disponibles sur Internet (page Wikipédia, Twitter, Facebook, etc.)
+Dans tous les cas, il revient au _data scientist_ de connaitre la techique appropriée pour les importer dans son environnement de travail, les organiser et les analyser selon l'objectif qu'il s'assigne.
+
+Dans ce chapitre, nous allons voir quelques techniques d'importation de données dans R.
+
+### Que nous faut-il?
+
+- R (évidemment) et RStudio (de préférence) installés sur le poste de travail
+
+- les fichiers fournis dans le cadre du module
+
+- un connexion Internet pour illustrer les exemples d'importation depuis la toile
+
+### Données
+
+Nous allons illustrer ce chapitre avec une compilation de données tirées des [Recensements Généraux de la Population et de l'Habitat au Mali, menés respectivement en 1976, 1987, 1998 et 2009](https://www.malikunnafoni.com).
+Le tableau suivant affiche un aperçu (l'année 1976 seulement) des données dont il est question.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+readr::read_csv("https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/4_Importer_Donnees_dans_R/data/RGPH_MLI.csv") %>% 
+  select(-c(Homme, Femme, Urbain, Rural, Total)) %>% 
+  head(n = 19) %>% 
+  knitr::kable(caption = 'Un aperçu des données démographiques')
+```
+
+Notre fichier se nomme: *"RGPH_MLI"*.
+Nous l'avons enregistré sous divers formats, qui seront traduits par diverses extensions (.csv, .txt, .xls, .xlsx, etc).
+Nous allons les ouvrir progressivement.
+
+Pour permettre l'exécution des codes depuis n'importe quel poste de travail, nous allons utiliser la plateforme [Github](https://github.com/fousseynoubah/dswr_slides/tree/master/4_Importer_Donnees_dans_R/data).
+Toutefois, il convient de noter que les codes seront tout aussi valides que si l'on accède aux fichiers au niveau local.
+
+Nous allons spécifier la source.
+```{r}
+masource <- "https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/4_Importer_Donnees_dans_R/data/"
+```
+A partir de celle-ci, nous allons opérer comme au niveau local (à condition d'avoir une connexion Internet active bie sûr).
+Pour accéder à un fichier quelconque, `monfichier`, disponible dans le dossier, il suffit d'orienter sa requête vers:
+```{r}
+paste0(masource, "monfichier" )
+```
+
+## Fichiers plats: cas du format *CSV*
+
+### Aperçu
+
+Comme son nom l'indique, le format *CSV* (*Comma Separated Values*) est un format où les valeurs de données rectangulaires sont séparées par une virgule (`,`).
+Cette règle de base est commode pour les anglophones, pour lesquels les décimales viennent après un point (`.`) et non après une virgule.
+Par contre, pour les francophones, le format de sauvegarde de données réquiert une règle différente.
+Pour ne pas confondre le séparateur de valeurs et la virgule de la décimale, l'on utilise le point-virgule (`;`).
+Nous verrons les fonctions qui conviennent pour chacun de ces deux formats.
+
+### Importation avec _R-base_: `read.csv`
+
+La version d'installation de R, couramment appelée *R-base* (ou *base-R*), vient avec un ensemble de fonctions qui sont disponibles par défaut.
+Parmi celles-ci: `read.csv`.
+L'importation d'un fichier *csv* avec _R-base_ se fait de la façon suivante:
+```{r}
+RGPH_MLI <- read.csv(
+  # Spécifier le nom du fichier
+  file = paste0(masource, "RGPH_MLI.csv"), 
+  # Déclarer la première ligne comme nom de colonne/variable
+  header = TRUE, 
+  # Déclarer la virgule comme séparateur
+  sep = ",", 
+  # Ne pas systématiquement transformer les caractères en facteurs.
+  stringsAsFactors = TRUE 
+)
+```
+Les éléments à l'intérieur de la fonction (`file`, `header`, `sep`, `stringsAsFactors`, etc.) sont les arguments de la fonction `read.csv`.
+Celles-ci ont des valeurs défaut, qui peuvent toutefois être altérer par l'utilisateur.
+Pour voir ces valeurs par défaut, consulter la documentation intégrer à R en entrant:
+```{r, eval=FALSE}
+?read.csv
+```
+Regardons la structure de nos données.
+```{r}
+str(RGPH_MLI)
+```
+
+
+### Importation avec _R-base_: `read.csv2`
+
+Avec read.csv déjà, le séparateur peut être spécifié pour permettre la prise en charge des fichiers qui ont point-virgule comme séparateur (`;`).
+Toutefois, il existe une fonction bâtie au dessus de celle-ci, qui prend en charge les spécificités de tels fichiers.
+Il s'agit de `read.cvs2`.
+```{r}
+RGPH_MLI2 <- read.csv2(
+  # Spécifier le nom du fichier
+  file = paste0(masource, "RGPH_MLI2.csv"), 
+  # Déclarer la première ligne comme nom de colonne/variable
+  header = TRUE, 
+  # Déclarer le point-virgule comme séparateur
+  sep = ";", 
+  # Ne pas systématiquement transformer les caractères en facteurs.
+  stringsAsFactors = TRUE 
+)
+```
+
+Ici aussi, les valeurs par défaut des arguments sont maintenues.
+Pour en savoir plus sur `read.csv2`, explorer la documentation R en tapant:
+```{r, eval=FALSE}
+?read.csv2
+```
+
+Regardons la structure de ces données aussi.
+```{r}
+str(RGPH_MLI2)
+```
+  
+
+### Importation avec `readr`
+
+#### Aperçu
+
+[*readr*](https://readr.tidyverse.org/) est un package créé par [Hadley Wickham](http://hadley.nz/).
+Ses fonctions sont similaires à celles de `read.csv` et de `read.csv2`.
+`readr` présente l'avantage de faire partie du [*tidyverse*](https://www.tidyverse.org/).
+Il travaille harmonieusement avec les autres packages de cet écosystème.
+Sa syntaxe est très simple: pour importer un fichier csv, on utilise `read_csv` au lieu de `read.csv`.
+Cette logique est valable pour d'autres formats, dont il suffit seulement d'ajouter l'extension après le tiret d'en bas ("_").
+Ainsi, on a :
+
+- `read_csv2`: pour les fichiers *CSV* ayant le point-virgule (`;`) comme séparateur;
+
+- `read_tsv`: pour les fichiers avec les valeurs séparées par des tabulations;
+
+- `read_fwf`: pour les fichiers avec les valeurs séparées par des espaces fixes.
+
+#### `read_csv` et `read_csv2`
+
+Ouvrons le fichier csv avec `read_csv`.
+```{r, message=FALSE, warning=FALSE}
+# Chargement du package "readr"
+library(readr) 
+# Importation du fichier
+RGPH_MLI <- read_csv(
+  # Spécifier le nom du fichier
+  file = paste0(masource, "RGPH_MLI.csv"), 
+  # Déclarer la première ligne comme nom de colonne/variable
+  col_names = TRUE, 
+  # Indiquer la valeur à attribuer aux cellules vides 
+  na = "", 
+  # Nombre de lignes à ne pas importer, partant du ficher
+  skip = 0
+  )
+```
+et `read_csv2`
+```{r, message=FALSE, warning=FALSE}
+# Chargement du package "readr"
+library(readr) 
+# Importation du fichier
+RGPH_MLI <- read_csv2(
+  # Spécifier le nom du fichier
+  file = paste0(masource, "RGPH_MLI2.csv"), 
+  # Déclarer la première ligne comme nom de colonne/variable
+  col_names = TRUE, 
+  # Indiquer la valeur à attribuer aux cellules vides 
+  na = "", 
+  # Nombre de lignes à ne pas importer, partant du ficher
+  skip = 0
+  )
+
+```
+
+#### Généralisation
+
+`read_csv` est un cas spécifique d'une fonction généraliste qui couvre un large spectre de formats : `read_delim`.
+```{r, message=FALSE, warning=FALSE}
+# Chargement du package "readr"
+library(readr) 
+# Importation du fichier
+RGPH_MLI <- read_delim(
+  # Spécifier le nom du fichier
+  file = paste0(masource, "RGPH_MLI.csv"), 
+  # Indiquer le séparateur
+  delim = ","
+  )
+
+RGPH_MLI2 <- read_delim(
+  # Spécifier le nom du fichier
+  file = paste0(masource, "RGPH_MLI2.csv"), 
+  # Indiquer le séparateur
+  delim = ";"
+  )
+```
+Avec `read_delim`, divers format de fichiers peuvent être importés, à partir du moment où le séparateur est bien spécifié: 
+
+- virgule (`,`);
+
+- point-virgule (`;`);
+
+- tabulation (`\t`);
+
+- barre verticale (`|`);
+
+- espace (" "); etc.
+
+Les autres arguments peuvent être ajustés pour prendre en compte les spécificités des données.
+Toutefois, il faut noter que `read_delim` est assez intuitive pour détecter le type des données (entiers, réels, caractères, etc.).
+Elle inspecte jusqu'à 1000 lignes (et peut aller jusqu'à la nième ligne) pour déterminer le type de données d'une colonne.
+
+## Excel: `xls`, `xlsx`
+
+### Aperçu
+
+Faisant partie de la suite MS Office, Excel est l'un des tableurs les plus populaires.
+Il est difficile de l'exclure du _workflow_ du _data scientist_ car c'est l'outil de prédilection dans beaucoup de domaines et secteurs (entreprises, administrations) en matière d'organisation et de sauvegarde des données .
+Les _data scientist_ opérant exclusivement sur des bases de données constituent une niche.
+Pour la majorité, amenée à interagir avec des spécialistes d'autres domaines, il est important de pourvoir disposer de techniques pour importer les données collectées et organisées par leurs soins dans Excel.
+
+Dans R, plusieurs solutions existent. 
+Nous verrons deux packages: 
+
+- [*xlsx*](https://github.com/dragua/xlsx); et 
+
+- [*readxl*](https://readxl.tidyverse.org/).
+
+### Importation avec `xlsx`: `read.xlsx`
+
+Le package `xlsx` offre deux fonctions majeures pour lire des formats `xls` et `xlsx`. 
+Il s'agit de `read.xlsx` et `read.xlsx2` (plus rapide sur les fichiers lourds).
+
+Pour le format `xls`...
+```{r}
+# Chargement du package "xlsx"
+library(xlsx)
+
+# Ne pouvant accéder au fichier depuis le net,
+# il faut le télécharger localement d'abord.
+library(downloader)
+download(url = paste0(masource, "RGPH_MLI.xls?raw=true"), 
+         dest = "RGPH_MLI.xls", 
+         mode="wb")
+
+# Exemple avec fichier Excel 97-2003
+RGPH_MLI_xls <- read.xlsx( 
+  # Spécifier le nom du fichier (format "xls")
+  file = "RGPH_MLI.xls", 
+  # Indiquer le numéro d'ordre de l'onglet à importer
+  sheetIndex = 1, 
+  #  sheetName = "RGPH_MLI" # indiquer le nom de l'onglet (alternative au numéro d'ordre)
+  # Déclarer la première ligne comme nom de colonne/variable
+  header = TRUE
+)
+```
+...et pour le format `xlsx`
+```{r}
+# Chargement du package "xlsx"
+library(xlsx)
+
+# Ne pouvant accéder au fichier depuis le net,
+# il faut le télécharger localement d'abord.
+library(downloader)
+download(url = paste0(masource, "RGPH_MLI.xlsx?raw=true"), 
+         dest = "RGPH_MLI.xlsx", 
+         mode="wb")
+
+# Exemple avec fichier Excel 2007-plus
+RGPH_MLI_xlsx <- read.xlsx( 
+  # Spécifier le nom du fichier  (format "xlsx")
+  file = "RGPH_MLI.xlsx", 
+  # Indiquer le numéro d'ordre de l'onglet à importer
+  sheetIndex = 1, 
+  #  sheetName = "RGPH_MLI" # indiquer le nom de l'onglet (alternative au numéro d'ordre)
+  # Déclarer la première ligne comme nom de colonne/variable
+  header = TRUE
+)
+```
+
+
+### Importation avec `readxl`: `read_excel`
+
+Le package `readxl` est bâti sur les mêmes principes que [`readr`](https://www.tidyverse.org/).
+Il permet d'importer des formats Excel avec la même logique syntaxique.
+Il contient des fonctions spécifiques, `read_xls` et `read_xlsx`, et une fonction généraliste, `read_excel`.
+
+```{r, message=FALSE, warning=FALSE}
+# Chargement du package "readxl"
+library(readxl) 
+
+# Exemple avec fichier Excel 97-2003
+RGPH_MLI_xls <- read_excel(
+# Spécifier le nom du fichier (format "xls")
+path = "RGPH_MLI.xls", 
+# indiquer le nom de l'onglet ou le numéro d'ordre, les deux sont acceptés
+sheet = "RGPH_MLI", 
+# Déclarer la première ligne comme nom de colonne/variable
+col_names = TRUE
+)
+
+# Exemple avec fichier Excel 2007-plus
+RGPH_MLI_xlsx <- read_excel(
+# Spécifier le nom du fichier (format "xls")
+path = "RGPH_MLI.xlsx", 
+# indiquer le nom de l'onglet ou le numéro d'ordre, les deux sont acceptés
+sheet = "RGPH_MLI", 
+# Déclarer la première ligne comme nom de colonne/variable
+col_names = TRUE
+)
+```
+
+```{r, echo=FALSE}
+unlink("RGPH_MLI.xls", recursive = TRUE)
+unlink("RGPH_MLI.xlsx", recursive = TRUE)
+```
+
+## Formats issues d'autres logiciels statistiques: `Stata` et `SPSS`
+
+### Aperçu
+
+Le data scientist peut aussi être amené à travailler sur des données sauvegardées à partir d'autres programmes de traitement de données tels que `Stata`, `SPSS`, `SAS`, etc.
+Dans R, les solutions sont nombreuses.
+Ici, nous allons voir deux packages: `foreign` et `haven`.
+
+
+## Importation avec `foreign`
+
+Le package [`foreign`](https://cran.r-project.org/web/packages/foreign/index.html) permet d'ouvrir des fichiers `dta`, issus de `Stata`...
+```{r, message=FALSE, warning=FALSE}
+# Chargement du package "foreign"
+library(foreign) 
+
+# Ne pouvant accéder au fichier depuis le net,
+# il faut le télécharger localement d'abord.
+library(downloader)
+download(url = paste0(masource, "RGPH_MLI.dta?raw=true"), 
+         dest = "RGPH_MLI.dta", 
+         mode="wb")
+
+# Importation
+RGPH_MLI_stata <- read.dta(
+  # Spécifier le nom du fichier
+  file = "RGPH_MLI.dta",
+  # Conversion des dates du format Stata au format R (pour dire simple)
+  convert.dates = TRUE, 
+  # Conversion des étiquettes de variables catégorielles en facteurs
+  convert.factors = TRUE, 
+  # Convertir "_" de Stata en "." dans R (surtout nom des variables)
+  convert.underscore = FALSE, 
+  # Donner ou pas une valeur particulière aux cellules vides?
+  missing.type = FALSE, 
+  # Si oui, cet argument indique si cette valeur est présente ou pas
+  warn.missing.labels = TRUE 
+)
+```
+et des fichiers `sav`, issus de `SPSS`.
+```{r, message=FALSE, warning=FALSE}
+# Chargement du package "foreign"
+library(foreign) 
+
+# Ne pouvant accéder au fichier depuis le net,
+# il faut le télécharger localement d'abord.
+library(downloader)
+download(url = paste0(masource, "RGPH_MLI.sav?raw=true"), 
+         dest = "RGPH_MLI.sav", 
+         mode="wb")
+
+# Importation
+
+RGPH_MLI_spss <- read.spss(
+  # Spécifier le nom du fichier
+  file = "RGPH_MLI.sav", 
+  # Conservation des étiquettes de variables catégorielles (facteurs)
+  use.value.labels = TRUE, 
+  # Importation en data frame au lieu de matrice
+  to.data.frame = TRUE 
+  )
+```
+
+```{r, echo=FALSE}
+unlink("RGPH_MLI.dta", recursive = TRUE)
+unlink("RGPH_MLI.sav", recursive = TRUE)
+```
+
+## Base de données relationnelles
+
+### Aperçu
+
+R peut aussi importer des données depuis une base de données relationnelles.
+Celle-ci peut aussi bien être locale, installée sur le poste de travail, que distante, installée sur un serveur accessible via Internet.
+Nous allons illustrer ici avec une base locale.
+
+Les packages varient d'un type de base à un autre: 
+
+- *RMySQL* pour MySQL, 
+
+- *RPostgreSQL* pour PostgreSQL
+
+- *RSQLite*: pour SQLite
+
+- etc.
+
+Pour plus de détails, consulter cette [page](https://db.rstudio.com/getting-started/).
+
+### Importation avec *RODBC*
+
+Commençons par ouvrir le chaine de communication entre R et la base via ODBC (*Open Data Base Connectivity*).
+
+```{r}
+# Chargement du package "RODBC"
+library(RODBC) 
+dswr <- odbcConnect(
+  # Indiquer le nom de la chaîne de connection 
+  dsn = "dswr", 
+  # Indiquer l'identifiant (s'il y'en a)
+  uid = "", 
+  # Indiquer le mot de passe (s'il y'en a)
+  pwd = "" 
+  )
+```
+
+Maintenant, importons la table qui nous intéresse, *RGPH_MLI*. Pour celà, deux méthodes sont possibles.
+```{r}
+# Méthode 1: extraction de la table
+RGPH_MLI_rodbc_tbl <- sqlFetch(
+  # Indiquer le nom de la chaîne de connection
+  dswr, 
+  # Indiquer le nom de la table
+  sqtable = "RGPH_MLI"
+  ) 
+
+# Méthode 2: requête SQL
+RGPH_MLI_rodbc_sql <- sqlQuery(
+  # Indiquer le nom de la chaîne de connection
+  channel = dswr, 
+  # Selectionner toutes les colonnes et lignes de la table "RGPH_MLI"
+  query = "SELECT * FROM RGPH_MLI;"
+  )
+```
+Une fois les extractions de données finie, il faut penser à briser la chaîne de connection, fermer la porte.
+```{r}
+odbcClose(dswr)
+```
+
+### Importation avec `odbc`
+
+Une autre solution est de passe par le package `odbc`.
+```{r}
+# Chargement du package "odbc"
+library(odbc)
+# Chargement du package "DBI"
+library(DBI) 
+
+# Importation
+dswr <- dbConnect(
+  # Indiquer le package utilisé par l'interfacee "DBI"
+  odbc::odbc(), 
+  # Indiquer le nom de la chaîne de connection
+  "dswr"
+  )
+```
+Comme avant, on peut importer la table d'intérêt par deux méthodes.
+```{r}
+# Méthode 1: extraction de la table
+RGPH_MLI_odbc <- dbReadTable(
+  # Indiquer le nom de la chaîne de connection
+  conn = dswr, 
+  # Indiquer le nom de la table indiquer
+  name = "RGPH_MLI"
+  ) 
+
+# Méthode 2: requête SQL
+RGPH_MLI_odbc_sql <- dbGetQuery(
+  # Indiquer le nom de la chaîne de connection
+  conn = dswr, 
+  # Selectionner toutes les colonnes et lignes de la table "RGPH_MLI"
+  "SELECT * FROM RGPH_MLI;"
+  )
+```
+Comme avant, en bon invité, on ferme la porte en sortant.
+```{r}
+dbDisconnect(dswr)
+```
+
+## Depuis Internet
+
+### Aperçu
+
+Les données peuvent aussi être tirées de la toile mondiale.
+Les outils disponibles dans R varient selon le type de données.
+
+### Chargement de fichier CSV
+
+Pour un fichier CSV, le chargement dans l'environnement R se fait de la même façon que pour des fichiers locaux.
+```{r, message=FALSE, warning=FALSE}
+url <- "https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/4_Importer_Donnees_dans_R/data/RGPH_MLI.csv"
+RGPH_MLI_csv_online <- read.csv(url)
+# ou
+RGPH_MLI_csv_online <- read_csv(url)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

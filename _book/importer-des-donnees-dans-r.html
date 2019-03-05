@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapitre 4 Importer des données dans R | Data Science avec R</title>
+  <meta name="description" content="Chapitre 4 Importer des données dans R | Data Science avec R">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapitre 4 Importer des données dans R | Data Science avec R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 4 Importer des données dans R | Data Science avec R" />
+  
+  
+  
+
+<meta name="author" content="Fousseynou Bah">
+
+
+<meta name="date" content="2019-03-05">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="sexprimer-dans-r.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science avec R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#un-autre-livre-sur-la-data-science-vraiment"><i class="fa fa-check"></i><b>1.1</b> Un autre livre sur la <em>data science</em>! Vraiment?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#la-data-science"><i class="fa fa-check"></i><b>1.2</b> La <em>data science</em></a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#le-data-scientist"><i class="fa fa-check"></i><b>1.3</b> Le <em>data scientist</em></a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#r"><i class="fa fa-check"></i><b>1.4</b> R</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#quest-ce-que-cest-que-r"><i class="fa fa-check"></i><b>1.4.1</b> Qu’est-ce que c’est que R?</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#pourquoi-r"><i class="fa fa-check"></i><b>1.4.2</b> Pourquoi R?</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#r-dans-lecosysteme-des-langages"><i class="fa fa-check"></i><b>1.4.3</b> R dans l’écosystème des langages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#rstudio"><i class="fa fa-check"></i><b>1.5</b> RStudio</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#quest-ce-que-cest-que-rstudio"><i class="fa fa-check"></i><b>1.5.1</b> Qu’est-ce que c’est que RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="objets-dans-r.html"><a href="objets-dans-r.html"><i class="fa fa-check"></i><b>2</b> Objets dans R</a><ul>
+<li class="chapter" data-level="2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-dobjet-dans-r"><i class="fa fa-check"></i><b>2.2</b> La notion d’objet dans R</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-objet"><i class="fa fa-check"></i><b>2.2.1</b> Qu’est-ce qu’un objet?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oranges-et-bananes"><i class="fa fa-check"></i><b>2.2.2</b> Oranges et bananes</a></li>
+<li class="chapter" data-level="2.2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#ce-qui-se-ressemblent-sassemblent"><i class="fa fa-check"></i><b>2.2.3</b> Ce qui se ressemblent s’assemblent</a></li>
+<li class="chapter" data-level="2.2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quelques-objets-dans-r"><i class="fa fa-check"></i><b>2.2.4</b> Quelques objets dans R</a></li>
+<li class="chapter" data-level="2.2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-de-classe-et-de-type"><i class="fa fa-check"></i><b>2.2.5</b> La notion de classe et de type</a></li>
+<li class="chapter" data-level="2.2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vers-dautres-types-dobjets"><i class="fa fa-check"></i><b>2.2.6</b> Vers d’autres types d’objets</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vecteurs"><i class="fa fa-check"></i><b>2.3</b> Vecteurs</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-vecteur"><i class="fa fa-check"></i><b>2.3.1</b> Qu’est-ce qu’un vecteur?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#creons-en-des-vecteurs"><i class="fa fa-check"></i><b>2.3.2</b> Créons-en, des vecteurs!</a></li>
+<li class="chapter" data-level="2.3.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vrai-pour-un-vrai-pour-plusieurs"><i class="fa fa-check"></i><b>2.3.3</b> Vrai pour un, vrai pour plusieurs</a></li>
+<li class="chapter" data-level="2.3.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#nommer-les-elements-dun-vecteur"><i class="fa fa-check"></i><b>2.3.4</b> Nommer les éléments d’un vecteur</a></li>
+<li class="chapter" data-level="2.3.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-vecteurs"><i class="fa fa-check"></i><b>2.3.5</b> Opérations sur vecteurs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#matrices"><i class="fa fa-check"></i><b>2.4</b> Matrices</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-ensemble-de-vecteurs"><i class="fa fa-check"></i><b>2.4.1</b> La matrice, un ensemble de vecteurs</a></li>
+<li class="chapter" data-level="2.4.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-objet-bidimensionnel"><i class="fa fa-check"></i><b>2.4.2</b> La matrice, un objet bidimensionnel</a></li>
+<li class="chapter" data-level="2.4.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-matrices"><i class="fa fa-check"></i><b>2.4.3</b> Opérations sur matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#data-frames"><i class="fa fa-check"></i><b>2.5</b> <em>Data frames</em></a><ul>
+<li class="chapter" data-level="2.5.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-data-frame-au-dela-de-la-matrice"><i class="fa fa-check"></i><b>2.5.1</b> Le <em>data frame</em>, au-délà de la matrice</a></li>
+<li class="chapter" data-level="2.5.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame"><i class="fa fa-check"></i><b>2.5.2</b> Opérations sur <em>data frame</em></a></li>
+<li class="chapter" data-level="2.5.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-meilleur-reste-a-venir"><i class="fa fa-check"></i><b>2.5.3</b> Le meilleur reste à venir</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#listes"><i class="fa fa-check"></i><b>2.6</b> Listes</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oublier-lordre-et-la-structure"><i class="fa fa-check"></i><b>2.6.1</b> Oublier l’ordre et la structure</a></li>
+<li class="chapter" data-level="2.6.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#un-contenant-de-contenants"><i class="fa fa-check"></i><b>2.6.2</b> Un contenant de contenants</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="objets-dans-r.html"><a href="objets-dans-r.html#conclusion"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#et-ce-nest-que-le-debut"><i class="fa fa-check"></i><b>2.7.1</b> Et ce n’est que le début</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html"><i class="fa fa-check"></i><b>3</b> S’exprimer dans R</a><ul>
+<li class="chapter" data-level="3.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#objectif"><i class="fa fa-check"></i><b>3.1.1</b> Objectif</a></li>
+<li class="chapter" data-level="3.1.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#outils"><i class="fa fa-check"></i><b>3.1.2</b> Outils</a></li>
+<li class="chapter" data-level="3.1.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#donnees"><i class="fa fa-check"></i><b>3.1.3</b> Données</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-declarations"><i class="fa fa-check"></i><b>3.2</b> Les déclarations</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#formulations-simples"><i class="fa fa-check"></i><b>3.2.1</b> Formulations simples</a></li>
+<li class="chapter" data-level="3.2.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-additifs-et"><i class="fa fa-check"></i><b>3.2.2</b> Critères additifs: <em>et</em> = <code>&amp;</code></a></li>
+<li class="chapter" data-level="3.2.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-alternatifs-ou"><i class="fa fa-check"></i><b>3.2.3</b> Critères alternatifs: <em>ou</em> = <code>|</code></a></li>
+<li class="chapter" data-level="3.2.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-opposes-contraire"><i class="fa fa-check"></i><b>3.2.4</b> Critères opposés: <em>contraire</em> = <code>!</code></a></li>
+<li class="chapter" data-level="3.2.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#conditionalites"><i class="fa fa-check"></i><b>3.2.5</b> Conditionalités</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-boucles"><i class="fa fa-check"></i><b>3.3</b> Les boucles</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-solution-aux-taches-repetititives"><i class="fa fa-check"></i><b>3.3.1</b> La solution aux tâches répétititives</a></li>
+<li class="chapter" data-level="3.3.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-fonction-for"><i class="fa fa-check"></i><b>3.3.2</b> La fonction <em>for</em></a></li>
+<li class="chapter" data-level="3.3.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-vecteurs"><i class="fa fa-check"></i><b>3.3.3</b> Application sur vecteurs</a></li>
+<li class="chapter" data-level="3.3.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-matrices"><i class="fa fa-check"></i><b>3.3.4</b> Application sur matrices</a></li>
+<li class="chapter" data-level="3.3.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-data-frame"><i class="fa fa-check"></i><b>3.3.5</b> Application sur <em>data frame</em></a></li>
+<li class="chapter" data-level="3.3.6" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-listes"><i class="fa fa-check"></i><b>3.3.6</b> Application sur listes</a></li>
+<li class="chapter" data-level="3.3.7" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#arretons-nous-un-instant"><i class="fa fa-check"></i><b>3.3.7</b> Arrêtons-nous un instant!</a></li>
+<li class="chapter" data-level="3.3.8" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#paradigme-split-apply-combine-illustration-avec-lapply"><i class="fa fa-check"></i><b>3.3.8</b> Paradigme <em>split-apply-combine</em>: illustration avec <em>lapply</em></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-fonctions"><i class="fa fa-check"></i><b>3.4</b> Les fonctions</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#lepine-dorsale-de-r"><i class="fa fa-check"></i><b>3.4.1</b> L’épine dorsale de R</a></li>
+<li class="chapter" data-level="3.4.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#retour-sur-quelques-fonctions"><i class="fa fa-check"></i><b>3.4.2</b> Retour sur quelques fonctions</a></li>
+<li class="chapter" data-level="3.4.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#pourquoi-faire-une-fonction"><i class="fa fa-check"></i><b>3.4.3</b> Pourquoi faire une fonction?</a></li>
+<li class="chapter" data-level="3.4.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-basiques-de-la-fonction"><i class="fa fa-check"></i><b>3.4.4</b> Les basiques de la fonction</a></li>
+<li class="chapter" data-level="3.4.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#fonctions-et-boucles"><i class="fa fa-check"></i><b>3.4.5</b> Fonctions et boucles</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html"><i class="fa fa-check"></i><b>4</b> Importer des données dans R</a><ul>
+<li class="chapter" data-level="4.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#objectif-de-ce-cours"><i class="fa fa-check"></i><b>4.1.1</b> Objectif de ce cours</a></li>
+<li class="chapter" data-level="4.1.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#que-nous-faut-il"><i class="fa fa-check"></i><b>4.1.2</b> Que nous faut-il?</a></li>
+<li class="chapter" data-level="4.1.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#donnees-1"><i class="fa fa-check"></i><b>4.1.3</b> Données</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#fichiers-plats-cas-du-format-csv"><i class="fa fa-check"></i><b>4.2</b> Fichiers plats: cas du format <em>CSV</em></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu"><i class="fa fa-check"></i><b>4.2.1</b> Aperçu</a></li>
+<li class="chapter" data-level="4.2.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv"><i class="fa fa-check"></i><b>4.2.2</b> Importation avec <em>R-base</em>: <code>read.csv</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv2"><i class="fa fa-check"></i><b>4.2.3</b> Importation avec <em>R-base</em>: <code>read.csv2</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readr"><i class="fa fa-check"></i><b>4.2.4</b> Importation avec <code>readr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#excel-xls-xlsx"><i class="fa fa-check"></i><b>4.3</b> Excel: <code>xls</code>, <code>xlsx</code></a><ul>
+<li class="chapter" data-level="4.3.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-2"><i class="fa fa-check"></i><b>4.3.1</b> Aperçu</a></li>
+<li class="chapter" data-level="4.3.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-xlsx-read.xlsx"><i class="fa fa-check"></i><b>4.3.2</b> Importation avec <code>xlsx</code>: <code>read.xlsx</code></a></li>
+<li class="chapter" data-level="4.3.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readxl-read_excel"><i class="fa fa-check"></i><b>4.3.3</b> Importation avec <code>readxl</code>: <code>read_excel</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#formats-issues-dautres-logiciels-statistiques-stata-et-spss"><i class="fa fa-check"></i><b>4.4</b> Formats issues d’autres logiciels statistiques: <code>Stata</code> et <code>SPSS</code></a><ul>
+<li class="chapter" data-level="4.4.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-3"><i class="fa fa-check"></i><b>4.4.1</b> Aperçu</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-foreign"><i class="fa fa-check"></i><b>4.5</b> Importation avec <code>foreign</code></a></li>
+<li class="chapter" data-level="4.6" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#base-de-donnees-relationnelles"><i class="fa fa-check"></i><b>4.6</b> Base de données relationnelles</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-4"><i class="fa fa-check"></i><b>4.6.1</b> Aperçu</a></li>
+<li class="chapter" data-level="4.6.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-rodbc"><i class="fa fa-check"></i><b>4.6.2</b> Importation avec <em>RODBC</em></a></li>
+<li class="chapter" data-level="4.6.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-odbc"><i class="fa fa-check"></i><b>4.6.3</b> Importation avec <code>odbc</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#depuis-internet"><i class="fa fa-check"></i><b>4.7</b> Depuis Internet</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-5"><i class="fa fa-check"></i><b>4.7.1</b> Aperçu</a></li>
+<li class="chapter" data-level="4.7.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#chargement-de-fichier-csv"><i class="fa fa-check"></i><b>4.7.2</b> Chargement de fichier CSV</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publié avec bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science avec R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="importer-des-donnees-dans-r" class="section level1">
+<h1><span class="header-section-number">Chapitre 4</span> Importer des données dans R</h1>
+<div id="introduction-3" class="section level2">
+<h2><span class="header-section-number">4.1</span> Introduction</h2>
+<div id="objectif-de-ce-cours" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Objectif de ce cours</h3>
+<p>Dans le flux de travail (<em>workflow</em>) du <em>data scientist</em>, l’importation constitue très généralement le point de départ. Les données ne sont toujours disponibles sous le format qui se prête à l’analyse souhaitée. Elles peuvent exister dans un classeur Excel sous format <em>xls</em>, <em>xlsx</em> ou <em>csv</em>. Elles peuvent aussi se trouver dans une base de données relationnelles, où diverses tables sont connectées entres elles. Elles peuvent même être disponibles sur Internet (page Wikipédia, Twitter, Facebook, etc.) Dans tous les cas, il revient au <em>data scientist</em> de connaitre la techique appropriée pour les importer dans son environnement de travail, les organiser et les analyser selon l’objectif qu’il s’assigne.</p>
+<p>Dans ce chapitre, nous allons voir quelques techniques d’importation de données dans R.</p>
+</div>
+<div id="que-nous-faut-il" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Que nous faut-il?</h3>
+<ul>
+<li><p>R (évidemment) et RStudio (de préférence) installés sur le poste de travail</p></li>
+<li><p>les fichiers fournis dans le cadre du module</p></li>
+<li><p>un connexion Internet pour illustrer les exemples d’importation depuis la toile</p></li>
+</ul>
+</div>
+<div id="donnees-1" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Données</h3>
+<p>Nous allons illustrer ce chapitre avec une compilation de données tirées des <a href="https://www.malikunnafoni.com">Recensements Généraux de la Population et de l’Habitat au Mali, menés respectivement en 1976, 1987, 1998 et 2009</a>. Le tableau suivant affiche un aperçu (l’année 1976 seulement) des données dont il est question.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-228">Table 4.1: </span>Un aperçu des données démographiques</caption>
+<thead>
+<tr class="header">
+<th align="right">annee</th>
+<th align="right">id</th>
+<th align="left">groupage</th>
+<th align="right">Homme-Urbain</th>
+<th align="right">Homme-Rural</th>
+<th align="right">Femme-Urbain</th>
+<th align="right">Femme-Rural</th>
+<th align="left">source</th>
+<th align="left">office</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1976</td>
+<td align="right">1</td>
+<td align="left">0-4</td>
+<td align="right">100416</td>
+<td align="right">486599</td>
+<td align="right">99453</td>
+<td align="right">489941</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="even">
+<td align="right">1976</td>
+<td align="right">2</td>
+<td align="left">5-9</td>
+<td align="right">80816</td>
+<td align="right">411456</td>
+<td align="right">82665</td>
+<td align="right">400186</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="odd">
+<td align="right">1976</td>
+<td align="right">3</td>
+<td align="left">10-14</td>
+<td align="right">60647</td>
+<td align="right">282160</td>
+<td align="right">65075</td>
+<td align="right">256884</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="even">
+<td align="right">1976</td>
+<td align="right">4</td>
+<td align="left">15-19</td>
+<td align="right">58662</td>
+<td align="right">249945</td>
+<td align="right">60765</td>
+<td align="right">272743</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="odd">
+<td align="right">1976</td>
+<td align="right">5</td>
+<td align="left">20-24</td>
+<td align="right">46239</td>
+<td align="right">172152</td>
+<td align="right">47487</td>
+<td align="right">218355</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="even">
+<td align="right">1976</td>
+<td align="right">6</td>
+<td align="left">25-29</td>
+<td align="right">36390</td>
+<td align="right">163705</td>
+<td align="right">43143</td>
+<td align="right">223875</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="odd">
+<td align="right">1976</td>
+<td align="right">7</td>
+<td align="left">30-34</td>
+<td align="right">30895</td>
+<td align="right">154834</td>
+<td align="right">33504</td>
+<td align="right">190446</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="even">
+<td align="right">1976</td>
+<td align="right">8</td>
+<td align="left">35-39</td>
+<td align="right">27926</td>
+<td align="right">133457</td>
+<td align="right">28505</td>
+<td align="right">137444</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="odd">
+<td align="right">1976</td>
+<td align="right">9</td>
+<td align="left">40-44</td>
+<td align="right">22479</td>
+<td align="right">116947</td>
+<td align="right">22007</td>
+<td align="right">125822</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="even">
+<td align="right">1976</td>
+<td align="right">10</td>
+<td align="left">45-49</td>
+<td align="right">17864</td>
+<td align="right">93466</td>
+<td align="right">15445</td>
+<td align="right">83008</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="odd">
+<td align="right">1976</td>
+<td align="right">11</td>
+<td align="left">50-54</td>
+<td align="right">14692</td>
+<td align="right">89927</td>
+<td align="right">13238</td>
+<td align="right">90369</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="even">
+<td align="right">1976</td>
+<td align="right">12</td>
+<td align="left">55-59</td>
+<td align="right">10659</td>
+<td align="right">66919</td>
+<td align="right">8928</td>
+<td align="right">53989</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="odd">
+<td align="right">1976</td>
+<td align="right">13</td>
+<td align="left">60-64</td>
+<td align="right">8630</td>
+<td align="right">67990</td>
+<td align="right">9337</td>
+<td align="right">72129</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="even">
+<td align="right">1976</td>
+<td align="right">14</td>
+<td align="left">65-69</td>
+<td align="right">5043</td>
+<td align="right">35236</td>
+<td align="right">5032</td>
+<td align="right">31800</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="odd">
+<td align="right">1976</td>
+<td align="right">15</td>
+<td align="left">70-74</td>
+<td align="right">3460</td>
+<td align="right">28430</td>
+<td align="right">4610</td>
+<td align="right">33137</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="even">
+<td align="right">1976</td>
+<td align="right">16</td>
+<td align="left">75-79</td>
+<td align="right">2084</td>
+<td align="right">15065</td>
+<td align="right">2650</td>
+<td align="right">14080</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="odd">
+<td align="right">1976</td>
+<td align="right">17</td>
+<td align="left">80+</td>
+<td align="right">2188</td>
+<td align="right">25958</td>
+<td align="right">3677</td>
+<td align="right">29082</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="even">
+<td align="right">1976</td>
+<td align="right">99</td>
+<td align="left">ND</td>
+<td align="right">125</td>
+<td align="right">272</td>
+<td align="right">93</td>
+<td align="right">281</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+<tr class="odd">
+<td align="right">1976</td>
+<td align="right">18</td>
+<td align="left">Total</td>
+<td align="right">529215</td>
+<td align="right">2594518</td>
+<td align="right">545614</td>
+<td align="right">2723571</td>
+<td align="left">RGPH</td>
+<td align="left">DNSI</td>
+</tr>
+</tbody>
+</table>
+<p>Notre fichier se nomme: <em>“RGPH_MLI”</em>. Nous l’avons enregistré sous divers formats, qui seront traduits par diverses extensions (.csv, .txt, .xls, .xlsx, etc). Nous allons les ouvrir progressivement.</p>
+<p>Pour permettre l’exécution des codes depuis n’importe quel poste de travail, nous allons utiliser la plateforme <a href="https://github.com/fousseynoubah/dswr_slides/tree/master/4_Importer_Donnees_dans_R/data">Github</a>. Toutefois, il convient de noter que les codes seront tout aussi valides que si l’on accède aux fichiers au niveau local.</p>
+<p>Nous allons spécifier la source.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">masource &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/4_Importer_Donnees_dans_R/data/&quot;</span></code></pre></div>
+<p>A partir de celle-ci, nous allons opérer comme au niveau local (à condition d’avoir une connexion Internet active bie sûr). Pour accéder à un fichier quelconque, <code>monfichier</code>, disponible dans le dossier, il suffit d’orienter sa requête vers:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste0</span>(masource, <span class="st">&quot;monfichier&quot;</span> )</code></pre></div>
+<pre><code>## [1] &quot;https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/4_Importer_Donnees_dans_R/data/monfichier&quot;</code></pre>
+</div>
+</div>
+<div id="fichiers-plats-cas-du-format-csv" class="section level2">
+<h2><span class="header-section-number">4.2</span> Fichiers plats: cas du format <em>CSV</em></h2>
+<div id="apercu" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Aperçu</h3>
+<p>Comme son nom l’indique, le format <em>CSV</em> (<em>Comma Separated Values</em>) est un format où les valeurs de données rectangulaires sont séparées par une virgule (<code>,</code>). Cette règle de base est commode pour les anglophones, pour lesquels les décimales viennent après un point (<code>.</code>) et non après une virgule. Par contre, pour les francophones, le format de sauvegarde de données réquiert une règle différente. Pour ne pas confondre le séparateur de valeurs et la virgule de la décimale, l’on utilise le point-virgule (<code>;</code>). Nous verrons les fonctions qui conviennent pour chacun de ces deux formats.</p>
+</div>
+<div id="importation-avec-r-base-read.csv" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Importation avec <em>R-base</em>: <code>read.csv</code></h3>
+<p>La version d’installation de R, couramment appelée <em>R-base</em> (ou <em>base-R</em>), vient avec un ensemble de fonctions qui sont disponibles par défaut. Parmi celles-ci: <code>read.csv</code>. L’importation d’un fichier <em>csv</em> avec <em>R-base</em> se fait de la façon suivante:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">RGPH_MLI &lt;-<span class="st"> </span><span class="kw">read.csv</span>(
+  <span class="co"># Spécifier le nom du fichier</span>
+  <span class="dt">file =</span> <span class="kw">paste0</span>(masource, <span class="st">&quot;RGPH_MLI.csv&quot;</span>), 
+  <span class="co"># Déclarer la première ligne comme nom de colonne/variable</span>
+  <span class="dt">header =</span> <span class="ot">TRUE</span>, 
+  <span class="co"># Déclarer la virgule comme séparateur</span>
+  <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, 
+  <span class="co"># Ne pas systématiquement transformer les caractères en facteurs.</span>
+  <span class="dt">stringsAsFactors =</span> <span class="ot">TRUE</span> 
+)</code></pre></div>
+<p>Les éléments à l’intérieur de la fonction (<code>file</code>, <code>header</code>, <code>sep</code>, <code>stringsAsFactors</code>, etc.) sont les arguments de la fonction <code>read.csv</code>. Celles-ci ont des valeurs défaut, qui peuvent toutefois être altérer par l’utilisateur. Pour voir ces valeurs par défaut, consulter la documentation intégrer à R en entrant:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?read.csv</code></pre></div>
+<p>Regardons la structure de nos données.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(RGPH_MLI)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    77 obs. of  14 variables:
+##  $ ï..annee    : int  1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 ...
+##  $ id          : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ groupage    : Factor w/ 20 levels &quot;&quot;,&quot;0-4&quot;,&quot;10-14&quot;,..: 2 11 3 4 5 6 7 8 9 10 ...
+##  $ Homme.Urbain: int  100416 80816 60647 58662 46239 36390 30895 27926 22479 17864 ...
+##  $ Homme.Rural : int  486599 411456 282160 249945 172152 163705 154834 133457 116947 93466 ...
+##  $ Femme.Urbain: int  99453 82665 65075 60765 47487 43143 33504 28505 22007 15445 ...
+##  $ Femme.Rural : int  489941 400186 256884 272743 218355 223875 190446 137444 125822 83008 ...
+##  $ Homme       : int  587015 492272 342807 308607 218391 200095 185729 161383 139426 111330 ...
+##  $ Femme       : int  589394 482851 321959 333508 265842 267018 223950 165949 147829 98453 ...
+##  $ Urbain      : int  199869 163481 125722 119427 93726 79533 64399 56431 44486 33309 ...
+##  $ Rural       : int  976540 811642 539044 522688 390507 387580 345280 270901 242769 176474 ...
+##  $ Total       : int  1176409 975123 664766 642115 484233 467113 409679 327332 287255 209783 ...
+##  $ source      : Factor w/ 2 levels &quot;&quot;,&quot;RGPH&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ office      : Factor w/ 2 levels &quot;&quot;,&quot;DNSI&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
+</div>
+<div id="importation-avec-r-base-read.csv2" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Importation avec <em>R-base</em>: <code>read.csv2</code></h3>
+<p>Avec read.csv déjà, le séparateur peut être spécifié pour permettre la prise en charge des fichiers qui ont point-virgule comme séparateur (<code>;</code>). Toutefois, il existe une fonction bâtie au dessus de celle-ci, qui prend en charge les spécificités de tels fichiers. Il s’agit de <code>read.cvs2</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">RGPH_MLI2 &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(
+  <span class="co"># Spécifier le nom du fichier</span>
+  <span class="dt">file =</span> <span class="kw">paste0</span>(masource, <span class="st">&quot;RGPH_MLI2.csv&quot;</span>), 
+  <span class="co"># Déclarer la première ligne comme nom de colonne/variable</span>
+  <span class="dt">header =</span> <span class="ot">TRUE</span>, 
+  <span class="co"># Déclarer le point-virgule comme séparateur</span>
+  <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>, 
+  <span class="co"># Ne pas systématiquement transformer les caractères en facteurs.</span>
+  <span class="dt">stringsAsFactors =</span> <span class="ot">TRUE</span> 
+)</code></pre></div>
+<p>Ici aussi, les valeurs par défaut des arguments sont maintenues. Pour en savoir plus sur <code>read.csv2</code>, explorer la documentation R en tapant:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?read.csv2</code></pre></div>
+<p>Regardons la structure de ces données aussi.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(RGPH_MLI2)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    77 obs. of  14 variables:
+##  $ Ã...annee   : int  1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 ...
+##  $ id          : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ groupage    : Factor w/ 20 levels &quot;&quot;,&quot;0-4&quot;,&quot;10-14&quot;,..: 2 11 3 4 5 6 7 8 9 10 ...
+##  $ Homme.Urbain: int  100416 80816 60647 58662 46239 36390 30895 27926 22479 17864 ...
+##  $ Homme.Rural : int  486599 411456 282160 249945 172152 163705 154834 133457 116947 93466 ...
+##  $ Femme.Urbain: int  99453 82665 65075 60765 47487 43143 33504 28505 22007 15445 ...
+##  $ Femme.Rural : int  489941 400186 256884 272743 218355 223875 190446 137444 125822 83008 ...
+##  $ Homme       : int  587015 492272 342807 308607 218391 200095 185729 161383 139426 111330 ...
+##  $ Femme       : int  589394 482851 321959 333508 265842 267018 223950 165949 147829 98453 ...
+##  $ Urbain      : int  199869 163481 125722 119427 93726 79533 64399 56431 44486 33309 ...
+##  $ Rural       : int  976540 811642 539044 522688 390507 387580 345280 270901 242769 176474 ...
+##  $ Total       : int  1176409 975123 664766 642115 484233 467113 409679 327332 287255 209783 ...
+##  $ source      : Factor w/ 2 levels &quot;&quot;,&quot;RGPH&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ office      : Factor w/ 2 levels &quot;&quot;,&quot;DNSI&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
+</div>
+<div id="importation-avec-readr" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Importation avec <code>readr</code></h3>
+<div id="apercu-1" class="section level4">
+<h4><span class="header-section-number">4.2.4.1</span> Aperçu</h4>
+<p><a href="https://readr.tidyverse.org/"><em>readr</em></a> est un package créé par <a href="http://hadley.nz/">Hadley Wickham</a>. Ses fonctions sont similaires à celles de <code>read.csv</code> et de <code>read.csv2</code>. <code>readr</code> présente l’avantage de faire partie du <a href="https://www.tidyverse.org/"><em>tidyverse</em></a>. Il travaille harmonieusement avec les autres packages de cet écosystème. Sa syntaxe est très simple: pour importer un fichier csv, on utilise <code>read_csv</code> au lieu de <code>read.csv</code>. Cette logique est valable pour d’autres formats, dont il suffit seulement d’ajouter l’extension après le tiret d’en bas (“_“). Ainsi, on a :</p>
+<ul>
+<li><p><code>read_csv2</code>: pour les fichiers <em>CSV</em> ayant le point-virgule (<code>;</code>) comme séparateur;</p></li>
+<li><p><code>read_tsv</code>: pour les fichiers avec les valeurs séparées par des tabulations;</p></li>
+<li><p><code>read_fwf</code>: pour les fichiers avec les valeurs séparées par des espaces fixes.</p></li>
+</ul>
+</div>
+<div id="read_csv-et-read_csv2" class="section level4">
+<h4><span class="header-section-number">4.2.4.2</span> <code>read_csv</code> et <code>read_csv2</code></h4>
+<p>Ouvrons le fichier csv avec <code>read_csv</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;readr&quot;</span>
+<span class="kw">library</span>(readr) 
+<span class="co"># Importation du fichier</span>
+RGPH_MLI &lt;-<span class="st"> </span><span class="kw">read_csv</span>(
+  <span class="co"># Spécifier le nom du fichier</span>
+  <span class="dt">file =</span> <span class="kw">paste0</span>(masource, <span class="st">&quot;RGPH_MLI.csv&quot;</span>), 
+  <span class="co"># Déclarer la première ligne comme nom de colonne/variable</span>
+  <span class="dt">col_names =</span> <span class="ot">TRUE</span>, 
+  <span class="co"># Indiquer la valeur à attribuer aux cellules vides </span>
+  <span class="dt">na =</span> <span class="st">&quot;&quot;</span>, 
+  <span class="co"># Nombre de lignes à ne pas importer, partant du ficher</span>
+  <span class="dt">skip =</span> <span class="dv">0</span>
+  )</code></pre></div>
+<p>et <code>read_csv2</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;readr&quot;</span>
+<span class="kw">library</span>(readr) 
+<span class="co"># Importation du fichier</span>
+RGPH_MLI &lt;-<span class="st"> </span><span class="kw">read_csv2</span>(
+  <span class="co"># Spécifier le nom du fichier</span>
+  <span class="dt">file =</span> <span class="kw">paste0</span>(masource, <span class="st">&quot;RGPH_MLI2.csv&quot;</span>), 
+  <span class="co"># Déclarer la première ligne comme nom de colonne/variable</span>
+  <span class="dt">col_names =</span> <span class="ot">TRUE</span>, 
+  <span class="co"># Indiquer la valeur à attribuer aux cellules vides </span>
+  <span class="dt">na =</span> <span class="st">&quot;&quot;</span>, 
+  <span class="co"># Nombre de lignes à ne pas importer, partant du ficher</span>
+  <span class="dt">skip =</span> <span class="dv">0</span>
+  )</code></pre></div>
+</div>
+<div id="generalisation" class="section level4">
+<h4><span class="header-section-number">4.2.4.3</span> Généralisation</h4>
+<p><code>read_csv</code> est un cas spécifique d’une fonction généraliste qui couvre un large spectre de formats : <code>read_delim</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;readr&quot;</span>
+<span class="kw">library</span>(readr) 
+<span class="co"># Importation du fichier</span>
+RGPH_MLI &lt;-<span class="st"> </span><span class="kw">read_delim</span>(
+  <span class="co"># Spécifier le nom du fichier</span>
+  <span class="dt">file =</span> <span class="kw">paste0</span>(masource, <span class="st">&quot;RGPH_MLI.csv&quot;</span>), 
+  <span class="co"># Indiquer le séparateur</span>
+  <span class="dt">delim =</span> <span class="st">&quot;,&quot;</span>
+  )
+
+RGPH_MLI2 &lt;-<span class="st"> </span><span class="kw">read_delim</span>(
+  <span class="co"># Spécifier le nom du fichier</span>
+  <span class="dt">file =</span> <span class="kw">paste0</span>(masource, <span class="st">&quot;RGPH_MLI2.csv&quot;</span>), 
+  <span class="co"># Indiquer le séparateur</span>
+  <span class="dt">delim =</span> <span class="st">&quot;;&quot;</span>
+  )</code></pre></div>
+<p>Avec <code>read_delim</code>, divers format de fichiers peuvent être importés, à partir du moment où le séparateur est bien spécifié:</p>
+<ul>
+<li><p>virgule (<code>,</code>);</p></li>
+<li><p>point-virgule (<code>;</code>);</p></li>
+<li><p>tabulation (<code>\t</code>);</p></li>
+<li><p>barre verticale (<code>|</code>);</p></li>
+<li><p>espace (&quot; “); etc.</p></li>
+</ul>
+<p>Les autres arguments peuvent être ajustés pour prendre en compte les spécificités des données. Toutefois, il faut noter que <code>read_delim</code> est assez intuitive pour détecter le type des données (entiers, réels, caractères, etc.). Elle inspecte jusqu’à 1000 lignes (et peut aller jusqu’à la nième ligne) pour déterminer le type de données d’une colonne.</p>
+</div>
+</div>
+</div>
+<div id="excel-xls-xlsx" class="section level2">
+<h2><span class="header-section-number">4.3</span> Excel: <code>xls</code>, <code>xlsx</code></h2>
+<div id="apercu-2" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Aperçu</h3>
+<p>Faisant partie de la suite MS Office, Excel est l’un des tableurs les plus populaires. Il est difficile de l’exclure du <em>workflow</em> du <em>data scientist</em> car c’est l’outil de prédilection dans beaucoup de domaines et secteurs (entreprises, administrations) en matière d’organisation et de sauvegarde des données . Les <em>data scientist</em> opérant exclusivement sur des bases de données constituent une niche. Pour la majorité, amenée à interagir avec des spécialistes d’autres domaines, il est important de pourvoir disposer de techniques pour importer les données collectées et organisées par leurs soins dans Excel.</p>
+<p>Dans R, plusieurs solutions existent. Nous verrons deux packages:</p>
+<ul>
+<li><p><a href="https://github.com/dragua/xlsx"><em>xlsx</em></a>; et</p></li>
+<li><p><a href="https://readxl.tidyverse.org/"><em>readxl</em></a>.</p></li>
+</ul>
+</div>
+<div id="importation-avec-xlsx-read.xlsx" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Importation avec <code>xlsx</code>: <code>read.xlsx</code></h3>
+<p>Le package <code>xlsx</code> offre deux fonctions majeures pour lire des formats <code>xls</code> et <code>xlsx</code>. Il s’agit de <code>read.xlsx</code> et <code>read.xlsx2</code> (plus rapide sur les fichiers lourds).</p>
+<p>Pour le format <code>xls</code>…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;xlsx&quot;</span>
+<span class="kw">library</span>(xlsx)
+
+<span class="co"># Ne pouvant accéder au fichier depuis le net,</span>
+<span class="co"># il faut le télécharger localement d&#39;abord.</span>
+<span class="kw">library</span>(downloader)
+<span class="kw">download</span>(<span class="dt">url =</span> <span class="kw">paste0</span>(masource, <span class="st">&quot;RGPH_MLI.xls?raw=true&quot;</span>), 
+         <span class="dt">dest =</span> <span class="st">&quot;RGPH_MLI.xls&quot;</span>, 
+         <span class="dt">mode=</span><span class="st">&quot;wb&quot;</span>)
+
+<span class="co"># Exemple avec fichier Excel 97-2003</span>
+RGPH_MLI_xls &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>( 
+  <span class="co"># Spécifier le nom du fichier (format &quot;xls&quot;)</span>
+  <span class="dt">file =</span> <span class="st">&quot;RGPH_MLI.xls&quot;</span>, 
+  <span class="co"># Indiquer le numéro d&#39;ordre de l&#39;onglet à importer</span>
+  <span class="dt">sheetIndex =</span> <span class="dv">1</span>, 
+  <span class="co">#  sheetName = &quot;RGPH_MLI&quot; # indiquer le nom de l&#39;onglet (alternative au numéro d&#39;ordre)</span>
+  <span class="co"># Déclarer la première ligne comme nom de colonne/variable</span>
+  <span class="dt">header =</span> <span class="ot">TRUE</span>
+)</code></pre></div>
+<p>…et pour le format <code>xlsx</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;xlsx&quot;</span>
+<span class="kw">library</span>(xlsx)
+
+<span class="co"># Ne pouvant accéder au fichier depuis le net,</span>
+<span class="co"># il faut le télécharger localement d&#39;abord.</span>
+<span class="kw">library</span>(downloader)
+<span class="kw">download</span>(<span class="dt">url =</span> <span class="kw">paste0</span>(masource, <span class="st">&quot;RGPH_MLI.xlsx?raw=true&quot;</span>), 
+         <span class="dt">dest =</span> <span class="st">&quot;RGPH_MLI.xlsx&quot;</span>, 
+         <span class="dt">mode=</span><span class="st">&quot;wb&quot;</span>)
+
+<span class="co"># Exemple avec fichier Excel 2007-plus</span>
+RGPH_MLI_xlsx &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>( 
+  <span class="co"># Spécifier le nom du fichier  (format &quot;xlsx&quot;)</span>
+  <span class="dt">file =</span> <span class="st">&quot;RGPH_MLI.xlsx&quot;</span>, 
+  <span class="co"># Indiquer le numéro d&#39;ordre de l&#39;onglet à importer</span>
+  <span class="dt">sheetIndex =</span> <span class="dv">1</span>, 
+  <span class="co">#  sheetName = &quot;RGPH_MLI&quot; # indiquer le nom de l&#39;onglet (alternative au numéro d&#39;ordre)</span>
+  <span class="co"># Déclarer la première ligne comme nom de colonne/variable</span>
+  <span class="dt">header =</span> <span class="ot">TRUE</span>
+)</code></pre></div>
+</div>
+<div id="importation-avec-readxl-read_excel" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> Importation avec <code>readxl</code>: <code>read_excel</code></h3>
+<p>Le package <code>readxl</code> est bâti sur les mêmes principes que <a href="https://www.tidyverse.org/"><code>readr</code></a>. Il permet d’importer des formats Excel avec la même logique syntaxique. Il contient des fonctions spécifiques, <code>read_xls</code> et <code>read_xlsx</code>, et une fonction généraliste, <code>read_excel</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;readxl&quot;</span>
+<span class="kw">library</span>(readxl) 
+
+<span class="co"># Exemple avec fichier Excel 97-2003</span>
+RGPH_MLI_xls &lt;-<span class="st"> </span><span class="kw">read_excel</span>(
+<span class="co"># Spécifier le nom du fichier (format &quot;xls&quot;)</span>
+<span class="dt">path =</span> <span class="st">&quot;RGPH_MLI.xls&quot;</span>, 
+<span class="co"># indiquer le nom de l&#39;onglet ou le numéro d&#39;ordre, les deux sont acceptés</span>
+<span class="dt">sheet =</span> <span class="st">&quot;RGPH_MLI&quot;</span>, 
+<span class="co"># Déclarer la première ligne comme nom de colonne/variable</span>
+<span class="dt">col_names =</span> <span class="ot">TRUE</span>
+)
+
+<span class="co"># Exemple avec fichier Excel 2007-plus</span>
+RGPH_MLI_xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(
+<span class="co"># Spécifier le nom du fichier (format &quot;xls&quot;)</span>
+<span class="dt">path =</span> <span class="st">&quot;RGPH_MLI.xlsx&quot;</span>, 
+<span class="co"># indiquer le nom de l&#39;onglet ou le numéro d&#39;ordre, les deux sont acceptés</span>
+<span class="dt">sheet =</span> <span class="st">&quot;RGPH_MLI&quot;</span>, 
+<span class="co"># Déclarer la première ligne comme nom de colonne/variable</span>
+<span class="dt">col_names =</span> <span class="ot">TRUE</span>
+)</code></pre></div>
+</div>
+</div>
+<div id="formats-issues-dautres-logiciels-statistiques-stata-et-spss" class="section level2">
+<h2><span class="header-section-number">4.4</span> Formats issues d’autres logiciels statistiques: <code>Stata</code> et <code>SPSS</code></h2>
+<div id="apercu-3" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Aperçu</h3>
+<p>Le data scientist peut aussi être amené à travailler sur des données sauvegardées à partir d’autres programmes de traitement de données tels que <code>Stata</code>, <code>SPSS</code>, <code>SAS</code>, etc. Dans R, les solutions sont nombreuses. Ici, nous allons voir deux packages: <code>foreign</code> et <code>haven</code>.</p>
+</div>
+</div>
+<div id="importation-avec-foreign" class="section level2">
+<h2><span class="header-section-number">4.5</span> Importation avec <code>foreign</code></h2>
+<p>Le package <a href="https://cran.r-project.org/web/packages/foreign/index.html"><code>foreign</code></a> permet d’ouvrir des fichiers <code>dta</code>, issus de <code>Stata</code>…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;foreign&quot;</span>
+<span class="kw">library</span>(foreign) 
+
+<span class="co"># Ne pouvant accéder au fichier depuis le net,</span>
+<span class="co"># il faut le télécharger localement d&#39;abord.</span>
+<span class="kw">library</span>(downloader)
+<span class="kw">download</span>(<span class="dt">url =</span> <span class="kw">paste0</span>(masource, <span class="st">&quot;RGPH_MLI.dta?raw=true&quot;</span>), 
+         <span class="dt">dest =</span> <span class="st">&quot;RGPH_MLI.dta&quot;</span>, 
+         <span class="dt">mode=</span><span class="st">&quot;wb&quot;</span>)
+
+<span class="co"># Importation</span>
+RGPH_MLI_stata &lt;-<span class="st"> </span><span class="kw">read.dta</span>(
+  <span class="co"># Spécifier le nom du fichier</span>
+  <span class="dt">file =</span> <span class="st">&quot;RGPH_MLI.dta&quot;</span>,
+  <span class="co"># Conversion des dates du format Stata au format R (pour dire simple)</span>
+  <span class="dt">convert.dates =</span> <span class="ot">TRUE</span>, 
+  <span class="co"># Conversion des étiquettes de variables catégorielles en facteurs</span>
+  <span class="dt">convert.factors =</span> <span class="ot">TRUE</span>, 
+  <span class="co"># Convertir &quot;_&quot; de Stata en &quot;.&quot; dans R (surtout nom des variables)</span>
+  <span class="dt">convert.underscore =</span> <span class="ot">FALSE</span>, 
+  <span class="co"># Donner ou pas une valeur particulière aux cellules vides?</span>
+  <span class="dt">missing.type =</span> <span class="ot">FALSE</span>, 
+  <span class="co"># Si oui, cet argument indique si cette valeur est présente ou pas</span>
+  <span class="dt">warn.missing.labels =</span> <span class="ot">TRUE</span> 
+)</code></pre></div>
+<p>et des fichiers <code>sav</code>, issus de <code>SPSS</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;foreign&quot;</span>
+<span class="kw">library</span>(foreign) 
+
+<span class="co"># Ne pouvant accéder au fichier depuis le net,</span>
+<span class="co"># il faut le télécharger localement d&#39;abord.</span>
+<span class="kw">library</span>(downloader)
+<span class="kw">download</span>(<span class="dt">url =</span> <span class="kw">paste0</span>(masource, <span class="st">&quot;RGPH_MLI.sav?raw=true&quot;</span>), 
+         <span class="dt">dest =</span> <span class="st">&quot;RGPH_MLI.sav&quot;</span>, 
+         <span class="dt">mode=</span><span class="st">&quot;wb&quot;</span>)
+
+<span class="co"># Importation</span>
+
+RGPH_MLI_spss &lt;-<span class="st"> </span><span class="kw">read.spss</span>(
+  <span class="co"># Spécifier le nom du fichier</span>
+  <span class="dt">file =</span> <span class="st">&quot;RGPH_MLI.sav&quot;</span>, 
+  <span class="co"># Conservation des étiquettes de variables catégorielles (facteurs)</span>
+  <span class="dt">use.value.labels =</span> <span class="ot">TRUE</span>, 
+  <span class="co"># Importation en data frame au lieu de matrice</span>
+  <span class="dt">to.data.frame =</span> <span class="ot">TRUE</span> 
+  )</code></pre></div>
+</div>
+<div id="base-de-donnees-relationnelles" class="section level2">
+<h2><span class="header-section-number">4.6</span> Base de données relationnelles</h2>
+<div id="apercu-4" class="section level3">
+<h3><span class="header-section-number">4.6.1</span> Aperçu</h3>
+<p>R peut aussi importer des données depuis une base de données relationnelles. Celle-ci peut aussi bien être locale, installée sur le poste de travail, que distante, installée sur un serveur accessible via Internet. Nous allons illustrer ici avec une base locale.</p>
+<p>Les packages varient d’un type de base à un autre:</p>
+<ul>
+<li><p><em>RMySQL</em> pour MySQL,</p></li>
+<li><p><em>RPostgreSQL</em> pour PostgreSQL</p></li>
+<li><p><em>RSQLite</em>: pour SQLite</p></li>
+<li><p>etc.</p></li>
+</ul>
+<p>Pour plus de détails, consulter cette <a href="https://db.rstudio.com/getting-started/">page</a>.</p>
+</div>
+<div id="importation-avec-rodbc" class="section level3">
+<h3><span class="header-section-number">4.6.2</span> Importation avec <em>RODBC</em></h3>
+<p>Commençons par ouvrir le chaine de communication entre R et la base via ODBC (<em>Open Data Base Connectivity</em>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;RODBC&quot;</span>
+<span class="kw">library</span>(RODBC) 
+dswr &lt;-<span class="st"> </span><span class="kw">odbcConnect</span>(
+  <span class="co"># Indiquer le nom de la chaîne de connection </span>
+  <span class="dt">dsn =</span> <span class="st">&quot;dswr&quot;</span>, 
+  <span class="co"># Indiquer l&#39;identifiant (s&#39;il y&#39;en a)</span>
+  <span class="dt">uid =</span> <span class="st">&quot;&quot;</span>, 
+  <span class="co"># Indiquer le mot de passe (s&#39;il y&#39;en a)</span>
+  <span class="dt">pwd =</span> <span class="st">&quot;&quot;</span> 
+  )</code></pre></div>
+<p>Maintenant, importons la table qui nous intéresse, <em>RGPH_MLI</em>. Pour celà, deux méthodes sont possibles.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Méthode 1: extraction de la table</span>
+RGPH_MLI_rodbc_tbl &lt;-<span class="st"> </span><span class="kw">sqlFetch</span>(
+  <span class="co"># Indiquer le nom de la chaîne de connection</span>
+  dswr, 
+  <span class="co"># Indiquer le nom de la table</span>
+  <span class="dt">sqtable =</span> <span class="st">&quot;RGPH_MLI&quot;</span>
+  ) 
+
+<span class="co"># Méthode 2: requête SQL</span>
+RGPH_MLI_rodbc_sql &lt;-<span class="st"> </span><span class="kw">sqlQuery</span>(
+  <span class="co"># Indiquer le nom de la chaîne de connection</span>
+  <span class="dt">channel =</span> dswr, 
+  <span class="co"># Selectionner toutes les colonnes et lignes de la table &quot;RGPH_MLI&quot;</span>
+  <span class="dt">query =</span> <span class="st">&quot;SELECT * FROM RGPH_MLI;&quot;</span>
+  )</code></pre></div>
+<p>Une fois les extractions de données finie, il faut penser à briser la chaîne de connection, fermer la porte.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">odbcClose</span>(dswr)</code></pre></div>
+</div>
+<div id="importation-avec-odbc" class="section level3">
+<h3><span class="header-section-number">4.6.3</span> Importation avec <code>odbc</code></h3>
+<p>Une autre solution est de passe par le package <code>odbc</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;odbc&quot;</span>
+<span class="kw">library</span>(odbc)
+<span class="co"># Chargement du package &quot;DBI&quot;</span>
+<span class="kw">library</span>(DBI) 
+
+<span class="co"># Importation</span>
+dswr &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(
+  <span class="co"># Indiquer le package utilisé par l&#39;interfacee &quot;DBI&quot;</span>
+  odbc<span class="op">::</span><span class="kw">odbc</span>(), 
+  <span class="co"># Indiquer le nom de la chaîne de connection</span>
+  <span class="st">&quot;dswr&quot;</span>
+  )</code></pre></div>
+<p>Comme avant, on peut importer la table d’intérêt par deux méthodes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Méthode 1: extraction de la table</span>
+RGPH_MLI_odbc &lt;-<span class="st"> </span><span class="kw">dbReadTable</span>(
+  <span class="co"># Indiquer le nom de la chaîne de connection</span>
+  <span class="dt">conn =</span> dswr, 
+  <span class="co"># Indiquer le nom de la table indiquer</span>
+  <span class="dt">name =</span> <span class="st">&quot;RGPH_MLI&quot;</span>
+  ) 
+
+<span class="co"># Méthode 2: requête SQL</span>
+RGPH_MLI_odbc_sql &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(
+  <span class="co"># Indiquer le nom de la chaîne de connection</span>
+  <span class="dt">conn =</span> dswr, 
+  <span class="co"># Selectionner toutes les colonnes et lignes de la table &quot;RGPH_MLI&quot;</span>
+  <span class="st">&quot;SELECT * FROM RGPH_MLI;&quot;</span>
+  )</code></pre></div>
+<p>Comme avant, en bon invité, on ferme la porte en sortant.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(dswr)</code></pre></div>
+</div>
+</div>
+<div id="depuis-internet" class="section level2">
+<h2><span class="header-section-number">4.7</span> Depuis Internet</h2>
+<div id="apercu-5" class="section level3">
+<h3><span class="header-section-number">4.7.1</span> Aperçu</h3>
+<p>Les données peuvent aussi être tirées de la toile mondiale. Les outils disponibles dans R varient selon le type de données.</p>
+</div>
+<div id="chargement-de-fichier-csv" class="section level3">
+<h3><span class="header-section-number">4.7.2</span> Chargement de fichier CSV</h3>
+<p>Pour un fichier CSV, le chargement dans l’environnement R se fait de la même façon que pour des fichiers locaux.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/4_Importer_Donnees_dans_R/data/RGPH_MLI.csv&quot;</span>
+RGPH_MLI_csv_online &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)
+<span class="co"># ou</span>
+RGPH_MLI_csv_online &lt;-<span class="st"> </span><span class="kw">read_csv</span>(url)</code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sexprimer-dans-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["dswr_book.pdf", "dswr_book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
