@@ -1,3 +1,5 @@
+# (PART) Manipuler des données dans R {-}
+
 # Importer des données dans R
 
 ## Introduction

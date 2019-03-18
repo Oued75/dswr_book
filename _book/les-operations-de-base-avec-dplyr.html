@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data Science avec R</title>
-  <meta name="description" content="Data Science avec R">
+  <title>Chapitre 6 Les opérations de base avec dplyr | Data Science avec R</title>
+  <meta name="description" content="Chapitre 6 Les opérations de base avec dplyr | Data Science avec R">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Data Science avec R" />
+  <meta property="og:title" content="Chapitre 6 Les opérations de base avec dplyr | Data Science avec R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Science avec R" />
+  <meta name="twitter:title" content="Chapitre 6 Les opérations de base avec dplyr | Data Science avec R" />
   
   
   
@@ -25,15 +25,15 @@
 <meta name="author" content="Fousseynou Bah">
 
 
-<meta name="date" content="2019-03-13">
+<meta name="date" content="2019-03-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="objets-dans-r.html">
+<link rel="prev" href="manipuler-des-donnees-dans-r.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -220,15 +220,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.1.2" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#que-nous-faut-il-1"><i class="fa fa-check"></i><b>5.1.2</b> Que nous faut-il?</a></li>
 <li class="chapter" data-level="5.1.3" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#donnees-2"><i class="fa fa-check"></i><b>5.1.3</b> Données</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#dplyr-les-fonctions-de-transformation"><i class="fa fa-check"></i><b>5.2</b> <code>dplyr</code>: les fonctions de transformation</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#apercu-6"><i class="fa fa-check"></i><b>5.2.1</b> Aperçu</a></li>
-<li class="chapter" data-level="5.2.2" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#avant-daller-loin"><i class="fa fa-check"></i><b>5.2.2</b> Avant d’aller loin</a></li>
-<li class="chapter" data-level="5.2.3" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#selection-etou-exclusion-de-variables-select"><i class="fa fa-check"></i><b>5.2.3</b> Selection et/ou exclusion de variables: <code>select</code></a></li>
-<li class="chapter" data-level="5.2.4" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#creation-de-variable-de-variables-mutate"><i class="fa fa-check"></i><b>5.2.4</b> Création de variable de variables: <code>mutate</code></a></li>
-<li class="chapter" data-level="5.2.5" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#selection-dobservations-filter"><i class="fa fa-check"></i><b>5.2.5</b> Sélection d’observations: <code>filter</code></a></li>
-<li class="chapter" data-level="5.2.6" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#tri-dobservations-arrange"><i class="fa fa-check"></i><b>5.2.6</b> Tri d’observations: <code>arrange</code></a></li>
-<li class="chapter" data-level="5.2.7" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#vers-lagregation-group_by-et-summarize"><i class="fa fa-check"></i><b>5.2.7</b> Vers l’agrégation: <code>group_by</code> et <code>summarize</code></a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="les-operations-de-base-avec-dplyr.html"><a href="les-operations-de-base-avec-dplyr.html"><i class="fa fa-check"></i><b>6</b> Les opérations de base avec <strong>dplyr</strong></a><ul>
+<li class="chapter" data-level="6.1" data-path="les-operations-de-base-avec-dplyr.html"><a href="les-operations-de-base-avec-dplyr.html#apercu-6"><i class="fa fa-check"></i><b>6.1</b> Aperçu</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -251,89 +245,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Data Science avec R</h1>
-<p class="author"><em>Fousseynou Bah</em></p>
-<p class="date"><em>2019-03-13</em></p>
-</div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">Chapitre 1</span> Introduction</h1>
-<div id="un-autre-livre-sur-la-data-science-vraiment" class="section level2">
-<h2><span class="header-section-number">1.1</span> Un autre livre sur la <em>data science</em>! Vraiment?</h2>
-<p>En décidant d’écrire un livre sur la <em>data science</em>, j’ai longuement débattu dans ma propre tête, je me suis posé plusieurs questions dont une qui revenait constamment: “a-t-on vraiment besoin d’un autre livre sur la <em>data science</em>?” “N’en-t-on pas assez?” Avec le succès dont jouit la discipline, ce n’est certainement pas les ressources qui manquent, aussi bien en ligne que dans les librairies. Et surtout, je me demandais bien “qu’avais-je à dire qui n’avait pas été dit”? Et pourtant, quelques raisons m’ont poussé à reconsidérer ma position.</p>
-<p>La première est assez égoïte. On n’apprend jamais aussi bien qu’en enseignant. Pour m’assurer que j’avais bien assimilé les connaissances que j’avais acquises dans ce domaine, il n’y avait rien de mieux que de me livrer à un exercice de pédagogue. Expliquer à d’autres ce que j’avais appris. N’est-ce pas là que réside l’ultime test pour un apprenant! C’est partant de cette idée que je me suis mis à faire des diapositives dans le cadre des mes enseignements. Très tôt, j’ai réalisé que les diapositives ne sauraient jouer leur rôle, qui est d’offrir un aperçu synthétique d’une idée développée par un narrateur, et satifaire l’apprenant qui souhaiterai obtenir des explications détaillées. Ce travail revient au narrateur, à défaut de qui l’on se tourne vers un manuel. Donc, il me fallait bien accompagner les diapositives d’un support plus détaillé pour mieux outiller mes étudiants.</p>
-<p>La seconde raison est le contexte. Malgré l’abondance et la qualité des ressources disponibles sur la <em>data science</em> et malgré l’accès de plus en plus facile - coût faible et gratuité pour beaucoup -, il demeure que l’étudiant africain peut souvent se sentir éloigné du contexte à travers lequel la <em>data science</em> est présentée. Or, cell-ci est avant tout une discipline de contexte. Bien que mélangeant informatique, mathématiques, statistiques…et bien d’autres expertises, elle est avant tout un outil, mobilisée pour répondre à des questions. Et ces questions sont très contextuelles. Il ne fait aucun doute que le disponibilité et l’accéssibilité des données sur le monde industrialisé rend leur utilisation commode pour introduire la <em>data science</em> à un jeune africain est très commode. Mais la distance entre le contexte présenté et celui qui est vécu par le bénéficiaire pose un problème. Elle empêche l’appropriation de la discipline. De ce fait, je me suis trouvé dans ce constat une raison de m’engager dans ce projet et surtout de me forcer à utiliser des données sur le contexte local. Après tout, l’être humain n’est-il pas plus enclin à vous prêter attention quand vous lui parlez de lui-même?</p>
-</div>
-<div id="la-data-science" class="section level2">
-<h2><span class="header-section-number">1.2</span> La <em>data science</em></h2>
-<p>Comme toute discipline qui connaît une expansion rapide, il est difficile de définir la <em>data science</em>. Elle est vaste et riche, tant de par les disciplines dont elle emprunte des morceaux pour se contituer en entité que de par les branches qu’elle pousse avec sa propre croissance.</p>
-<p>Commençons par quelques exemples</p>
-<p>Fait de la <em>data science</em>:</p>
-<ul>
-<li>l’économiste qui examine le niveau du PIB sur 30 ans et cherche à dégager des scénarii pour des futures évolutions;</li>
-<li><p>le sociologue qui s’appuie le taux de natalité et le taux de participation des femmes au marché du travail pour comprendre l’évolution de la place de la femme dans la société;</p></li>
-<li><p>le météorologue qui cherche à prédire la pluviométrie de la semaine à venir en modélisant les données historiques;</p></li>
-<li><p>l’épidémiologue qui cartographie le taux de prévalence du paludisme pour appuyer un programme stratégique;</p></li>
-<li><p>etc.</p></li>
-</ul>
-<p>Le caractère transversale de la <em>data science</em> apparait ici quand on sait que ces individus sont de disciplines différentes et poursuivent des questions tout aussi distantes les unes des autres. Et pourtant, les données les réunissent tous. Ils ont chacun besoin de trouver dans celles-ci un appui pour améliorer leur propre compréhension du phénomène étudié, tester leurs hypothèses, fonder leurs recommandations ou même…reconforter leurs propres idées ou mieux s’armer pour rejetter celles de leurs adversaires (les données ne sont aussi neutres que celui qui les manipule!)</p>
-<p>Selon <a href="https://en.wikipedia.org/wiki/Data_science"></a>, la <em>data science</em> est un champ interdisciplinaire qui utilise les méthode, processus, algorithmes et systèmes scientifiques pour extraire des données - tant structurées que non structurées - des informations utiles à la compréhension et à la prise de décision. De ce fait, elle s’appuie sur diverses méthodes (mathématiques, statistiques, informatiques, etc.) pour tirer des données une compréhension meilleure de phénomènes d’intérêt.</p>
-</div>
-<div id="le-data-scientist" class="section level2">
-<h2><span class="header-section-number">1.3</span> Le <em>data scientist</em></h2>
-<p>Et le <em>data scientist</em> dans tout ça? Il est apparait désormais comme la perle rare. Un individu capable de parler aux hommes, aux machines et aux données. Aux:</p>
-<ul>
-<li><p>hommes, il pose les questions auxquelles il a la charge d’offrir des réponses.</p></li>
-<li><p>machines, il parle à travers des langages spécifiques (R, Python, Julia,…), des langages qui ressemblent à bien d’égards à ceux avec lesquels il s’entretient avec les humains car ils sont basés sur des règles précises et sont vivants et évolutifs;</p></li>
-<li><p>données, il applique des méthodes d’investigation où l’expérience, l’intuition, le sens artistique interviennent tout autant que la connaissance du domaine d’intervention. Dans les données disponibles, il cherche à séparer les bonnes des mauvaises, les utiles des nuisibles. A celles qu’il sélectionne, il cherche le bon format, la bonne structure. Sur celles qu’il retient, il teste des modèles, sans oublier la place importante de la visualisation à tous les niveaux. Bref, un vrai détective!</p></li>
-</ul>
-<p>Face à la génération massive des données, le besoin de <em>data scientist</em> se fait pressant partout. De ce fait l’engouement ne manque pas pour les jeunes désireux de se lancer. Mais le portrait de super-homme généralement fait du <em>data scientist</em> (ne cherchez pas plus loin que les lignes d’en dessus!), l’on peut croire qu’il faut être spécial pour embrasser la profession. Du tout! Celà dit, certaines compétences sont utiles.</p>
-<p>Alors, qu’est-ce qu’il faut pour être <em>data scientist</em>?</p>
-<ul>
-<li><p>pas nécéssairement un diplôme avancé en mathématiques ou en statistiques…quoiqu’il est utile de maîtriser des concepts de bases (les concepts algébriques comme le vecteur, la matrice,… et les notions statistiques comme la moyenne, l’écart-type, etc.);</p></li>
-<li><p>pas forcément un diplôme en informatique ou en programmation…quoiqu’il est utile de connaître les notions de bases (qu’est-ce qu’un objet, un environnement? quels types d’objets peut-on manipuler dans un environnement donnée…?);</p></li>
-<li><p>une connaissance avérée dans un domaine spécifique dans lequel l’on peut soulever des questions, mobiliser des outils théoriques auxquels on confronte les résultats de l’analyse conduite sur les données;</p></li>
-<li><p>un esprit curieux, quelle que soit l’avenue que l’on emprunte.</p></li>
-</ul>
-<p>Vous pourrez avoir une meilleure idée en surfant sur le net (Google est votre ami!)</p>
-</div>
-<div id="r" class="section level2">
-<h2><span class="header-section-number">1.4</span> R</h2>
-<div id="quest-ce-que-cest-que-r" class="section level3">
-<h3><span class="header-section-number">1.4.1</span> Qu’est-ce que c’est que R?</h3>
-<p>Voici basiquement ce que <a href="https://fr.wikipedia.org/wiki/R_(langage)">Wikipédia</a> dit. <a href="http://r-project.org"></a> est un langage de programmation et un logiciel gratuit et libre. Il est surtout utilisé pour le développement de programmes statistiques et des analyses de données. Il gagne en popularité depuis quelques années avec l’émergence de la <em>data science</em> et du fait qu’il est gratuit et ouvert (<em>open-source</em>). R est née d’un projet de recherche mené par deux chercheurs, Ross Ihaka et Robert Gentleman à l’université d’Auckland (Nouvelle-Zélande) en 1993. En 1997 est mis en place le <em>Comprehension R Archive Network (CRAN)</em> qui centralise les contributions au projet</p>
-<p>Depuis le projet connaît une croissance soutenue, grâce à des contributions de la part de milliers de personnes à travers le monde.</p>
-</div>
-<div id="pourquoi-r" class="section level3">
-<h3><span class="header-section-number">1.4.2</span> Pourquoi R?</h3>
-<p>Pour un apprenti <em>data scientist</em>, le choix du langage et/ou du programme est une décision critique. Considérant le temps qu’il investira en apprentissage et le retour qu’il espéra à travers l’utilisation de ses nouvelles connaissances dans sa profession, il est utile de considerer divers critères dont:</p>
-<ul>
-<li><p>l’accessibilité de l’outil en termes de coûts: tous les langages de programmation ne sont pas gratuits comme R! Certains coûtent…chers mêmes ;</p></li>
-<li><p>l’accessibilité du langage en termes de syntaxe: R est très compréhensible (surtout pour quelqu’un qui se retrouve un peu avec la langue anglaise);</p></li>
-<li><p>la popularité du langage parmi les paires: tout le monde s’est mis à l’anglais, même dans les pays où ce n’est pas la langue dominante. N’est-ce pas? De la même façon, il est important pour le <em>data scientist</em> d’embrasser un langage qui est aussi utilisé par ceux avec lesquels il sera amené à collaborer. A ce niveau, R est très populaire.</p></li>
-<li><p>la dynamique de développement du langage: le langage étant un investissement en soit, il est important de miser sur ceux qui présentent un avenir. Et ceux-ci sont ceux qui mutent avec la technologie et les besoins des utilisateurs. A ce niveau encore, R présente des arguments. Il dispose du réseau <em>CRAN</em> alimenté par des milliers de contributeurs, divers aussi bien de par leur position dans le monde que de par leur discipline.</p></li>
-</ul>
-</div>
-<div id="r-dans-lecosysteme-des-langages" class="section level3">
-<h3><span class="header-section-number">1.4.3</span> R dans l’écosystème des langages</h3>
-<p><img src="dswr_book_files/figure-html/unnamed-chunk-3-1.png" width="100%" height="100%" /></p>
-<p><img src="dswr_book_files/figure-html/unnamed-chunk-4-1.png" width="100%" height="100%" /></p>
-<p><img src="dswr_book_files/figure-html/unnamed-chunk-5-1.png" width="100%" height="100%" /></p>
-<p><img src="dswr_book_files/figure-html/unnamed-chunk-6-1.png" width="100%" height="100%" /></p>
-<p>Ce qui apparait des différentes figures, c’est que R parvient à se tailler une place parmi les langages les plus populaires au monde. Et celà, malgré le fait que c’est une langage spécialisée. Si sur les dix dernières années, le langage s’est enrichi avec la diversification de ses contributeurs, il reste à la base un langage élaboré par des statisticiens pour des statisticiens. De ce fait, il est excéllent pour l’analyse de données, mais fort peu utile pour certaines tâches…comme le développement d’un site web.</p>
-</div>
-</div>
-<div id="rstudio" class="section level2">
-<h2><span class="header-section-number">1.5</span> RStudio</h2>
-<div id="quest-ce-que-cest-que-rstudio" class="section level3">
-<h3><span class="header-section-number">1.5.1</span> Qu’est-ce que c’est que RStudio</h3>
-<ul>
-<li><p>C’est une IDE (<em>Integrated Development Environment</em>) ou Environnement Intégré de Développement</p></li>
-<li><p>Il sert d’interface entre R et l’utilisateur, offre à celui diverses commodités d’utilisation</p></li>
-</ul>
-<p>Maintenant, vous avez les outils nécéssaires pour commencer la formidable aventuRe!</p>
+<div id="les-operations-de-base-avec-dplyr" class="section level1">
+<h1><span class="header-section-number">Chapitre 6</span> Les opérations de base avec <strong>dplyr</strong></h1>
+<div id="apercu-6" class="section level2">
+<h2><span class="header-section-number">6.1</span> Aperçu</h2>
+<p>Le package <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> est un package crééé par <a href="http://hadley.nz/">Hadley Wickham</a>. Il fait partie de l’écosystème <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> qui est un ensemble de packages conçus pour la <em>data science</em> et partageant tous les mêmes philoshophie, grammaire et structure. Nous allons, avec l’exploration des packages du <code>tidyverse</code>, comprendre l’importance de cette grammaire. Elle traduit la volonté des auteurs de condenser dans le nom des fonctions l’idée de la tâche que celles-ci exécutent. Dans <code>dplyr</code>, les fonctions majeures sont des verbes (comme nous allons le voir).</p>
+<p>Alors, qu’est-ce que <code>dplyr</code> fait? Voici une simple analogie. Si les données constituent un tissu, nous pouvons voir <code>dplyr</code> comme à la fois la paire de ciseaux pour en faire la coupe, et l’aiguille et le fil pour le coudre. Pour le prouver, voici le logo associé au package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#library(downloader)</span>
+<span class="co">#download.file(url = &quot;https://github.com/tidyverse/dplyr/blob/master/pkgdown/favicon/favicon-32x32.png?raw=true&quot;,</span>
+<span class="co">#          destfile = &quot;dplyr_logo.png&quot;,</span>
+<span class="co">#          mode = &#39;wb&#39;)</span>
+knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="dt">path =</span> <span class="st">&quot;https://github.com/tidyverse/dplyr/blob/master/pkgdown/favicon/favicon-32x32.png&quot;</span>)
+<span class="co">#unlink(&quot;dplyr_logo.png&quot;, recursive = TRUE)</span></code></pre></div>
 
-</div>
 </div>
 </div>
             </section>
@@ -341,8 +265,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="objets-dans-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="manipuler-des-donnees-dans-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

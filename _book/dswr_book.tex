@@ -129,7 +129,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-03-05}
+    \date{2019-03-18}
 
 \usepackage{booktabs}
 
@@ -141,6 +141,8 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
+\part{Les basiques dans R}\label{part-les-basiques-dans-r}
+
 \chapter{Introduction}\label{introduction}
 
 \section{\texorpdfstring{Un autre livre sur la \emph{data science}!
@@ -298,6 +300,8 @@ Alors, qu'est-ce qu'il faut pour être \emph{data scientist}?
 
 Vous pourrez avoir une meilleure idée en surfant sur le net (Google est
 votre ami!)
+
+\chapter{Introduction à R}\label{introduction-a-r}
 
 \section{R}\label{r}
 
@@ -4936,6 +4940,9 @@ toujours meilleures. \texttt{lapply} est intégrée à R. Elle constitue
 une meilleure boucle. Aussi, elle peut génère en extrant une liste, qui
 peut être assignée à un objet donné.
 
+\part{Manipuler des données dans
+R}\label{part-manipuler-des-donnees-dans-r}
+
 \chapter{Importer des données dans R}\label{importer-des-donnees-dans-r}
 
 \section{Introduction}\label{introduction-3}
@@ -5667,6 +5674,2417 @@ même façon que pour des fichiers locaux.
 \NormalTok{RGPH_MLI_csv_online <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(url)}
 \end{Highlighting}
 \end{Shaded}
+
+\chapter{\texorpdfstring{Transformer de données avec
+\textbf{dplyr}}{Transformer de données avec dplyr}}\label{transformer-de-donnees-avec-dplyr}
+
+\section{Introduction}\label{introduction-4}
+
+\subsection{Objectif de ce chapitre}\label{objectif-de-ce-chapitre}
+
+Le \emph{data scientist} a très rarement les données structurées dans la
+forme qui lui convient. Il lui revient de les mettres dans cette forme.
+De ce fait, il lui est indispensable de savoir manipuler les données. Il
+s'agit de la maîtrise d'une série de tâches parmi lesquelles nous
+pouvons citer:
+
+\begin{itemize}
+\item
+  la simple sélection d'un sous-ensemble à l'intérieur d'un large groupe
+  ;
+\item
+  la sélection d'un nombre déterminé de variables (attributs) ;
+\item
+  la combinaison d'informations conservées dans différentes
+  \texttt{data\ frame};
+\item
+  la suppresion et la création variables;
+\item
+  la réorganisation des données à l'intérieur d'un \texttt{data\ frame}.
+\end{itemize}
+
+Dans ce chapitre, nous allons voir quelques techniques de manipulation
+de données avec le package \textbf{dplyr}.
+
+\subsection{Que nous faut-il?}\label{que-nous-faut-il-1}
+
+\begin{itemize}
+\item
+  R (évidemment) et RStudio (de préférence) installés sur le poste de
+  travail;
+\item
+  le package \textbf{dplyr} installés;
+\item
+  les fichiers fournis dans le cadre du module.
+\end{itemize}
+
+\subsection{Données}\label{donnees-2}
+
+Nous allons illustrer ce chapitre avec une compilation de données tirées
+des \href{https://www.malikunnafoni.com}{Recensements Généraux de la
+Population et de l'Habitat au Mali, menés respectivement en 1976, 1987,
+1998 et 2009}. Il s'agit:
+
+\begin{itemize}
+\item
+  d'un côté, de tableaux sur la population par groupe d'âge (tranche de
+  5 ans);
+\item
+  de l'autre, de tableaux sur la population par commune.
+\end{itemize}
+
+\section{\texorpdfstring{Aperçu de
+\textbf{dplyr}}{Aperçu de dplyr}}\label{apercu-de-dplyr}
+
+\subsection{\texorpdfstring{Installer
+\textbf{dplyr}}{Installer dplyr}}\label{installer-dplyr}
+
+Le package \href{https://dplyr.tidyverse.org/}{\textbf{dplyr}} est un
+package crééé par \href{http://hadley.nz/}{Hadley Wickham}. Il fait
+partie de l'écosystème
+\href{https://www.tidyverse.org/}{\textbf{tidyverse}} qui est un
+ensemble de packages conçus pour la \emph{data science} et partageant
+tous les mêmes philoshophie, grammaire et structure. Nous allons, avec
+l'exploration des packages du \textbf{tidyverse}, comprendre
+l'importance de cette grammaire. Elle traduit la volonté des auteurs de
+condenser dans le nom des fonctions l'idée de la tâche que celles-ci
+exécutent. Dans \textbf{dplyr}, les fonctions majeures sont des verbes
+(comme nous allons le voir).
+
+Alors, qu'est-ce que \textbf{dplyr} fait? Voici une simple analogie. Si
+les données constituent un tissu, nous pouvons voir \textbf{dplyr} comme
+à la fois la paire de ciseaux pour en faire la coupe, et l'aiguille et
+le fil pour le coudre. Pour le prouver, voici le
+\href{https://github.com/tidyverse/dplyr/blob/master/pkgdown/favicon/apple-touch-icon-120x120.png}{logo}
+associé au package.
+
+Pour travailler avec \textbf{dplyr}, l'on commence par l'installer sur
+son poste de travail. Etant intégré au
+\href{https://www.tidyverse.org/}{\textbf{tidyverse}}, il est possible
+de l'installer en même temps que les autres composantes de celui-ci.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+L'on peut aussi l'installer tout seul.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Cette commande télécharge depuis le
+\href{https://cran.r-project.org/}{réseau d'archivage des packages R} la
+dernière version stable publiée. Toutefois, il est aussi possible
+d'acquérir les versions en développement depuis
+\href{https://github.com/tidyverse/dplyr}{Github}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{) }\CommentTok{# au cas où ce package n'est pas installé}
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"tidyverse/dplyr"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Une fois l'installation effectuée, l'on peut charger le package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{L'objet
+\texttt{tibble}}{L'objet tibble}}\label{lobjet-tibble}
+
+Avant d'aller loin, il est utile d'introduire la notion de
+\texttt{tibble} qui est une partie intégrante des packages du
+\textbf{tidyverse}. Il s'agit de la même chose que le
+\texttt{data\ frame}, mais celui-ci repensé. Le \texttt{tibble} n'altère
+pas la structure ni la classe des données contenue dans un
+\texttt{data\ frame}. Par contre, il agit sur l'affichage des données
+et, comme nous le verrons plus tard, leur permet de stocker de nouvelles
+sortes de données (\texttt{colonne-list}, à noter quelque part\ldots{}on
+y reviendra). Pour l'instant regardons-le à l'oeuvre en termes
+d'affichage.
+
+Prenons les données sur les populations des communes du Mali en 2009
+(RGPH, 2009). Nous allons charger les données depuis la
+\href{https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/5_Manipuler_Donnees_dans_R/data/adm3_pop_2009.csv}{source
+suivante}: \tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{source_donnees <-}\StringTok{ "https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/5_Manipuler_Donnees_dans_R/data/adm3_pop_2009.csv"}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Importation des données}
+\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{ <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(source_donnees)}
+\end{Highlighting}
+\end{Shaded}
+
+Quelle est la classe de cet objet?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "data.frame"
+\end{verbatim}
+
+C'est un \texttt{data\ frame}! Regardons sa structure ainsi que les six
+premières observations
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    703 obs. of  9 variables:
+##  $ id        : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ admin0_nom: Factor w/ 1 level "Mali": 1 1 1 1 1 1 1 1 1 1 ...
+##  $ admin1_nom: Factor w/ 9 levels "Bamako","Gao",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ admin2_nom: Factor w/ 50 levels "Abeibara","Ansongo",..: 23 23 23 23 23 23 23 23 23 23 ...
+##  $ admin3_nom: Factor w/ 687 levels "Abeibara","Adarmalane",..: 25 74 116 156 192 210 231 238 249 257 ...
+##  $ annee     : int  2009 2009 2009 2009 2009 2009 2009 2009 2009 2009 ...
+##  $ homme     : num  6123 6144 7115 11466 5141 ...
+##  $ femme     : int  5974 6353 7015 12091 5017 1934 3927 1903 10234 3445 ...
+##  $ source    : Factor w/ 1 level "RGPH": 1 1 1 1 1 1 1 1 1 1 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   id admin0_nom admin1_nom admin2_nom admin3_nom annee homme femme source
+## 1  1       Mali      Kayes      Kayes   Bangassi  2009  6123  5974   RGPH
+## 2  2       Mali      Kayes      Kayes  Colimbine  2009  6144  6353   RGPH
+## 3  3       Mali      Kayes      Kayes     Diamou  2009  7115  7015   RGPH
+## 4  4       Mali      Kayes      Kayes   Djelebou  2009 11466 12091   RGPH
+## 5  5       Mali      Kayes      Kayes     Faleme  2009  5141  5017   RGPH
+## 6  6       Mali      Kayes      Kayes      Fegui  2009  1999  1934   RGPH
+\end{verbatim}
+
+Maintenant, déclarons cet objet comme un \texttt{tibble}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{ <-}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Revoyons la classe.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "tbl_df"     "tbl"        "data.frame"
+\end{verbatim}
+
+La classe a changé, ou plutôt elle s'est consolidée. De nouvelles
+caractéristiques ont été ajoutées à \texttt{data.frame}. Maintenant,
+imprimons le jeu de données lui-même.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adm3_pop_}\DecValTok{2009}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 9
+##       id admin0_nom admin1_nom admin2_nom admin3_nom annee homme femme
+##    <int> <fct>      <fct>      <fct>      <fct>      <int> <dbl> <int>
+##  1     1 Mali       Kayes      Kayes      Bangassi    2009  6123  5974
+##  2     2 Mali       Kayes      Kayes      Colimbine   2009  6144  6353
+##  3     3 Mali       Kayes      Kayes      Diamou      2009  7115  7015
+##  4     4 Mali       Kayes      Kayes      Djelebou    2009 11466 12091
+##  5     5 Mali       Kayes      Kayes      Faleme      2009  5141  5017
+##  6     6 Mali       Kayes      Kayes      Fegui       2009  1999  1934
+##  7     7 Mali       Kayes      Kayes      Gory Gope~  2009  3939  3927
+##  8     8 Mali       Kayes      Kayes      Goumera     2009  1918  1903
+##  9     9 Mali       Kayes      Kayes      Guidimaka~  2009  9798 10234
+## 10    10 Mali       Kayes      Kayes      Hawa Demb~  2009  3406  3445
+## # ... with 693 more rows, and 1 more variable: source <fct>
+\end{verbatim}
+
+Avec les \texttt{tibble}, l'affichage d'un jeu de données donne par
+défaut les dix premières observations et indique la classe et/ou le type
+des colonnes. Nous voyons par exemple que la variable \texttt{id} est
+composée d'entiers tandis que la variable \texttt{admin0\_nom} est
+déclarée en facteur. De ce fait, l'impression d'un \texttt{tibble}
+permet de combiner les résultats qu'on obtiendrait avec les commandes
+\texttt{str} et \texttt{head}.
+
+Le \texttt{tibble} est l'output par défaut des fonctions du
+\textbf{tidyverse}. Reprenons l'opération d'importation. Cette fois-ci,
+au lieu de passer par \texttt{read.csv} qui est une fonction basique,
+nous utiliserons \texttt{read\_csv} du package \textbf{readr}, lui-même
+membre du club \textbf{tidyverse}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Chargement du package "readr"}
+\KeywordTok{library}\NormalTok{(readr)}
+
+\CommentTok{# Importation des données}
+\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{ <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(source_donnees)}
+
+\CommentTok{# Classe}
+\KeywordTok{class}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Impression}
+\NormalTok{adm3_pop_}\DecValTok{2009}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 9
+##       id admin0_nom admin1_nom admin2_nom admin3_nom annee homme femme
+##    <dbl> <chr>      <chr>      <chr>      <chr>      <dbl> <dbl> <dbl>
+##  1     1 Mali       Kayes      Kayes      Bangassi    2009  6123  5974
+##  2     2 Mali       Kayes      Kayes      Colimbine   2009  6144  6353
+##  3     3 Mali       Kayes      Kayes      Diamou      2009  7115  7015
+##  4     4 Mali       Kayes      Kayes      Djelebou    2009 11466 12091
+##  5     5 Mali       Kayes      Kayes      Faleme      2009  5141  5017
+##  6     6 Mali       Kayes      Kayes      Fegui       2009  1999  1934
+##  7     7 Mali       Kayes      Kayes      Gory Gope~  2009  3939  3927
+##  8     8 Mali       Kayes      Kayes      Goumera     2009  1918  1903
+##  9     9 Mali       Kayes      Kayes      Guidimaka~  2009  9798 10234
+## 10    10 Mali       Kayes      Kayes      Hawa Demb~  2009  3406  3445
+## # ... with 693 more rows, and 1 more variable: source <chr>
+\end{verbatim}
+
+Vous voyez!
+
+Même si l'on passe un \texttt{data\ frame} à une fonction du
+\textbf{tidyverse}, le résultat est un \texttt{tibble}. Prenons la
+fonction \texttt{glimpse} du package \textbf{dplyr} (notez que
+\emph{glimpse} veut dire aperçu en anglais).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Importation des données}
+\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{ <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(source_donnees)}
+
+\CommentTok{# Aperçu avec "glimpse"}
+\KeywordTok{glimpse}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 703
+## Variables: 9
+## $ id         <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ...
+## $ admin0_nom <fct> Mali, Mali, Mali, Mali, Mali, Mali, Mali, Mali, Mal...
+## $ admin1_nom <fct> Kayes, Kayes, Kayes, Kayes, Kayes, Kayes, Kayes, Ka...
+## $ admin2_nom <fct> Kayes, Kayes, Kayes, Kayes, Kayes, Kayes, Kayes, Ka...
+## $ admin3_nom <fct> Bangassi, Colimbine, Diamou, Djelebou, Faleme, Fegu...
+## $ annee      <int> 2009, 2009, 2009, 2009, 2009, 2009, 2009, 2009, 200...
+## $ homme      <dbl> 6123, 6144, 7115, 11466, 5141, 1999, 3939, 1918, 97...
+## $ femme      <int> 5974, 6353, 7015, 12091, 5017, 1934, 3927, 1903, 10...
+## $ source     <fct> RGPH, RGPH, RGPH, RGPH, RGPH, RGPH, RGPH, RGPH, RGP...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Comparons à "str"}
+\KeywordTok{str}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    703 obs. of  9 variables:
+##  $ id        : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ admin0_nom: Factor w/ 1 level "Mali": 1 1 1 1 1 1 1 1 1 1 ...
+##  $ admin1_nom: Factor w/ 9 levels "Bamako","Gao",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ admin2_nom: Factor w/ 50 levels "Abeibara","Ansongo",..: 23 23 23 23 23 23 23 23 23 23 ...
+##  $ admin3_nom: Factor w/ 687 levels "Abeibara","Adarmalane",..: 25 74 116 156 192 210 231 238 249 257 ...
+##  $ annee     : int  2009 2009 2009 2009 2009 2009 2009 2009 2009 2009 ...
+##  $ homme     : num  6123 6144 7115 11466 5141 ...
+##  $ femme     : int  5974 6353 7015 12091 5017 1934 3927 1903 10234 3445 ...
+##  $ source    : Factor w/ 1 level "RGPH": 1 1 1 1 1 1 1 1 1 1 ...
+\end{verbatim}
+
+Nous voyons que \texttt{glimpse} répartit différemment l'espace en les
+observations affichées. Il se préoccupe plus de l'équilibre entre
+celles-ci que les fonctions comme \texttt{str} ou \texttt{head}.
+
+Nous allons maintenant explorer les verbes majeurs du package
+\textbf{dplyr}. Dans une démarche pédagogique - pour rappeler les bases
+déjà vue et enrichir celles-ci, au besoin - nous tenterons autant que
+possible de reproduire les exemples avec R-base aussi afin de mettre en
+exergue les différences.
+
+\section{\texorpdfstring{Selection et/ou exclusion de variables:
+\texttt{select}}{Selection et/ou exclusion de variables: select}}\label{selection-etou-exclusion-de-variables-select}
+
+Comme nous avons vu précédemment, il arrive souvent que l'on veuille
+sélectionner certaines variables d'un jeu de données. Dans notre cas,
+supposons que nous sommes seulement intéressés par les chiffres. Il
+s'agit des colonnes: \texttt{homme} et \texttt{femme}.
+
+Rappelons notre jeu de données.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Chargement du package "readr"}
+\KeywordTok{library}\NormalTok{(readr)}
+
+\CommentTok{# Importation des données}
+\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{ <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(source_donnees)}
+
+\CommentTok{# Impression}
+\NormalTok{adm3_pop_}\DecValTok{2009}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 9
+##       id admin0_nom admin1_nom admin2_nom admin3_nom annee homme femme
+##    <dbl> <chr>      <chr>      <chr>      <chr>      <dbl> <dbl> <dbl>
+##  1     1 Mali       Kayes      Kayes      Bangassi    2009  6123  5974
+##  2     2 Mali       Kayes      Kayes      Colimbine   2009  6144  6353
+##  3     3 Mali       Kayes      Kayes      Diamou      2009  7115  7015
+##  4     4 Mali       Kayes      Kayes      Djelebou    2009 11466 12091
+##  5     5 Mali       Kayes      Kayes      Faleme      2009  5141  5017
+##  6     6 Mali       Kayes      Kayes      Fegui       2009  1999  1934
+##  7     7 Mali       Kayes      Kayes      Gory Gope~  2009  3939  3927
+##  8     8 Mali       Kayes      Kayes      Goumera     2009  1918  1903
+##  9     9 Mali       Kayes      Kayes      Guidimaka~  2009  9798 10234
+## 10    10 Mali       Kayes      Kayes      Hawa Demb~  2009  3406  3445
+## # ... with 693 more rows, and 1 more variable: source <chr>
+\end{verbatim}
+
+Maintenant, passons d'abord par les méthodes de R-base, comme nous avons
+vu avant.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 2
+##    homme femme
+##    <dbl> <dbl>
+##  1  6123  5974
+##  2  6144  6353
+##  3  7115  7015
+##  4 11466 12091
+##  5  5141  5017
+##  6  1999  1934
+##  7  3939  3927
+##  8  1918  1903
+##  9  9798 10234
+## 10  3406  3445
+## # ... with 693 more rows
+\end{verbatim}
+
+ou
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{subset}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ adm3_pop_}\DecValTok{2009}\NormalTok{, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(homme, femme))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 2
+##    homme femme
+##    <dbl> <dbl>
+##  1  6123  5974
+##  2  6144  6353
+##  3  7115  7015
+##  4 11466 12091
+##  5  5141  5017
+##  6  1999  1934
+##  7  3939  3927
+##  8  1918  1903
+##  9  9798 10234
+## 10  3406  3445
+## # ... with 693 more rows
+\end{verbatim}
+
+Dans \textbf{dplyr}, l'on utilise pour ce faire la fonction
+\texttt{select} qui va se rapprocher de la fonction \texttt{subset} de
+R-base.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{select}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{, homme, femme)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 2
+##    homme femme
+##    <dbl> <dbl>
+##  1  6123  5974
+##  2  6144  6353
+##  3  7115  7015
+##  4 11466 12091
+##  5  5141  5017
+##  6  1999  1934
+##  7  3939  3927
+##  8  1918  1903
+##  9  9798 10234
+## 10  3406  3445
+## # ... with 693 more rows
+\end{verbatim}
+
+Le premier argument de la fonction est le jeu de données. Ceci est
+général pour toutes les fonctions de \textbf{dplyr}. Ensuite viennent
+les autres arguments. Ici, nous avons énuméré les variables qui nous
+intéressent. La fonction \texttt{select} présente une grande simplicité
+par rapport aux alternatives de R-base. A l'instar de \texttt{subset},
+elle ne requiert pas que les noms de variables soient entre griffes
+(\texttt{"\ "}). Aussi, elle ne requiert pas que l'on spécifie le nombre
+d'observations à afficher, que l'input soit un \texttt{data\ frame} ou
+un \texttt{tibble}. Avec les fonctions de R-base, quand l'input est une
+\texttt{tibble}, l'affichage est limité à dix observations. Toutefois,
+cette règle est violée quand l'input est un \texttt{data.frame}.
+
+\subsection{Sélection simple}\label{selection-simple}
+
+Il y a un autre avantage avec \texttt{select}, mais qui est commun au
+\textbf{tidyverse} tout entier. C'est l'opérateur:
+\texttt{\%\textgreater{}\%} que l'on appelle \emph{pipe opérator}. Ce
+signe permet d'unir les lignes de codes en chaîne en leur servant de
+maillon. Il prend l'objet issu d'une ligne de départ ou d'une opération
+et fournit le résultat comme intrant à la ligne suivante. De ce fait, en
+l'utilisant, on n'a pas besoin de mettre dans une fonction l'argument
+spécifique à l'objet intrant. On peut se limiter aux arguments
+spécifiques à la tâche exécutée par la fonction. Réécrivons l'opération
+précédente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(homme, femme)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 2
+##    homme femme
+##    <dbl> <dbl>
+##  1  6123  5974
+##  2  6144  6353
+##  3  7115  7015
+##  4 11466 12091
+##  5  5141  5017
+##  6  1999  1934
+##  7  3939  3927
+##  8  1918  1903
+##  9  9798 10234
+## 10  3406  3445
+## # ... with 693 more rows
+\end{verbatim}
+
+Avec \texttt{\%\textgreater{}\%}, nous verbalisons l'idée que nous
+partons du jeu de données, \texttt{adm3\_pop\_2009}, que nous soumettons
+ensuite à une opération de sélection à travers la fonction
+\texttt{select}. Nous obtenons le même résultat, mais la lisibilité est
+améliorée. Le signe \texttt{\%\textgreater{}\%} nous permet d'ordonner
+les lignes de codes de sorte à rendre compte du séquençage des
+opérations. A partir de maintenant, nous allons progressivement adoptée
+cette façon d'écrire les opérations.
+
+\subsection{Sélection groupée}\label{selection-groupee}
+
+Un autre avantage de \texttt{select} est de permettre la sélection de
+plusieurs variables à travers leur communalité. Dans notre jeu, nous
+avons trois variables qui portent toutes le terme \texttt{admin} comme
+préfixe. Plutôt que de les sélectionner une à une nous pouvons les
+appeler toutes ensembles. Commençons par R-base.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{names_df <-}\StringTok{ }\KeywordTok{names}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{)}
+\NormalTok{select_df <-}\StringTok{ }\KeywordTok{startsWith}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ names_df, }\DataTypeTok{prefix =} \StringTok{"adm"}\NormalTok{)}
+\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[, select_df]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    <chr>      <chr>      <chr>      <chr>               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows
+\end{verbatim}
+
+Cette opération nous a pris trois lignes différentes. Avec
+\texttt{select}, nous en faisons juste de deux lignes séquencées (même
+une si l'on veut).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\KeywordTok{starts_with}\NormalTok{(}\StringTok{"adm"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    <chr>      <chr>      <chr>      <chr>               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows
+\end{verbatim}
+
+L'on peut faire la même chose avec les suffixes\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\KeywordTok{ends_with}\NormalTok{(}\StringTok{"nom"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    <chr>      <chr>      <chr>      <chr>               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows
+\end{verbatim}
+
+\ldots{}ou chercher des termes indépendemment de leur position dans le
+nom des variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\KeywordTok{contains}\NormalTok{(}\StringTok{"nom"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    <chr>      <chr>      <chr>      <chr>               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows
+\end{verbatim}
+
+\textbf{dplyr} contient une variétés de fonctions similaires dont:
+\texttt{matches()}, \texttt{num\_range()}, \texttt{one\_of()},
+\texttt{everything()}, \texttt{group\_cols()}. Avec R, l'on peut aboutir
+au même résultat en utilisant différentes méthodes. La force de
+\textbf{dplyr} - et de \texttt{tidyverse} dans une large mesure - est
+que la méthode est plus économe en écriture de codes et le séquençage
+bien explicité à l'aide de l'opérateur \texttt{\%\textgreater{}\%}.
+
+\subsection{Index et nom}\label{index-et-nom}
+
+La sélection peut aussi se faire sur la base de l'index des colonnes,
+c'est-à-dire leur position. Sélectionnons de la deuxième à la cinquième
+colonne.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Avec R-base}
+\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[, }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\OperatorTok{:}\DecValTok{5}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    <chr>      <chr>      <chr>      <chr>               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Avec dpylr}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\DecValTok{2}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    <chr>      <chr>      <chr>      <chr>               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows
+\end{verbatim}
+
+La même chose peut se faire avec le nom des variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Avec R-base}
+\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[, }\KeywordTok{c}\NormalTok{(}\StringTok{"admin0_nom"}\NormalTok{, }\StringTok{"admin1_nom"}\NormalTok{, }\StringTok{"admin2_nom"}\NormalTok{, }\StringTok{"admin3_nom"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    <chr>      <chr>      <chr>      <chr>               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Avec dplyr}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin0_nom, admin1_nom, admin2_nom, admin3_nom)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    <chr>      <chr>      <chr>      <chr>               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows
+\end{verbatim}
+
+L'on peut faire plus simple avec \textbf{dplyr} quand les variables
+recherchées se suivent.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin0_nom}\OperatorTok{:}\NormalTok{admin3_nom)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Exclusion}\label{exclusion}
+
+Comme avec R-base, la sélection peut aussi se faire sur la base de
+l'exclusion. Imaginez que l'on souhaite exclure les quatre premières
+variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Avec R-base}
+\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[, }\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 5
+##    admin3_nom           annee homme femme source
+##    <chr>                <dbl> <dbl> <dbl> <chr> 
+##  1 Bangassi              2009  6123  5974 RGPH  
+##  2 Colimbine             2009  6144  6353 RGPH  
+##  3 Diamou                2009  7115  7015 RGPH  
+##  4 Djelebou              2009 11466 12091 RGPH  
+##  5 Faleme                2009  5141  5017 RGPH  
+##  6 Fegui                 2009  1999  1934 RGPH  
+##  7 Gory Gopela           2009  3939  3927 RGPH  
+##  8 Goumera               2009  1918  1903 RGPH  
+##  9 Guidimakan Keri Kaff  2009  9798 10234 RGPH  
+## 10 Hawa Dembaya          2009  3406  3445 RGPH  
+## # ... with 693 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Avec dplyr}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 5
+##    admin3_nom           annee homme femme source
+##    <chr>                <dbl> <dbl> <dbl> <chr> 
+##  1 Bangassi              2009  6123  5974 RGPH  
+##  2 Colimbine             2009  6144  6353 RGPH  
+##  3 Diamou                2009  7115  7015 RGPH  
+##  4 Djelebou              2009 11466 12091 RGPH  
+##  5 Faleme                2009  5141  5017 RGPH  
+##  6 Fegui                 2009  1999  1934 RGPH  
+##  7 Gory Gopela           2009  3939  3927 RGPH  
+##  8 Goumera               2009  1918  1903 RGPH  
+##  9 Guidimakan Keri Kaff  2009  9798 10234 RGPH  
+## 10 Hawa Dembaya          2009  3406  3445 RGPH  
+## # ... with 693 more rows
+\end{verbatim}
+
+L'on voit qu'à l'instar de R-base, l'on a juste à précédér les éléments
+à exclure du signe \texttt{-}.
+
+\subsection{Une pierre deux coups}\label{une-pierre-deux-coups}
+
+\textbf{dplyr} compte une fonction \texttt{rename} qui permet de
+renommer les variables. Prise indépendemment, elle agit comme
+\texttt{select}. Supposons que nous voulions changer les noms de
+variables en majuscules.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sauvegarde des données dans un nouveau data frame}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Voir les noms}
+\KeywordTok{names}\NormalTok{(pop_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "homme" "femme"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Changer les noms}
+\KeywordTok{names}\NormalTok{(pop_df) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"HOMME"}\NormalTok{, }\StringTok{"FEMME"}\NormalTok{)}
+\CommentTok{# Vérification}
+\KeywordTok{names}\NormalTok{(pop_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "HOMME" "FEMME"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+\CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Modification des noms de variables}
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{HOMME =}\NormalTok{ homme, }\DataTypeTok{FEMME =}\NormalTok{ femme)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 2
+##    HOMME FEMME
+##    <dbl> <dbl>
+##  1  6123  5974
+##  2  6144  6353
+##  3  7115  7015
+##  4 11466 12091
+##  5  5141  5017
+##  6  1999  1934
+##  7  3939  3927
+##  8  1918  1903
+##  9  9798 10234
+## 10  3406  3445
+## # ... with 693 more rows
+\end{verbatim}
+
+Nous voyons qu'une telle opération qu'avec R-base requiert la création
+d'un objet intermédiaire tandis qu'avec \textbf{dplyr} elle s'insère
+tout simplement dans la séquence. Mais \texttt{select} peut elle-même
+prendre en charge la tâche de changement de noms.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt et changement de noms}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\DataTypeTok{HOMME =}\NormalTok{ homme, }\DataTypeTok{FEMME =}\NormalTok{ femme)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 2
+##    HOMME FEMME
+##    <dbl> <dbl>
+##  1  6123  5974
+##  2  6144  6353
+##  3  7115  7015
+##  4 11466 12091
+##  5  5141  5017
+##  6  1999  1934
+##  7  3939  3927
+##  8  1918  1903
+##  9  9798 10234
+## 10  3406  3445
+## # ... with 693 more rows
+\end{verbatim}
+
+L'on indique le nouveau nom suivi du signe \texttt{=} et ensuite le
+nouveau nom.
+
+\section{\texorpdfstring{Création et/ou suppression de variables:
+\texttt{mutate}}{Création et/ou suppression de variables: mutate}}\label{creation-etou-suppression-de-variables-mutate}
+
+La sélection et la suppression de variables peuvent s'inscrire dans le
+cadre d'une stratégie d'exploration plus large qui peut elle-même
+impliquer la création de nouvelles variables.
+
+\subsection{Création de variable}\label{creation-de-variable}
+
+Revenons à l'exploration de la supériorité numérique entre hommes et
+femmes, sujet que nous avons abordé dans le chapitre précédent.
+Supposons que nous souhaitions:
+
+\begin{itemize}
+\item
+  sélectionner les populations pour les hommes et les femmes pour chaque
+  commune;
+\item
+  calculer un ratio \texttt{femme}/\texttt{homme} pour chaque commune.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{ratio <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{/}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Aperçu}
+\NormalTok{pop_df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 4
+##    admin3_nom           homme femme ratio
+##    <chr>                <dbl> <dbl> <dbl>
+##  1 Bangassi              6123  5974 0.976
+##  2 Colimbine             6144  6353 1.03 
+##  3 Diamou                7115  7015 0.986
+##  4 Djelebou             11466 12091 1.05 
+##  5 Faleme                5141  5017 0.976
+##  6 Fegui                 1999  1934 0.967
+##  7 Gory Gopela           3939  3927 0.997
+##  8 Goumera               1918  1903 0.992
+##  9 Guidimakan Keri Kaff  9798 10234 1.04 
+## 10 Hawa Dembaya          3406  3445 1.01 
+## # ... with 693 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{ratio =}\NormalTok{ homme}\OperatorTok{/}\NormalTok{femme)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 4
+##    admin3_nom           homme femme ratio
+##    <chr>                <dbl> <dbl> <dbl>
+##  1 Bangassi              6123  5974 1.02 
+##  2 Colimbine             6144  6353 0.967
+##  3 Diamou                7115  7015 1.01 
+##  4 Djelebou             11466 12091 0.948
+##  5 Faleme                5141  5017 1.02 
+##  6 Fegui                 1999  1934 1.03 
+##  7 Gory Gopela           3939  3927 1.00 
+##  8 Goumera               1918  1903 1.01 
+##  9 Guidimakan Keri Kaff  9798 10234 0.957
+## 10 Hawa Dembaya          3406  3445 0.989
+## # ... with 693 more rows
+\end{verbatim}
+
+Le résultat est le même, mais le gain avec \textbf{dplyr} est visible.
+Le séquençage rend la lecture du code facile. Il évite aussi la création
+d'un objet intermédiaire, comme ce fut le cas de \texttt{pop\_df} avec
+R-base.
+
+Dans le cas précédent, la variable était numérique. Elle peut aussi
+prendre la forme catégorielle. Considérons par exemple des intervalles
+de population qu'on souhaiterait créer pour séparer les communes en
+catégories. Nous allons d'abord faire la somme des deux groupes, hommes
+et femmes, et ensuite créer la variable catégorielle.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Création d'une nouvelle variable: catégorielle}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{pop_cat <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(pop_df}\OperatorTok{$}\NormalTok{total }\OperatorTok{<}\StringTok{ }\DecValTok{10000}\NormalTok{, }\StringTok{"<10000"}\NormalTok{, }\StringTok{">=10000"}\NormalTok{)}
+\CommentTok{# Aperçu}
+\NormalTok{pop_df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 5
+##    admin3_nom           homme femme total pop_cat
+##    <chr>                <dbl> <dbl> <dbl> <chr>  
+##  1 Bangassi              6123  5974 12097 >=10000
+##  2 Colimbine             6144  6353 12497 >=10000
+##  3 Diamou                7115  7015 14130 >=10000
+##  4 Djelebou             11466 12091 23557 >=10000
+##  5 Faleme                5141  5017 10158 >=10000
+##  6 Fegui                 1999  1934  3933 <10000 
+##  7 Gory Gopela           3939  3927  7866 <10000 
+##  8 Goumera               1918  1903  3821 <10000 
+##  9 Guidimakan Keri Kaff  9798 10234 20032 >=10000
+## 10 Hawa Dembaya          3406  3445  6851 <10000 
+## # ... with 693 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable: numérique}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable: catégorielle}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{pop_cat =} \KeywordTok{ifelse}\NormalTok{(total }\OperatorTok{<}\StringTok{ }\DecValTok{10000}\NormalTok{, }\StringTok{"<10000"}\NormalTok{, }\StringTok{">=10000"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 5
+##    admin3_nom           homme femme total pop_cat
+##    <chr>                <dbl> <dbl> <dbl> <chr>  
+##  1 Bangassi              6123  5974 12097 >=10000
+##  2 Colimbine             6144  6353 12497 >=10000
+##  3 Diamou                7115  7015 14130 >=10000
+##  4 Djelebou             11466 12091 23557 >=10000
+##  5 Faleme                5141  5017 10158 >=10000
+##  6 Fegui                 1999  1934  3933 <10000 
+##  7 Gory Gopela           3939  3927  7866 <10000 
+##  8 Goumera               1918  1903  3821 <10000 
+##  9 Guidimakan Keri Kaff  9798 10234 20032 >=10000
+## 10 Hawa Dembaya          3406  3445  6851 <10000 
+## # ... with 693 more rows
+\end{verbatim}
+
+Il est intéréssant de rélever qu'avec cet exemple l'on vient de montrer
+que la fonction \texttt{mutate} prend en charge les déclarations
+conditionnelles.
+
+A l'instar de \texttt{select} qui accepte la liste de toutes les
+variables à sélection, \texttt{mutate} aussi peut, avec un seul appel,
+exécuter plusieurs opérations de création de variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création de deux nouvelles variables: numérique et catégorielle}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme,}
+         \DataTypeTok{pop_cat =} \KeywordTok{ifelse}\NormalTok{(total }\OperatorTok{<}\StringTok{ }\DecValTok{10000}\NormalTok{, }\StringTok{"<10000"}\NormalTok{, }\StringTok{">=10000"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 5
+##    admin3_nom           homme femme total pop_cat
+##    <chr>                <dbl> <dbl> <dbl> <chr>  
+##  1 Bangassi              6123  5974 12097 >=10000
+##  2 Colimbine             6144  6353 12497 >=10000
+##  3 Diamou                7115  7015 14130 >=10000
+##  4 Djelebou             11466 12091 23557 >=10000
+##  5 Faleme                5141  5017 10158 >=10000
+##  6 Fegui                 1999  1934  3933 <10000 
+##  7 Gory Gopela           3939  3927  7866 <10000 
+##  8 Goumera               1918  1903  3821 <10000 
+##  9 Guidimakan Keri Kaff  9798 10234 20032 >=10000
+## 10 Hawa Dembaya          3406  3445  6851 <10000 
+## # ... with 693 more rows
+\end{verbatim}
+
+L'appel de \texttt{mutate} n'a pas à être spécifique à une seule
+variable. La fonction peut effectuer plusieurs opérations lors d'un seul
+appel.
+
+\subsection{Suppression de variables}\label{suppression-de-variables-1}
+
+Comme dans R-base, l'on supprime une variable en lui affectant la valeur
+\texttt{NULL}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \CommentTok{# Création de deux nouvelles variables: numérique et catégorielle}
+    \DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme, }
+    \DataTypeTok{pop_cat =} \KeywordTok{ifelse}\NormalTok{(total }\OperatorTok{<}\StringTok{ }\DecValTok{10000}\NormalTok{, }\StringTok{"<10000"}\NormalTok{, }\StringTok{">=10000"}\NormalTok{),}
+    \CommentTok{# Suppression de variables}
+    \DataTypeTok{homme =} \OtherTok{NULL}\NormalTok{,}
+    \DataTypeTok{femme =} \OtherTok{NULL}
+\NormalTok{    )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 3
+##    admin3_nom           total pop_cat
+##    <chr>                <dbl> <chr>  
+##  1 Bangassi             12097 >=10000
+##  2 Colimbine            12497 >=10000
+##  3 Diamou               14130 >=10000
+##  4 Djelebou             23557 >=10000
+##  5 Faleme               10158 >=10000
+##  6 Fegui                 3933 <10000 
+##  7 Gory Gopela           7866 <10000 
+##  8 Goumera               3821 <10000 
+##  9 Guidimakan Keri Kaff 20032 >=10000
+## 10 Hawa Dembaya          6851 <10000 
+## # ... with 693 more rows
+\end{verbatim}
+
+\subsection{Ne garder que le résultat}\label{ne-garder-que-le-resultat}
+
+Une variante de la fonction \texttt{mutate} est la fonction
+\texttt{transmute} qui a la particularité de ne garder que les résultats
+issus des tâches qui lui ont été confiées. Elle présente certes une
+approche radicale par rapport à une suppression sélective des variables,
+mais elle est très commode pour celui que n'est intéréssé que par les
+résultats. Elle se distingue ainsi de \texttt{mutate} qui, quant à elle,
+préserve les variables préexistantes à l'opération de création de
+nouvelles colonnes
+
+Reprenons le dernier exemple.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Création d'une nouvelle variable: catégorielle}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{pop_cat <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(pop_df}\OperatorTok{$}\NormalTok{total }\OperatorTok{<}\StringTok{ }\DecValTok{10000}\NormalTok{, }\StringTok{"<10000"}\NormalTok{, }\StringTok{">=10000"}\NormalTok{)}
+\CommentTok{# Suppression de variables}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{admin3_nom <-}\StringTok{ }\OtherTok{NULL}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme <-}\StringTok{ }\OtherTok{NULL}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme <-}\StringTok{ }\OtherTok{NULL}
+\CommentTok{# Alternative: sélection des variables créées}
+\CommentTok{# Aperçu}
+\NormalTok{pop_df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 2
+##    total pop_cat
+##    <dbl> <chr>  
+##  1 12097 >=10000
+##  2 12497 >=10000
+##  3 14130 >=10000
+##  4 23557 >=10000
+##  5 10158 >=10000
+##  6  3933 <10000 
+##  7  7866 <10000 
+##  8  3821 <10000 
+##  9 20032 >=10000
+## 10  6851 <10000 
+## # ... with 693 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création de deux nouvelles variables: numérique et catégorielle}
+\StringTok{  }\KeywordTok{transmute}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme, }
+            \DataTypeTok{pop_cat =} \KeywordTok{ifelse}\NormalTok{(total }\OperatorTok{<}\StringTok{ }\DecValTok{10000}\NormalTok{, }\StringTok{"<10000"}\NormalTok{, }\StringTok{">=10000"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 703 x 2
+##    total pop_cat
+##    <dbl> <chr>  
+##  1 12097 >=10000
+##  2 12497 >=10000
+##  3 14130 >=10000
+##  4 23557 >=10000
+##  5 10158 >=10000
+##  6  3933 <10000 
+##  7  7866 <10000 
+##  8  3821 <10000 
+##  9 20032 >=10000
+## 10  6851 <10000 
+## # ... with 693 more rows
+\end{verbatim}
+
+Vous voyez! Comme résultat, nous avons les deux nouvelles colonnes.
+Toutes les autres ont été omises. Toutefois, le nombre d'observations
+n'a pas varié.
+
+Les avantages de \textbf{dplyr} deviennent évident avec l'augmentation
+du nombre d'opérations à effectuer sur une intrant donné, très
+généralement un jeu de données rectangulaires (\texttt{data\ frame} ou
+\texttt{tibble}).
+
+\section{\texorpdfstring{Sélection d'observations:
+\texttt{filter}}{Sélection d'observations: filter}}\label{selection-dobservations-filter}
+
+Dans le chapitre précédent, nous avions vu quelques techniques de
+sélections d'observations. Souvent à partir de la position, souvent à
+partir de critères définis. Re-appliquons certaines de ces techniques à
+nos données et comparons à la démarche de \textbf{dplyr}.
+
+\subsection{Sur la base de critères
+numériques}\label{sur-la-base-de-criteres-numeriques}
+
+Regardons à nouveau notre jeu de données.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glimpse}\NormalTok{(adm3_pop_}\DecValTok{2009}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 703
+## Variables: 9
+## $ id         <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ...
+## $ admin0_nom <chr> "Mali", "Mali", "Mali", "Mali", "Mali", "Mali", "Ma...
+## $ admin1_nom <chr> "Kayes", "Kayes", "Kayes", "Kayes", "Kayes", "Kayes...
+## $ admin2_nom <chr> "Kayes", "Kayes", "Kayes", "Kayes", "Kayes", "Kayes...
+## $ admin3_nom <chr> "Bangassi", "Colimbine", "Diamou", "Djelebou", "Fal...
+## $ annee      <dbl> 2009, 2009, 2009, 2009, 2009, 2009, 2009, 2009, 200...
+## $ homme      <dbl> 6123, 6144, 7115, 11466, 5141, 1999, 3939, 1918, 97...
+## $ femme      <dbl> 5974, 6353, 7015, 12091, 5017, 1934, 3927, 1903, 10...
+## $ source     <chr> "RGPH", "RGPH", "RGPH", "RGPH", "RGPH", "RGPH", "RG...
+\end{verbatim}
+
+Nous avons 703 observations, donc 703 communes. Regardons les plus
+grandes en matière de population. Disons, celles qui sont au dessus du
+seuil de 100000 habitants.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base.}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Critère de sélection: valeurs logiques (TRUE/FALSE)}
+\NormalTok{pop_100000_plus <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total }\OperatorTok{>}\StringTok{ }\DecValTok{100000}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df[pop_100000_plus, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 4
+##    admin3_nom        homme  femme  total
+##    <chr>             <dbl>  <dbl>  <dbl>
+##  1 Kayes Commune     65135  61184 126319
+##  2 Kalabancoro       81018  80864 161882
+##  3 Koutiala Commune  70905  70539 141444
+##  4 Sikasso Commune  114171 112447 226618
+##  5 Segou Commune     66819  66682 133501
+##  6 Mopti Commune     60080  60706 120786
+##  7 Commune I        168308 166587 334895
+##  8 Commune II        78690  80670 159360
+##  9 Commune III       63792  64874 128666
+## 10 Commune IV       152153 152373 304526
+## 11 Commune V        206749 206517 413266
+## 12 Commune VI       237951 231702 469653
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(total }\OperatorTok{>}\StringTok{ }\DecValTok{100000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 4
+##    admin3_nom        homme  femme  total
+##    <chr>             <dbl>  <dbl>  <dbl>
+##  1 Kayes Commune     65135  61184 126319
+##  2 Kalabancoro       81018  80864 161882
+##  3 Koutiala Commune  70905  70539 141444
+##  4 Sikasso Commune  114171 112447 226618
+##  5 Segou Commune     66819  66682 133501
+##  6 Mopti Commune     60080  60706 120786
+##  7 Commune I        168308 166587 334895
+##  8 Commune II        78690  80670 159360
+##  9 Commune III       63792  64874 128666
+## 10 Commune IV       152153 152373 304526
+## 11 Commune V        206749 206517 413266
+## 12 Commune VI       237951 231702 469653
+\end{verbatim}
+
+Là aussi, nous voyons que la séquence est plus économe en écriture.
+
+Il arrive souvent aussi que la sélection porte sur un interval ou une
+région. Dans ce genre de cas, \textbf{dplyr} a des fonctions
+spécialisées comme \texttt{between} ou \texttt{near}.
+
+Si l'on cherche les communes dont la population est comprise entre 50000
+et 60000
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base.}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Critère de sélection: valeurs logiques (TRUE/FALSE)}
+\NormalTok{pop_50k_60k <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total }\OperatorTok{>=}\StringTok{ }\DecValTok{50000} \OperatorTok{&}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total }\OperatorTok{<=}\StringTok{ }\DecValTok{60000}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df[pop_50k_60k, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 13 x 4
+##    admin3_nom       homme femme total
+##    <chr>            <dbl> <dbl> <dbl>
+##  1 Massigui         26249 28003 54252
+##  2 Baguineda Camp   26406 25415 51821
+##  3 Mande            28734 28615 57349
+##  4 Ouelessebougou   24694 25345 50039
+##  5 Kadiolo          25394 26622 52016
+##  6 Koury            26842 27448 54290
+##  7 Kolondieba       25976 27404 53380
+##  8 Wassoulou Balle  25532 25941 51473
+##  9 Bougouni Commune 29581 28957 58538
+## 10 Koumantou        24828 26381 51209
+## 11 Pelengana        27796 28051 55847
+## 12 Tombouctou       27915 26714 54629
+## 13 Tonka            25698 27578 53276
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{between}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ total, }\DataTypeTok{left =} \DecValTok{50000}\NormalTok{, }\DataTypeTok{right =} \DecValTok{60000}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 13 x 4
+##    admin3_nom       homme femme total
+##    <chr>            <dbl> <dbl> <dbl>
+##  1 Massigui         26249 28003 54252
+##  2 Baguineda Camp   26406 25415 51821
+##  3 Mande            28734 28615 57349
+##  4 Ouelessebougou   24694 25345 50039
+##  5 Kadiolo          25394 26622 52016
+##  6 Koury            26842 27448 54290
+##  7 Kolondieba       25976 27404 53380
+##  8 Wassoulou Balle  25532 25941 51473
+##  9 Bougouni Commune 29581 28957 58538
+## 10 Koumantou        24828 26381 51209
+## 11 Pelengana        27796 28051 55847
+## 12 Tombouctou       27915 26714 54629
+## 13 Tonka            25698 27578 53276
+\end{verbatim}
+
+Et pour les communes autour de 50000 habitants. Disons que nous
+prendrons en compte les communes dans les valeurs environnantes et ce
+jusqu'au 2500 personnes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base.}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Critère de sélection: valeurs logiques (TRUE/FALSE)}
+\NormalTok{pop_50k_tol2500 <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total }\OperatorTok{>=}\StringTok{ }\DecValTok{50000} \OperatorTok{-}\StringTok{ }\DecValTok{2500} \OperatorTok{&}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total }\OperatorTok{<=}\StringTok{ }\DecValTok{50000} \OperatorTok{+}\StringTok{ }\DecValTok{2500}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df[pop_50k_tol2500, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 9 x 4
+##   admin3_nom      homme femme total
+##   <chr>           <dbl> <dbl> <dbl>
+## 1 Kita Commune    24054 24989 49043
+## 2 Guegneka        23949 24092 48041
+## 3 Baguineda Camp  26406 25415 51821
+## 4 Ouelessebougou  24694 25345 50039
+## 5 Kadiolo         25394 26622 52016
+## 6 Misseni         28443 19230 47673
+## 7 Wassoulou Balle 25532 25941 51473
+## 8 Koumantou       24828 26381 51209
+## 9 Sony Aliber     23472 24146 47618
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{near}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ total, }\DataTypeTok{y =} \DecValTok{50000}\NormalTok{, }\DataTypeTok{tol =} \DecValTok{2500}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 9 x 4
+##   admin3_nom      homme femme total
+##   <chr>           <dbl> <dbl> <dbl>
+## 1 Kita Commune    24054 24989 49043
+## 2 Guegneka        23949 24092 48041
+## 3 Baguineda Camp  26406 25415 51821
+## 4 Ouelessebougou  24694 25345 50039
+## 5 Kadiolo         25394 26622 52016
+## 6 Misseni         28443 19230 47673
+## 7 Wassoulou Balle 25532 25941 51473
+## 8 Koumantou       24828 26381 51209
+## 9 Sony Aliber     23472 24146 47618
+\end{verbatim}
+
+\subsection{Sur la base de critères
+catégoriels.}\label{sur-la-base-de-criteres-categoriels.}
+
+La sélection peut aussi porter sur des variables en caractères ou
+catégorielles. Supposons que nous souhaitons connaître la population
+d'une commune dont nous avons le nom: \emph{Bambara Maoudé}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Critère de sélection: valeurs logiques (TRUE/FALSE)}
+\NormalTok{bambara_maoude <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{admin3_nom }\OperatorTok{==}\StringTok{ "Bambara Maoude"}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df[bambara_maoude, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 4
+##   admin3_nom     homme femme total
+##   <chr>          <dbl> <dbl> <dbl>
+## 1 Bambara Maoude  8315  8170 16485
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(admin3_nom }\OperatorTok{==}\StringTok{ "Bambara Maoude"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 4
+##   admin3_nom     homme femme total
+##   <chr>          <dbl> <dbl> <dbl>
+## 1 Bambara Maoude  8315  8170 16485
+\end{verbatim}
+
+En ce qui concernent les critères alternatifs, \textbf{dplyr} offre une
+commodité avec le signe \texttt{\%in\%}. Imaginez qu'au lieu d'une seule
+commune, \emph{Bambara Maoude}, que l'on souhaite sélectionner les
+résultats d'un groupe de communes dont on a connait le nom. Plutôt que
+d'utiliser \texttt{\textbar{}}, l'on peut passer par \texttt{\%in\%}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Critère de sélection: valeurs logiques (TRUE/FALSE)}
+\NormalTok{groupe_commune <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{admin3_nom }\OperatorTok{==}\StringTok{ "Bambara Maoude"} \OperatorTok{|}\StringTok{  }
+\StringTok{                  }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{admin3_nom }\OperatorTok{==}\StringTok{ "Segou Commune"} \OperatorTok{|}
+\StringTok{                  }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{admin3_nom }\OperatorTok{==}\StringTok{ "Soumpi"} \OperatorTok{|}\StringTok{ }
+\StringTok{                  }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{admin3_nom }\OperatorTok{==}\StringTok{ "Ansongo"}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df[groupe_commune, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 4
+##   admin3_nom     homme femme  total
+##   <chr>          <dbl> <dbl>  <dbl>
+## 1 Segou Commune  66819 66682 133501
+## 2 Bambara Maoude  8315  8170  16485
+## 3 Soumpi          8547  8401  16948
+## 4 Ansongo        14707 15384  30091
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(admin3_nom }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Bambara Maoude"}\NormalTok{, }\StringTok{"Segou Commune"}\NormalTok{, }\StringTok{"Soumpi"}\NormalTok{, }\StringTok{"Ansongo"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 4
+##   admin3_nom     homme femme  total
+##   <chr>          <dbl> <dbl>  <dbl>
+## 1 Segou Commune  66819 66682 133501
+## 2 Bambara Maoude  8315  8170  16485
+## 3 Soumpi          8547  8401  16948
+## 4 Ansongo        14707 15384  30091
+\end{verbatim}
+
+Moins de lignes! Même résultat!
+
+\subsection{Sur la base d'expressions
+régulières}\label{sur-la-base-dexpressions-regulieres}
+
+Comme avec \texttt{select}, les fonctions relatives aux préfixes et
+suffixes (et similaires) peuvent être mobilisées dans \texttt{filter}
+aussi. Suppossons que l'on veuille connaître la population de toutes les
+communes dont le nom se termine par \emph{dougou}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Sélection des communes répondant au critère}
+\NormalTok{select_nom <-}\StringTok{ }\KeywordTok{endsWith}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ pop_df}\OperatorTok{$}\NormalTok{admin3_nom, }\DataTypeTok{suffix =} \StringTok{"dougou"}\NormalTok{)}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df[select_df, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Length of logical index must be 1 or 703, not 9
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 312 x 4
+##    admin3_nom        homme femme  total
+##    <chr>             <dbl> <dbl>  <dbl>
+##  1 Colimbine          6144  6353  12497
+##  2 Diamou             7115  7015  14130
+##  3 Djelebou          11466 12091  23557
+##  4 Faleme             5141  5017  10158
+##  5 Karakoro           7436  7770  15206
+##  6 Kayes Commune     65135 61184 126319
+##  7 Kemene Tambo       8381  8574  16955
+##  8 Khouloum           9734  9260  18994
+##  9 Marena Diombougou  8996  9676  18672
+## 10 Marintoumania      4001  4060   8061
+## # ... with 302 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{endsWith}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ admin3_nom, }\DataTypeTok{suffix =} \StringTok{"dougou"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 28 x 4
+##    admin3_nom    homme femme total
+##    <chr>         <dbl> <dbl> <dbl>
+##  1 Gomitradougou  3638  3658  7296
+##  2 Dinandougou   10571 10789 21360
+##  3 Diedougou     17541 18351 35892
+##  4 Dolendougou    6831  7389 14220
+##  5 Kaladougou    19429 19742 39171
+##  6 Kilidougou     7578  7930 15508
+##  7 N'dlondougou  10326 10667 20993
+##  8 N'garadougou   7633  7960 15593
+##  9 Tenindougou    7681  7725 15406
+## 10 Maramandougou  7237  7302 14539
+## # ... with 18 more rows
+\end{verbatim}
+
+La fonction \texttt{filter} épouse aussi bien les fonctions spécifiques
+aux expressions régulières dans R-base - comme dans l'exemple précédent
+- que celles présentes dans les packages dédiés du \textbf{tidyverse}.
+Les fonctions de \textbf{stringr} peuvent s'avérer très commode dans la
+sélection d'observations. Considérons les observations pour les communes
+qui ont la lettre \emph{z} dans leur nom.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Sélection des communes répondant au critère}
+\NormalTok{detect_z <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\DataTypeTok{pattern =} \StringTok{"z"}\NormalTok{, }\DataTypeTok{x =} \KeywordTok{tolower}\NormalTok{(pop_df}\OperatorTok{$}\NormalTok{admin3_nom))}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df[detect_z, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 21 x 4
+##    admin3_nom    homme femme total
+##    <chr>         <dbl> <dbl> <dbl>
+##  1 Zan Coulibaly  9235  9255 18490
+##  2 Zegoua        16480 16638 33118
+##  3 Zanfigue       7492  7747 15239
+##  4 Zangasso       9391 10105 19496
+##  5 Zanina         3619  3806  7425
+##  6 Zebala         8293  8997 17290
+##  7 Zantiebougou  17667 18100 35767
+##  8 Kafouziela     3108  3304  6412
+##  9 Sanzana        5479  5820 11299
+## 10 Zanferebougou  2237  2416  4653
+## # ... with 11 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr et stringr}
+\CommentTok{# Chargement du package stringr}
+\KeywordTok{library}\NormalTok{(stringr)}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{str_detect}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{tolower}\NormalTok{(admin3_nom), }\DataTypeTok{pattern =} \StringTok{"z"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 21 x 4
+##    admin3_nom    homme femme total
+##    <chr>         <dbl> <dbl> <dbl>
+##  1 Zan Coulibaly  9235  9255 18490
+##  2 Zegoua        16480 16638 33118
+##  3 Zanfigue       7492  7747 15239
+##  4 Zangasso       9391 10105 19496
+##  5 Zanina         3619  3806  7425
+##  6 Zebala         8293  8997 17290
+##  7 Zantiebougou  17667 18100 35767
+##  8 Kafouziela     3108  3304  6412
+##  9 Sanzana        5479  5820 11299
+## 10 Zanferebougou  2237  2416  4653
+## # ... with 11 more rows
+\end{verbatim}
+
+\subsection{Sur la base d'index}\label{sur-la-base-dindex}
+
+Comme nous l'avons vu pour les variables, avec les observations aussi,
+la sélection peut se faire à partir de l'index.
+
+Chercons à afficher les observations pour les 10 premières observations
+impaires.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df[}\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{1}\NormalTok{, }\DataTypeTok{to =} \DecValTok{19}\NormalTok{, }\DataTypeTok{by =} \DecValTok{2}\NormalTok{), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10 x 4
+##    admin3_nom           homme femme total
+##    <chr>                <dbl> <dbl> <dbl>
+##  1 Bangassi              6123  5974 12097
+##  2 Diamou                7115  7015 14130
+##  3 Faleme                5141  5017 10158
+##  4 Gory Gopela           3939  3927  7866
+##  5 Guidimakan Keri Kaff  9798 10234 20032
+##  6 Karakoro              7436  7770 15206
+##  7 Kemene Tambo          8381  8574 16955
+##  8 Koniakary             4061  4080  8141
+##  9 Koussane             10472 11118 21590
+## 10 Logo                  6022  5967 11989
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\KeywordTok{row_number}\NormalTok{() }\OperatorTok{%in%}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{1}\NormalTok{, }\DataTypeTok{to =} \DecValTok{19}\NormalTok{, }\DataTypeTok{by =} \DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10 x 4
+##    admin3_nom           homme femme total
+##    <chr>                <dbl> <dbl> <dbl>
+##  1 Bangassi              6123  5974 12097
+##  2 Diamou                7115  7015 14130
+##  3 Faleme                5141  5017 10158
+##  4 Gory Gopela           3939  3927  7866
+##  5 Guidimakan Keri Kaff  9798 10234 20032
+##  6 Karakoro              7436  7770 15206
+##  7 Kemene Tambo          8381  8574 16955
+##  8 Koniakary             4061  4080  8141
+##  9 Koussane             10472 11118 21590
+## 10 Logo                  6022  5967 11989
+\end{verbatim}
+
+\subsection{Filtres multiples}\label{filtres-multiples}
+
+Dans le chapitre précédent, nous avons qu'en matière de sélections
+d'observations, il y a plusieurs façons de combiner des critères. On
+peut :
+
+\begin{itemize}
+\item
+  les ajouter avec le signe \texttt{\&};
+\item
+  les présenter comme des alternatives avec le signe
+  \texttt{\textbar{}}; ou
+\item
+  opérer avec une logique de négation avec le signe \texttt{!}.
+\end{itemize}
+
+Avec \textbf{dplyr}, ces signes demeurent valides.
+
+Supposons que nous voulons connaître les communes de plus de 100000 où
+il y a plus de femmes que d'hommes. Ici, les deux critères s'accumulent.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base.}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Critère de sélection (1): valeurs logiques (TRUE/FALSE)}
+\NormalTok{pop_100000_plus <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total }\OperatorTok{>}\StringTok{ }\DecValTok{100000}
+\CommentTok{# Critère de sélection (1): valeurs logiques (TRUE/FALSE)}
+\NormalTok{femmes_sup_hommes <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{>}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df[pop_100000_plus }\OperatorTok{&}\StringTok{ }\NormalTok{femmes_sup_hommes, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 4
+##   admin3_nom     homme  femme  total
+##   <chr>          <dbl>  <dbl>  <dbl>
+## 1 Mopti Commune  60080  60706 120786
+## 2 Commune II     78690  80670 159360
+## 3 Commune III    63792  64874 128666
+## 4 Commune IV    152153 152373 304526
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}
+    \CommentTok{# Critère 1: population > 100000}
+\NormalTok{    total }\OperatorTok{>}\StringTok{ }\DecValTok{100000}\NormalTok{, }
+    \CommentTok{# Critère 2: femme > homme}
+\NormalTok{    femme }\OperatorTok{>}\StringTok{ }\NormalTok{homme}
+\NormalTok{    )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 4
+##   admin3_nom     homme  femme  total
+##   <chr>          <dbl>  <dbl>  <dbl>
+## 1 Mopti Commune  60080  60706 120786
+## 2 Commune II     78690  80670 159360
+## 3 Commune III    63792  64874 128666
+## 4 Commune IV    152153 152373 304526
+\end{verbatim}
+
+Ce sont quatre lignes qui répondent à nos critères.
+
+Maintenant regardons ces mêmes critères, mais en termes d'alternatives.
+Les communes qui ont soit plus de 100000 habitants soit plus de femmes
+que d'hommes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base.}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Critère de sélection (1): valeurs logiques (TRUE/FALSE)}
+\NormalTok{pop_100000_plus <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total }\OperatorTok{>}\StringTok{ }\DecValTok{100000}
+\CommentTok{# Critère de sélection (1): valeurs logiques (TRUE/FALSE)}
+\NormalTok{femmes_sup_hommes <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{>}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df[pop_100000_plus }\OperatorTok{|}\StringTok{ }\NormalTok{femmes_sup_hommes, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 538 x 4
+##    admin3_nom           homme femme  total
+##    <chr>                <dbl> <dbl>  <dbl>
+##  1 Colimbine             6144  6353  12497
+##  2 Djelebou             11466 12091  23557
+##  3 Guidimakan Keri Kaff  9798 10234  20032
+##  4 Hawa Dembaya          3406  3445   6851
+##  5 Karakoro              7436  7770  15206
+##  6 Kayes Commune        65135 61184 126319
+##  7 Kemene Tambo          8381  8574  16955
+##  8 Koniakary             4061  4080   8141
+##  9 Konsiga               2308  2620   4928
+## 10 Koussane             10472 11118  21590
+## # ... with 528 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr }
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}
+    \CommentTok{# Critère 1: population > 100000}
+\NormalTok{    total }\OperatorTok{>}\StringTok{ }\DecValTok{100000} \OperatorTok{|}
+\StringTok{    }\CommentTok{# Critère 2: femme > homme}
+\StringTok{    }\NormalTok{femme }\OperatorTok{>}\StringTok{ }\NormalTok{homme}
+\NormalTok{    )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 538 x 4
+##    admin3_nom           homme femme  total
+##    <chr>                <dbl> <dbl>  <dbl>
+##  1 Colimbine             6144  6353  12497
+##  2 Djelebou             11466 12091  23557
+##  3 Guidimakan Keri Kaff  9798 10234  20032
+##  4 Hawa Dembaya          3406  3445   6851
+##  5 Karakoro              7436  7770  15206
+##  6 Kayes Commune        65135 61184 126319
+##  7 Kemene Tambo          8381  8574  16955
+##  8 Koniakary             4061  4080   8141
+##  9 Konsiga               2308  2620   4928
+## 10 Koussane             10472 11118  21590
+## # ... with 528 more rows
+\end{verbatim}
+
+Pendant qu'avec R-base, le nombre d'objets intermédiaires continue
+d'augmenter, avec \textbf{dplyr}, nous nous contentons de l'opérateur
+\texttt{\%\textgreater{}\%} et de nouvelles lignes.
+
+\subsection{\texorpdfstring{Tri d'observations:
+\texttt{arrange}}{Tri d'observations: arrange}}\label{tri-dobservations-arrange}
+
+Souvent, il arrive qu'à la suite d'opération de sélections (aussi bien
+de variables que de colonnes) que l'on souhaite ordonner les résultats
+selon un ordre bien précis. Ceci peut servir souvent en matière
+d'affichage ou même servir de base pour des sélections.
+
+Considérons qu'après avoir filtré pour ne garder que les communes qui
+ont plus de 100000 habitants et plus de femmes que d'hommes, que nous
+souhaitions ordonner la population.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin3_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Critère de sélection (1): valeurs logiques (TRUE/FALSE)}
+\NormalTok{pop_100000_plus <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total }\OperatorTok{>}\StringTok{ }\DecValTok{100000}
+\CommentTok{# Critère de sélection (1): valeurs logiques (TRUE/FALSE)}
+\NormalTok{femmes_sup_hommes <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{>}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Mise en oeuvre de la sélection}
+\NormalTok{pop_df_filtre <-}\StringTok{ }\NormalTok{pop_df[pop_100000_plus }\OperatorTok{|}\StringTok{ }\NormalTok{femmes_sup_hommes, ]}
+\CommentTok{# Tri: ordre croissant}
+\NormalTok{pop_decroissant <-}\StringTok{ }\KeywordTok{order}\NormalTok{(pop_df_filtre}\OperatorTok{$}\NormalTok{total)}
+\CommentTok{# Mise en oeuvre du tri}
+\NormalTok{pop_df_filtre[pop_decroissant, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 538 x 4
+##    admin3_nom            homme femme total
+##    <chr>                 <dbl> <dbl> <dbl>
+##  1 Adarmalane              463   492   955
+##  2 Bassirou                825   893  1718
+##  3 Arham                  1358  1461  2819
+##  4 Soignebougou           1547  1552  3099
+##  5 Ouro Modi              1566  1762  3328
+##  6 Sokourani Missirikoro  1632  1740  3372
+##  7 Diou                   1744  1760  3504
+##  8 Kende                  1805  1921  3726
+##  9 Somo                   1853  1891  3744
+## 10 M'bouna                1894  1937  3831
+## # ... with 528 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Tri: ordre décroissant}
+\NormalTok{pop_decroissant <-}\StringTok{ }\KeywordTok{order}\NormalTok{(pop_df_filtre}\OperatorTok{$}\NormalTok{total, }\DataTypeTok{decreasing =} \OtherTok{TRUE}\NormalTok{)}
+\CommentTok{# Mise en oeuvre du tri}
+\NormalTok{pop_df_filtre[pop_decroissant, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 538 x 4
+##    admin3_nom        homme  femme  total
+##    <chr>             <dbl>  <dbl>  <dbl>
+##  1 Commune VI       237951 231702 469653
+##  2 Commune V        206749 206517 413266
+##  3 Commune I        168308 166587 334895
+##  4 Commune IV       152153 152373 304526
+##  5 Sikasso Commune  114171 112447 226618
+##  6 Kalabancoro       81018  80864 161882
+##  7 Commune II        78690  80670 159360
+##  8 Koutiala Commune  70905  70539 141444
+##  9 Segou Commune     66819  66682 133501
+## 10 Commune III       63792  64874 128666
+## # ... with 528 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}
+    \CommentTok{# Critère 1: population > 100000}
+\NormalTok{    total }\OperatorTok{>}\StringTok{ }\DecValTok{100000} \OperatorTok{|}
+\StringTok{    }\CommentTok{# Critère 2: femme > homme}
+\StringTok{    }\NormalTok{femme }\OperatorTok{>}\StringTok{ }\NormalTok{homme}
+\NormalTok{    ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Tri: ordre décroissant}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(total))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 538 x 4
+##    admin3_nom        homme  femme  total
+##    <chr>             <dbl>  <dbl>  <dbl>
+##  1 Commune VI       237951 231702 469653
+##  2 Commune V        206749 206517 413266
+##  3 Commune I        168308 166587 334895
+##  4 Commune IV       152153 152373 304526
+##  5 Sikasso Commune  114171 112447 226618
+##  6 Kalabancoro       81018  80864 161882
+##  7 Commune II        78690  80670 159360
+##  8 Koutiala Commune  70905  70539 141444
+##  9 Segou Commune     66819  66682 133501
+## 10 Commune III       63792  64874 128666
+## # ... with 528 more rows
+\end{verbatim}
+
+L'on peut agrémenter \texttt{arrange} avec une fonction qui spécifie le
+nombre d'observations à afficher ou à sauvegarder: \texttt{top\_n}.
+Celle-ci peut opérer par le haut (les valeurs élevées)\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}
+    \CommentTok{# Critère 1: population > 100000}
+\NormalTok{    total }\OperatorTok{>}\StringTok{ }\DecValTok{100000} \OperatorTok{|}
+\StringTok{    }\CommentTok{# Critère 2: femme > homme}
+\StringTok{    }\NormalTok{femme }\OperatorTok{>}\StringTok{ }\NormalTok{homme}
+\NormalTok{    ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Tri: décroissant}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(total) }\OperatorTok{%>%}
+\StringTok{  }\CommentTok{# Sélection des 5 premières observations}
+\StringTok{  }\KeywordTok{top_n}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5}\NormalTok{, }\DataTypeTok{wt =}\NormalTok{ total)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 4
+##   admin3_nom       homme  femme  total
+##   <chr>            <dbl>  <dbl>  <dbl>
+## 1 Sikasso Commune 114171 112447 226618
+## 2 Commune IV      152153 152373 304526
+## 3 Commune I       168308 166587 334895
+## 4 Commune V       206749 206517 413266
+## 5 Commune VI      237951 231702 469653
+\end{verbatim}
+
+\ldots{}ou par le bas (les valeurs faibles).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(admin3_nom, homme, femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection d'observations d'intérêt}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}
+    \CommentTok{# Critère 1: population > 100000}
+\NormalTok{    total }\OperatorTok{>}\StringTok{ }\DecValTok{100000} \OperatorTok{|}
+\StringTok{    }\CommentTok{# Critère 2: femme > homme}
+\StringTok{    }\NormalTok{femme }\OperatorTok{>}\StringTok{ }\NormalTok{homme}
+\NormalTok{    ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Tri: décroissant}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(total) }\OperatorTok{%>%}
+\StringTok{  }\CommentTok{# Sélection des 5 dernières observations}
+\StringTok{  }\KeywordTok{top_n}\NormalTok{(}\DataTypeTok{n =} \OperatorTok{-}\DecValTok{5}\NormalTok{, }\DataTypeTok{wt =}\NormalTok{ total)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 4
+##   admin3_nom   homme femme total
+##   <chr>        <dbl> <dbl> <dbl>
+## 1 Adarmalane     463   492   955
+## 2 Bassirou       825   893  1718
+## 3 Arham         1358  1461  2819
+## 4 Soignebougou  1547  1552  3099
+## 5 Ouro Modi     1566  1762  3328
+\end{verbatim}
+
+\section{\texorpdfstring{Vers l'agrégation: \texttt{group\_by} et
+\texttt{summarize}}{Vers l'agrégation: group\_by et summarize}}\label{vers-lagregation-group_by-et-summarize}
+
+Jusque là, nous avons opéré en ajoutant ou enlevant des variables, en
+sélectionnant ou excluant des observations. Ces opérations ont toutes
+été intra-individuelles c'est-à-dire qu'à aucun moment il n'a été
+nécéssaire de mélanger les valeurs de deux ou plusieurs observations.
+Or, il arrive souvant que le \emph{data scientist} ait besoin d'agréer
+des valeurs pour approfondir sa propre compréhension ou tout simplement
+synthétiser ses résultats. \textbf{dplyr} comptent deux fonctions sont
+pratiques pour ce faire. Il s'agit de \texttt{group\_by} et
+\texttt{summarize} (\texttt{summarise} aussi marche). Elles viennent
+consolider les quatre que nous avons vues. La première
+\texttt{group\_by} définit les groupes sur lesquels les opérations
+d'agrégation doivent être exécutées. Quant à \texttt{summarize}, elle
+explicite ces opérations. Illustrons pour mieux comprendre.
+
+Supposons que l'on veuille agréger la population totale par région
+(\texttt{admin1\_nom}) et ordonner celle-ci par ordre décroissant. Ceci
+reviendrait à faire la somme de la population totale en définissant
+\texttt{admin1\_nom} comme variable de groupage.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec R-base}
+\CommentTok{# Sélection des variables d'intérêt}
+\NormalTok{pop_df <-}\StringTok{ }\NormalTok{adm3_pop_}\DecValTok{2009}\NormalTok{[ , }\KeywordTok{c}\NormalTok{(}\StringTok{"admin1_nom"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)]}
+\CommentTok{# Création d'une nouvelle variable: numérique}
+\NormalTok{pop_df}\OperatorTok{$}\NormalTok{total <-}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{femme }\OperatorTok{+}\StringTok{ }\NormalTok{pop_df}\OperatorTok{$}\NormalTok{homme}
+\CommentTok{# Opération d'agrégation}
+\NormalTok{pop_df_adm1 <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ total }\OperatorTok{~}\StringTok{ }\NormalTok{admin1_nom, }\DataTypeTok{data =}\NormalTok{ pop_df, }\DataTypeTok{FUN =}\NormalTok{ sum)}
+\CommentTok{# Tri: ordre décroissant}
+\NormalTok{pop_decroissant <-}\StringTok{ }\KeywordTok{order}\NormalTok{(pop_df_adm1}\OperatorTok{$}\NormalTok{total, }\DataTypeTok{decreasing =} \OtherTok{TRUE}\NormalTok{)}
+\CommentTok{# Mise en oeuvre du tri}
+\NormalTok{pop_df_adm1[pop_decroissant, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   admin1_nom   total
+## 8    Sikasso 2644458
+## 5 Koulikouro 2419212
+## 7      Segou 2321651
+## 6      Mopti 2038855
+## 3      Kayes 2013076
+## 1     Bamako 1810366
+## 9 Tombouctou  671005
+## 2        Gao  542304
+## 4      Kidal   67739
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Avec dplyr}
+\CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Spécification du niveau d'agrégation}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(admin1_nom) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Opération d'agrégation }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{population =} \KeywordTok{sum}\NormalTok{(total)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Tri: décroissant}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(population))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 9 x 2
+##   admin1_nom population
+##   <chr>           <dbl>
+## 1 Sikasso       2644458
+## 2 Koulikouro    2419212
+## 3 Segou         2321651
+## 4 Mopti         2038855
+## 5 Kayes         2013076
+## 6 Bamako        1810366
+## 7 Tombouctou     671005
+## 8 Gao            542304
+## 9 Kidal           67739
+\end{verbatim}
+
+Et si voulions connaitre en même temps le nombre de communes par région?
+Nous ajoutons une opération supplémentaire à l'intérieur de
+\texttt{summarize}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Spécification du niveau d'agrégation}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(admin1_nom) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Opération d'agrégation }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \CommentTok{# Population totale par région}
+    \DataTypeTok{population =} \KeywordTok{sum}\NormalTok{(total),}
+    \CommentTok{# Nombre de communes par région}
+    \DataTypeTok{nombre_communes =} \KeywordTok{n}\NormalTok{()}
+\NormalTok{    ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Tri: décroissant}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(population))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 9 x 3
+##   admin1_nom population nombre_communes
+##   <chr>           <dbl>           <int>
+## 1 Sikasso       2644458             147
+## 2 Koulikouro    2419212             108
+## 3 Segou         2321651             118
+## 4 Mopti         2038855             108
+## 5 Kayes         2013076             129
+## 6 Bamako        1810366               6
+## 7 Tombouctou     671005              52
+## 8 Gao            542304              24
+## 9 Kidal           67739              11
+\end{verbatim}
+
+Nous pouvons même ajouter la population moyenne par commune.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Spécification du niveau d'agrégation}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(admin1_nom) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Opération d'agrégation }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \CommentTok{# Population totale par région}
+    \DataTypeTok{population =} \KeywordTok{sum}\NormalTok{(total),}
+    \CommentTok{# Nombre de communes par région}
+    \DataTypeTok{nombre_communes =} \KeywordTok{n}\NormalTok{()}
+\NormalTok{    ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable %>% }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{pop_par_commune =}\NormalTok{ population }\OperatorTok{/}\StringTok{ }\NormalTok{nombre_communes) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Tri: décroissant}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(population))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 9 x 4
+##   admin1_nom population nombre_communes pop_par_commune
+##   <chr>           <dbl>           <int>           <dbl>
+## 1 Sikasso       2644458             147          17990.
+## 2 Koulikouro    2419212             108          22400.
+## 3 Segou         2321651             118          19675.
+## 4 Mopti         2038855             108          18878.
+## 5 Kayes         2013076             129          15605.
+## 6 Bamako        1810366               6         301728.
+## 7 Tombouctou     671005              52          12904.
+## 8 Gao            542304              24          22596 
+## 9 Kidal           67739              11           6158.
+\end{verbatim}
+
+\texttt{summarize} acceptent la majorité des fonctions statistiques de
+R-base: \texttt{sum} pour la somme, \texttt{mean} pour la moyenne,
+\texttt{sd} pour l'écart-type, \texttt{min} pour le minimum,
+\texttt{max} pour le maximum, etc.
+
+Il est utile de noter que, bien que les deux fonctions opèrent
+généralement en paire, elles ne sont pas toutefois obligées d'être
+ensemble\ldots{}enfin, pas tout le temps.
+
+Considérons par exemple que l'on veut agréger la population totale aussi
+bien pour les hommes que pour les femmes. Comme le groupe de référence
+est l'ensemble des observations (toutes les communes), l'on n'a pas
+besoin de \texttt{group\_by}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Opérations d'agrégation }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}
+    \CommentTok{# Hommes}
+    \DataTypeTok{homme =} \KeywordTok{sum}\NormalTok{(homme),}
+    \CommentTok{# Femmes}
+    \DataTypeTok{femme =} \KeywordTok{sum}\NormalTok{(femme),}
+    \CommentTok{# Total}
+    \DataTypeTok{total =} \KeywordTok{sum}\NormalTok{(total)}
+\NormalTok{    )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##     homme   femme    total
+##     <dbl>   <dbl>    <dbl>
+## 1 7204994 7323672 14528666
+\end{verbatim}
+
+Là, nous avons utilisé \texttt{summarize} sans \texttt{group\_by}.
+Maintenant, faisons l'inverse. Déterminons la part de chaque commune
+dans la population régionale. Et gardons seulement celles qui
+représentent plus de 5\% de la population de leur région.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Jeu de données de départ}
+\NormalTok{adm3_pop_}\DecValTok{2009} \OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{total =}\NormalTok{ homme }\OperatorTok{+}\StringTok{ }\NormalTok{femme) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Spécification du niveau d'agrégation}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(admin1_nom) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Création d'une nouvelle variable }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \CommentTok{# Population au niveau de admin1_nom}
+    \DataTypeTok{population_region =} \KeywordTok{sum}\NormalTok{(total),}
+    \CommentTok{# Ratio population de la commune / population de la région}
+    \DataTypeTok{part_commune =}\NormalTok{ total }\OperatorTok{/}\StringTok{ }\NormalTok{population_region}
+\NormalTok{    ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Filtre: part > 5%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(part_commune }\OperatorTok{>}\StringTok{ }\FloatTok{0.05}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Tri des résultats: ordre décroissant}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(part_commune)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Sélection des variables d'intérêt}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\KeywordTok{contains}\NormalTok{(}\StringTok{"nom"}\NormalTok{), part_commune)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 28 x 5
+## # Groups:   admin1_nom [9]
+##    admin0_nom admin1_nom admin2_nom admin3_nom      part_commune
+##    <chr>      <chr>      <chr>      <chr>                  <dbl>
+##  1 Mali       Kidal      Kidal      Kidal                 0.383 
+##  2 Mali       Bamako     Bamako     Commune VI            0.259 
+##  3 Mali       Bamako     Bamako     Commune V             0.228 
+##  4 Mali       Bamako     Bamako     Commune I             0.185 
+##  5 Mali       Bamako     Bamako     Commune IV            0.168 
+##  6 Mali       Gao        Gao        Gao                   0.159 
+##  7 Mali       Kidal      Tessalit   Adjelhoc              0.117 
+##  8 Mali       Bamako     Bamako     Commune II            0.0880
+##  9 Mali       Gao        Gao        Sony Aliber           0.0878
+## 10 Mali       Sikasso    Sikasso    Sikasso Commune       0.0857
+## # ... with 18 more rows
+\end{verbatim}
+
+\section{Conclusion}\label{conclusion-1}
+
+Nous venons de voir que \textbf{dplyr} est un outil très riche. Avec un
+vocabulaire simple et accessible, il met à la disposition du \emph{data
+scientist} une panoplie d'outil qui facilite la manipulation de données.
+
+Dans le prochain chapitre, nous allons explorer un autre package du
+\textbf{tidyverse}: \textbf{tidyr}.
 
 \bibliography{book.bib,packages.bib}
 

@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapitre 4 Importer des données dans R | Data Science avec R</title>
-  <meta name="description" content="Chapitre 4 Importer des données dans R | Data Science avec R">
+  <title>Chapitre 5 Importer des données dans R | Data Science avec R</title>
+  <meta name="description" content="Chapitre 5 Importer des données dans R | Data Science avec R">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapitre 4 Importer des données dans R | Data Science avec R" />
+  <meta property="og:title" content="Chapitre 5 Importer des données dans R | Data Science avec R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapitre 4 Importer des données dans R | Data Science avec R" />
+  <meta name="twitter:title" content="Chapitre 5 Importer des données dans R | Data Science avec R" />
   
   
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Fousseynou Bah">
 
 
-<meta name="date" content="2019-03-05">
+<meta name="date" content="2019-03-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="sexprimer-dans-r.html">
-<link rel="next" href="references.html">
+<link rel="next" href="transformer-de-donnees-avec-dplyr.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -104,115 +104,152 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Data Science avec R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#un-autre-livre-sur-la-data-science-vraiment"><i class="fa fa-check"></i><b>1.1</b> Un autre livre sur la <em>data science</em>! Vraiment?</a></li>
-<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#la-data-science"><i class="fa fa-check"></i><b>1.2</b> La <em>data science</em></a></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#le-data-scientist"><i class="fa fa-check"></i><b>1.3</b> Le <em>data scientist</em></a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#r"><i class="fa fa-check"></i><b>1.4</b> R</a><ul>
-<li class="chapter" data-level="1.4.1" data-path="introduction.html"><a href="introduction.html#quest-ce-que-cest-que-r"><i class="fa fa-check"></i><b>1.4.1</b> Qu’est-ce que c’est que R?</a></li>
-<li class="chapter" data-level="1.4.2" data-path="introduction.html"><a href="introduction.html#pourquoi-r"><i class="fa fa-check"></i><b>1.4.2</b> Pourquoi R?</a></li>
-<li class="chapter" data-level="1.4.3" data-path="introduction.html"><a href="introduction.html#r-dans-lecosysteme-des-langages"><i class="fa fa-check"></i><b>1.4.3</b> R dans l’écosystème des langages</a></li>
+<li class="part"><span><b>I Les basiques dans R</b></span></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#un-autre-livre-sur-la-data-science-vraiment"><i class="fa fa-check"></i><b>1.1</b> Un autre livre sur la <em>data science</em>! Vraiment?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#la-data-science"><i class="fa fa-check"></i><b>1.2</b> La <em>data science</em></a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#le-data-scientist"><i class="fa fa-check"></i><b>1.3</b> Le <em>data scientist</em></a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#rstudio"><i class="fa fa-check"></i><b>1.5</b> RStudio</a><ul>
-<li class="chapter" data-level="1.5.1" data-path="introduction.html"><a href="introduction.html#quest-ce-que-cest-que-rstudio"><i class="fa fa-check"></i><b>1.5.1</b> Qu’est-ce que c’est que RStudio</a></li>
+<li class="chapter" data-level="2" data-path="introduction-a-r.html"><a href="introduction-a-r.html"><i class="fa fa-check"></i><b>2</b> Introduction à R</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-a-r.html"><a href="introduction-a-r.html#r"><i class="fa fa-check"></i><b>2.1</b> R</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-a-r.html"><a href="introduction-a-r.html#quest-ce-que-cest-que-r"><i class="fa fa-check"></i><b>2.1.1</b> Qu’est-ce que c’est que R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="introduction-a-r.html"><a href="introduction-a-r.html#pourquoi-r"><i class="fa fa-check"></i><b>2.1.2</b> Pourquoi R?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="introduction-a-r.html"><a href="introduction-a-r.html#r-dans-lecosysteme-des-langages"><i class="fa fa-check"></i><b>2.1.3</b> R dans l’écosystème des langages</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="objets-dans-r.html"><a href="objets-dans-r.html"><i class="fa fa-check"></i><b>2</b> Objets dans R</a><ul>
-<li class="chapter" data-level="2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
-<li class="chapter" data-level="2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-dobjet-dans-r"><i class="fa fa-check"></i><b>2.2</b> La notion d’objet dans R</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-objet"><i class="fa fa-check"></i><b>2.2.1</b> Qu’est-ce qu’un objet?</a></li>
-<li class="chapter" data-level="2.2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oranges-et-bananes"><i class="fa fa-check"></i><b>2.2.2</b> Oranges et bananes</a></li>
-<li class="chapter" data-level="2.2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#ce-qui-se-ressemblent-sassemblent"><i class="fa fa-check"></i><b>2.2.3</b> Ce qui se ressemblent s’assemblent</a></li>
-<li class="chapter" data-level="2.2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quelques-objets-dans-r"><i class="fa fa-check"></i><b>2.2.4</b> Quelques objets dans R</a></li>
-<li class="chapter" data-level="2.2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-de-classe-et-de-type"><i class="fa fa-check"></i><b>2.2.5</b> La notion de classe et de type</a></li>
-<li class="chapter" data-level="2.2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vers-dautres-types-dobjets"><i class="fa fa-check"></i><b>2.2.6</b> Vers d’autres types d’objets</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vecteurs"><i class="fa fa-check"></i><b>2.3</b> Vecteurs</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-vecteur"><i class="fa fa-check"></i><b>2.3.1</b> Qu’est-ce qu’un vecteur?</a></li>
-<li class="chapter" data-level="2.3.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#creons-en-des-vecteurs"><i class="fa fa-check"></i><b>2.3.2</b> Créons-en, des vecteurs!</a></li>
-<li class="chapter" data-level="2.3.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vrai-pour-un-vrai-pour-plusieurs"><i class="fa fa-check"></i><b>2.3.3</b> Vrai pour un, vrai pour plusieurs</a></li>
-<li class="chapter" data-level="2.3.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#nommer-les-elements-dun-vecteur"><i class="fa fa-check"></i><b>2.3.4</b> Nommer les éléments d’un vecteur</a></li>
-<li class="chapter" data-level="2.3.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-vecteurs"><i class="fa fa-check"></i><b>2.3.5</b> Opérations sur vecteurs</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#matrices"><i class="fa fa-check"></i><b>2.4</b> Matrices</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-ensemble-de-vecteurs"><i class="fa fa-check"></i><b>2.4.1</b> La matrice, un ensemble de vecteurs</a></li>
-<li class="chapter" data-level="2.4.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-objet-bidimensionnel"><i class="fa fa-check"></i><b>2.4.2</b> La matrice, un objet bidimensionnel</a></li>
-<li class="chapter" data-level="2.4.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-matrices"><i class="fa fa-check"></i><b>2.4.3</b> Opérations sur matrices</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#data-frames"><i class="fa fa-check"></i><b>2.5</b> <em>Data frames</em></a><ul>
-<li class="chapter" data-level="2.5.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-data-frame-au-dela-de-la-matrice"><i class="fa fa-check"></i><b>2.5.1</b> Le <em>data frame</em>, au-délà de la matrice</a></li>
-<li class="chapter" data-level="2.5.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame"><i class="fa fa-check"></i><b>2.5.2</b> Opérations sur <em>data frame</em></a></li>
-<li class="chapter" data-level="2.5.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-meilleur-reste-a-venir"><i class="fa fa-check"></i><b>2.5.3</b> Le meilleur reste à venir</a></li>
-</ul></li>
-<li class="chapter" data-level="2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#listes"><i class="fa fa-check"></i><b>2.6</b> Listes</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oublier-lordre-et-la-structure"><i class="fa fa-check"></i><b>2.6.1</b> Oublier l’ordre et la structure</a></li>
-<li class="chapter" data-level="2.6.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#un-contenant-de-contenants"><i class="fa fa-check"></i><b>2.6.2</b> Un contenant de contenants</a></li>
-</ul></li>
-<li class="chapter" data-level="2.7" data-path="objets-dans-r.html"><a href="objets-dans-r.html#conclusion"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a><ul>
-<li class="chapter" data-level="2.7.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#et-ce-nest-que-le-debut"><i class="fa fa-check"></i><b>2.7.1</b> Et ce n’est que le début</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-a-r.html"><a href="introduction-a-r.html#rstudio"><i class="fa fa-check"></i><b>2.2</b> RStudio</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-a-r.html"><a href="introduction-a-r.html#quest-ce-que-cest-que-rstudio"><i class="fa fa-check"></i><b>2.2.1</b> Qu’est-ce que c’est que RStudio</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html"><i class="fa fa-check"></i><b>3</b> S’exprimer dans R</a><ul>
-<li class="chapter" data-level="3.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#objectif"><i class="fa fa-check"></i><b>3.1.1</b> Objectif</a></li>
-<li class="chapter" data-level="3.1.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#outils"><i class="fa fa-check"></i><b>3.1.2</b> Outils</a></li>
-<li class="chapter" data-level="3.1.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#donnees"><i class="fa fa-check"></i><b>3.1.3</b> Données</a></li>
+<li class="chapter" data-level="3" data-path="objets-dans-r.html"><a href="objets-dans-r.html"><i class="fa fa-check"></i><b>3</b> Objets dans R</a><ul>
+<li class="chapter" data-level="3.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-dobjet-dans-r"><i class="fa fa-check"></i><b>3.2</b> La notion d’objet dans R</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-objet"><i class="fa fa-check"></i><b>3.2.1</b> Qu’est-ce qu’un objet?</a></li>
+<li class="chapter" data-level="3.2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oranges-et-bananes"><i class="fa fa-check"></i><b>3.2.2</b> Oranges et bananes</a></li>
+<li class="chapter" data-level="3.2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#ce-qui-se-ressemblent-sassemblent"><i class="fa fa-check"></i><b>3.2.3</b> Ce qui se ressemblent s’assemblent</a></li>
+<li class="chapter" data-level="3.2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quelques-objets-dans-r"><i class="fa fa-check"></i><b>3.2.4</b> Quelques objets dans R</a></li>
+<li class="chapter" data-level="3.2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-de-classe-et-de-type"><i class="fa fa-check"></i><b>3.2.5</b> La notion de classe et de type</a></li>
+<li class="chapter" data-level="3.2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vers-dautres-types-dobjets"><i class="fa fa-check"></i><b>3.2.6</b> Vers d’autres types d’objets</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-declarations"><i class="fa fa-check"></i><b>3.2</b> Les déclarations</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#formulations-simples"><i class="fa fa-check"></i><b>3.2.1</b> Formulations simples</a></li>
-<li class="chapter" data-level="3.2.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-additifs-et"><i class="fa fa-check"></i><b>3.2.2</b> Critères additifs: <em>et</em> = <code>&amp;</code></a></li>
-<li class="chapter" data-level="3.2.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-alternatifs-ou"><i class="fa fa-check"></i><b>3.2.3</b> Critères alternatifs: <em>ou</em> = <code>|</code></a></li>
-<li class="chapter" data-level="3.2.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-opposes-contraire"><i class="fa fa-check"></i><b>3.2.4</b> Critères opposés: <em>contraire</em> = <code>!</code></a></li>
-<li class="chapter" data-level="3.2.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#conditionalites"><i class="fa fa-check"></i><b>3.2.5</b> Conditionalités</a></li>
+<li class="chapter" data-level="3.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vecteurs"><i class="fa fa-check"></i><b>3.3</b> Vecteurs</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-vecteur"><i class="fa fa-check"></i><b>3.3.1</b> Qu’est-ce qu’un vecteur?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#creons-en-des-vecteurs"><i class="fa fa-check"></i><b>3.3.2</b> Créons-en, des vecteurs!</a></li>
+<li class="chapter" data-level="3.3.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vrai-pour-un-vrai-pour-plusieurs"><i class="fa fa-check"></i><b>3.3.3</b> Vrai pour un, vrai pour plusieurs</a></li>
+<li class="chapter" data-level="3.3.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#nommer-les-elements-dun-vecteur"><i class="fa fa-check"></i><b>3.3.4</b> Nommer les éléments d’un vecteur</a></li>
+<li class="chapter" data-level="3.3.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-vecteurs"><i class="fa fa-check"></i><b>3.3.5</b> Opérations sur vecteurs</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-boucles"><i class="fa fa-check"></i><b>3.3</b> Les boucles</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-solution-aux-taches-repetititives"><i class="fa fa-check"></i><b>3.3.1</b> La solution aux tâches répétititives</a></li>
-<li class="chapter" data-level="3.3.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-fonction-for"><i class="fa fa-check"></i><b>3.3.2</b> La fonction <em>for</em></a></li>
-<li class="chapter" data-level="3.3.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-vecteurs"><i class="fa fa-check"></i><b>3.3.3</b> Application sur vecteurs</a></li>
-<li class="chapter" data-level="3.3.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-matrices"><i class="fa fa-check"></i><b>3.3.4</b> Application sur matrices</a></li>
-<li class="chapter" data-level="3.3.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-data-frame"><i class="fa fa-check"></i><b>3.3.5</b> Application sur <em>data frame</em></a></li>
-<li class="chapter" data-level="3.3.6" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-listes"><i class="fa fa-check"></i><b>3.3.6</b> Application sur listes</a></li>
-<li class="chapter" data-level="3.3.7" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#arretons-nous-un-instant"><i class="fa fa-check"></i><b>3.3.7</b> Arrêtons-nous un instant!</a></li>
-<li class="chapter" data-level="3.3.8" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#paradigme-split-apply-combine-illustration-avec-lapply"><i class="fa fa-check"></i><b>3.3.8</b> Paradigme <em>split-apply-combine</em>: illustration avec <em>lapply</em></a></li>
+<li class="chapter" data-level="3.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#matrices"><i class="fa fa-check"></i><b>3.4</b> Matrices</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-ensemble-de-vecteurs"><i class="fa fa-check"></i><b>3.4.1</b> La matrice, un ensemble de vecteurs</a></li>
+<li class="chapter" data-level="3.4.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-objet-bidimensionnel"><i class="fa fa-check"></i><b>3.4.2</b> La matrice, un objet bidimensionnel</a></li>
+<li class="chapter" data-level="3.4.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-matrices"><i class="fa fa-check"></i><b>3.4.3</b> Opérations sur matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-fonctions"><i class="fa fa-check"></i><b>3.4</b> Les fonctions</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#lepine-dorsale-de-r"><i class="fa fa-check"></i><b>3.4.1</b> L’épine dorsale de R</a></li>
-<li class="chapter" data-level="3.4.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#retour-sur-quelques-fonctions"><i class="fa fa-check"></i><b>3.4.2</b> Retour sur quelques fonctions</a></li>
-<li class="chapter" data-level="3.4.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#pourquoi-faire-une-fonction"><i class="fa fa-check"></i><b>3.4.3</b> Pourquoi faire une fonction?</a></li>
-<li class="chapter" data-level="3.4.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-basiques-de-la-fonction"><i class="fa fa-check"></i><b>3.4.4</b> Les basiques de la fonction</a></li>
-<li class="chapter" data-level="3.4.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#fonctions-et-boucles"><i class="fa fa-check"></i><b>3.4.5</b> Fonctions et boucles</a></li>
+<li class="chapter" data-level="3.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#data-frames"><i class="fa fa-check"></i><b>3.5</b> <em>Data frames</em></a><ul>
+<li class="chapter" data-level="3.5.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-data-frame-au-dela-de-la-matrice"><i class="fa fa-check"></i><b>3.5.1</b> Le <em>data frame</em>, au-délà de la matrice</a></li>
+<li class="chapter" data-level="3.5.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame"><i class="fa fa-check"></i><b>3.5.2</b> Opérations sur <em>data frame</em></a></li>
+<li class="chapter" data-level="3.5.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-meilleur-reste-a-venir"><i class="fa fa-check"></i><b>3.5.3</b> Le meilleur reste à venir</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#listes"><i class="fa fa-check"></i><b>3.6</b> Listes</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oublier-lordre-et-la-structure"><i class="fa fa-check"></i><b>3.6.1</b> Oublier l’ordre et la structure</a></li>
+<li class="chapter" data-level="3.6.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#un-contenant-de-contenants"><i class="fa fa-check"></i><b>3.6.2</b> Un contenant de contenants</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="objets-dans-r.html"><a href="objets-dans-r.html#conclusion"><i class="fa fa-check"></i><b>3.7</b> Conclusion</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#et-ce-nest-que-le-debut"><i class="fa fa-check"></i><b>3.7.1</b> Et ce n’est que le début</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html"><i class="fa fa-check"></i><b>4</b> Importer des données dans R</a><ul>
-<li class="chapter" data-level="4.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#objectif-de-ce-cours"><i class="fa fa-check"></i><b>4.1.1</b> Objectif de ce cours</a></li>
-<li class="chapter" data-level="4.1.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#que-nous-faut-il"><i class="fa fa-check"></i><b>4.1.2</b> Que nous faut-il?</a></li>
-<li class="chapter" data-level="4.1.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#donnees-1"><i class="fa fa-check"></i><b>4.1.3</b> Données</a></li>
+<li class="chapter" data-level="4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html"><i class="fa fa-check"></i><b>4</b> S’exprimer dans R</a><ul>
+<li class="chapter" data-level="4.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#objectif"><i class="fa fa-check"></i><b>4.1.1</b> Objectif</a></li>
+<li class="chapter" data-level="4.1.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#outils"><i class="fa fa-check"></i><b>4.1.2</b> Outils</a></li>
+<li class="chapter" data-level="4.1.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#donnees"><i class="fa fa-check"></i><b>4.1.3</b> Données</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#fichiers-plats-cas-du-format-csv"><i class="fa fa-check"></i><b>4.2</b> Fichiers plats: cas du format <em>CSV</em></a><ul>
-<li class="chapter" data-level="4.2.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu"><i class="fa fa-check"></i><b>4.2.1</b> Aperçu</a></li>
-<li class="chapter" data-level="4.2.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv"><i class="fa fa-check"></i><b>4.2.2</b> Importation avec <em>R-base</em>: <code>read.csv</code></a></li>
-<li class="chapter" data-level="4.2.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv2"><i class="fa fa-check"></i><b>4.2.3</b> Importation avec <em>R-base</em>: <code>read.csv2</code></a></li>
-<li class="chapter" data-level="4.2.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readr"><i class="fa fa-check"></i><b>4.2.4</b> Importation avec <code>readr</code></a></li>
+<li class="chapter" data-level="4.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-declarations"><i class="fa fa-check"></i><b>4.2</b> Les déclarations</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#formulations-simples"><i class="fa fa-check"></i><b>4.2.1</b> Formulations simples</a></li>
+<li class="chapter" data-level="4.2.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-additifs-et"><i class="fa fa-check"></i><b>4.2.2</b> Critères additifs: <em>et</em> = <code>&amp;</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-alternatifs-ou"><i class="fa fa-check"></i><b>4.2.3</b> Critères alternatifs: <em>ou</em> = <code>|</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-opposes-contraire"><i class="fa fa-check"></i><b>4.2.4</b> Critères opposés: <em>contraire</em> = <code>!</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#conditionalites"><i class="fa fa-check"></i><b>4.2.5</b> Conditionalités</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#excel-xls-xlsx"><i class="fa fa-check"></i><b>4.3</b> Excel: <code>xls</code>, <code>xlsx</code></a><ul>
-<li class="chapter" data-level="4.3.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-2"><i class="fa fa-check"></i><b>4.3.1</b> Aperçu</a></li>
-<li class="chapter" data-level="4.3.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-xlsx-read.xlsx"><i class="fa fa-check"></i><b>4.3.2</b> Importation avec <code>xlsx</code>: <code>read.xlsx</code></a></li>
-<li class="chapter" data-level="4.3.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readxl-read_excel"><i class="fa fa-check"></i><b>4.3.3</b> Importation avec <code>readxl</code>: <code>read_excel</code></a></li>
+<li class="chapter" data-level="4.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-boucles"><i class="fa fa-check"></i><b>4.3</b> Les boucles</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-solution-aux-taches-repetititives"><i class="fa fa-check"></i><b>4.3.1</b> La solution aux tâches répétititives</a></li>
+<li class="chapter" data-level="4.3.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-fonction-for"><i class="fa fa-check"></i><b>4.3.2</b> La fonction <em>for</em></a></li>
+<li class="chapter" data-level="4.3.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-vecteurs"><i class="fa fa-check"></i><b>4.3.3</b> Application sur vecteurs</a></li>
+<li class="chapter" data-level="4.3.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-matrices"><i class="fa fa-check"></i><b>4.3.4</b> Application sur matrices</a></li>
+<li class="chapter" data-level="4.3.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-data-frame"><i class="fa fa-check"></i><b>4.3.5</b> Application sur <em>data frame</em></a></li>
+<li class="chapter" data-level="4.3.6" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-listes"><i class="fa fa-check"></i><b>4.3.6</b> Application sur listes</a></li>
+<li class="chapter" data-level="4.3.7" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#arretons-nous-un-instant"><i class="fa fa-check"></i><b>4.3.7</b> Arrêtons-nous un instant!</a></li>
+<li class="chapter" data-level="4.3.8" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#paradigme-split-apply-combine-illustration-avec-lapply"><i class="fa fa-check"></i><b>4.3.8</b> Paradigme <em>split-apply-combine</em>: illustration avec <em>lapply</em></a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#formats-issues-dautres-logiciels-statistiques-stata-et-spss"><i class="fa fa-check"></i><b>4.4</b> Formats issues d’autres logiciels statistiques: <code>Stata</code> et <code>SPSS</code></a><ul>
-<li class="chapter" data-level="4.4.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-3"><i class="fa fa-check"></i><b>4.4.1</b> Aperçu</a></li>
+<li class="chapter" data-level="4.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-fonctions"><i class="fa fa-check"></i><b>4.4</b> Les fonctions</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#lepine-dorsale-de-r"><i class="fa fa-check"></i><b>4.4.1</b> L’épine dorsale de R</a></li>
+<li class="chapter" data-level="4.4.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#retour-sur-quelques-fonctions"><i class="fa fa-check"></i><b>4.4.2</b> Retour sur quelques fonctions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#pourquoi-faire-une-fonction"><i class="fa fa-check"></i><b>4.4.3</b> Pourquoi faire une fonction?</a></li>
+<li class="chapter" data-level="4.4.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-basiques-de-la-fonction"><i class="fa fa-check"></i><b>4.4.4</b> Les basiques de la fonction</a></li>
+<li class="chapter" data-level="4.4.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#fonctions-et-boucles"><i class="fa fa-check"></i><b>4.4.5</b> Fonctions et boucles</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-foreign"><i class="fa fa-check"></i><b>4.5</b> Importation avec <code>foreign</code></a></li>
-<li class="chapter" data-level="4.6" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#base-de-donnees-relationnelles"><i class="fa fa-check"></i><b>4.6</b> Base de données relationnelles</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-4"><i class="fa fa-check"></i><b>4.6.1</b> Aperçu</a></li>
-<li class="chapter" data-level="4.6.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-rodbc"><i class="fa fa-check"></i><b>4.6.2</b> Importation avec <em>RODBC</em></a></li>
-<li class="chapter" data-level="4.6.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-odbc"><i class="fa fa-check"></i><b>4.6.3</b> Importation avec <code>odbc</code></a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#depuis-internet"><i class="fa fa-check"></i><b>4.7</b> Depuis Internet</a><ul>
-<li class="chapter" data-level="4.7.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-5"><i class="fa fa-check"></i><b>4.7.1</b> Aperçu</a></li>
-<li class="chapter" data-level="4.7.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#chargement-de-fichier-csv"><i class="fa fa-check"></i><b>4.7.2</b> Chargement de fichier CSV</a></li>
+<li class="part"><span><b>II Manipuler des données dans R</b></span></li>
+<li class="chapter" data-level="5" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html"><i class="fa fa-check"></i><b>5</b> Importer des données dans R</a><ul>
+<li class="chapter" data-level="5.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#introduction-3"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#objectif-de-ce-cours"><i class="fa fa-check"></i><b>5.1.1</b> Objectif de ce cours</a></li>
+<li class="chapter" data-level="5.1.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#que-nous-faut-il"><i class="fa fa-check"></i><b>5.1.2</b> Que nous faut-il?</a></li>
+<li class="chapter" data-level="5.1.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#donnees-1"><i class="fa fa-check"></i><b>5.1.3</b> Données</a></li>
 </ul></li>
+<li class="chapter" data-level="5.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#fichiers-plats-cas-du-format-csv"><i class="fa fa-check"></i><b>5.2</b> Fichiers plats: cas du format <em>CSV</em></a><ul>
+<li class="chapter" data-level="5.2.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu"><i class="fa fa-check"></i><b>5.2.1</b> Aperçu</a></li>
+<li class="chapter" data-level="5.2.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv"><i class="fa fa-check"></i><b>5.2.2</b> Importation avec <em>R-base</em>: <code>read.csv</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv2"><i class="fa fa-check"></i><b>5.2.3</b> Importation avec <em>R-base</em>: <code>read.csv2</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readr"><i class="fa fa-check"></i><b>5.2.4</b> Importation avec <code>readr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#excel-xls-xlsx"><i class="fa fa-check"></i><b>5.3</b> Excel: <code>xls</code>, <code>xlsx</code></a><ul>
+<li class="chapter" data-level="5.3.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-2"><i class="fa fa-check"></i><b>5.3.1</b> Aperçu</a></li>
+<li class="chapter" data-level="5.3.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-xlsx-read.xlsx"><i class="fa fa-check"></i><b>5.3.2</b> Importation avec <code>xlsx</code>: <code>read.xlsx</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readxl-read_excel"><i class="fa fa-check"></i><b>5.3.3</b> Importation avec <code>readxl</code>: <code>read_excel</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#formats-issues-dautres-logiciels-statistiques-stata-et-spss"><i class="fa fa-check"></i><b>5.4</b> Formats issues d’autres logiciels statistiques: <code>Stata</code> et <code>SPSS</code></a><ul>
+<li class="chapter" data-level="5.4.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-3"><i class="fa fa-check"></i><b>5.4.1</b> Aperçu</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-foreign"><i class="fa fa-check"></i><b>5.5</b> Importation avec <code>foreign</code></a></li>
+<li class="chapter" data-level="5.6" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#base-de-donnees-relationnelles"><i class="fa fa-check"></i><b>5.6</b> Base de données relationnelles</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-4"><i class="fa fa-check"></i><b>5.6.1</b> Aperçu</a></li>
+<li class="chapter" data-level="5.6.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-rodbc"><i class="fa fa-check"></i><b>5.6.2</b> Importation avec <em>RODBC</em></a></li>
+<li class="chapter" data-level="5.6.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-odbc"><i class="fa fa-check"></i><b>5.6.3</b> Importation avec <code>odbc</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#depuis-internet"><i class="fa fa-check"></i><b>5.7</b> Depuis Internet</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-5"><i class="fa fa-check"></i><b>5.7.1</b> Aperçu</a></li>
+<li class="chapter" data-level="5.7.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#chargement-de-fichier-csv"><i class="fa fa-check"></i><b>5.7.2</b> Chargement de fichier CSV</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html"><i class="fa fa-check"></i><b>6</b> Transformer de données avec <strong>dplyr</strong></a><ul>
+<li class="chapter" data-level="6.1" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#introduction-4"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#objectif-de-ce-chapitre"><i class="fa fa-check"></i><b>6.1.1</b> Objectif de ce chapitre</a></li>
+<li class="chapter" data-level="6.1.2" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#que-nous-faut-il-1"><i class="fa fa-check"></i><b>6.1.2</b> Que nous faut-il?</a></li>
+<li class="chapter" data-level="6.1.3" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#donnees-2"><i class="fa fa-check"></i><b>6.1.3</b> Données</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#apercu-de-dplyr"><i class="fa fa-check"></i><b>6.2</b> Aperçu de <strong>dplyr</strong></a><ul>
+<li class="chapter" data-level="6.2.1" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#installer-dplyr"><i class="fa fa-check"></i><b>6.2.1</b> Installer <strong>dplyr</strong></a></li>
+<li class="chapter" data-level="6.2.2" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#lobjet-tibble"><i class="fa fa-check"></i><b>6.2.2</b> L’objet <code>tibble</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#selection-etou-exclusion-de-variables-select"><i class="fa fa-check"></i><b>6.3</b> Selection et/ou exclusion de variables: <code>select</code></a><ul>
+<li class="chapter" data-level="6.3.1" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#selection-simple"><i class="fa fa-check"></i><b>6.3.1</b> Sélection simple</a></li>
+<li class="chapter" data-level="6.3.2" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#selection-groupee"><i class="fa fa-check"></i><b>6.3.2</b> Sélection groupée</a></li>
+<li class="chapter" data-level="6.3.3" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#index-et-nom"><i class="fa fa-check"></i><b>6.3.3</b> Index et nom</a></li>
+<li class="chapter" data-level="6.3.4" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#exclusion"><i class="fa fa-check"></i><b>6.3.4</b> Exclusion</a></li>
+<li class="chapter" data-level="6.3.5" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#une-pierre-deux-coups"><i class="fa fa-check"></i><b>6.3.5</b> Une pierre deux coups</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#creation-etou-suppression-de-variables-mutate"><i class="fa fa-check"></i><b>6.4</b> Création et/ou suppression de variables: <code>mutate</code></a><ul>
+<li class="chapter" data-level="6.4.1" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#creation-de-variable"><i class="fa fa-check"></i><b>6.4.1</b> Création de variable</a></li>
+<li class="chapter" data-level="6.4.2" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#suppression-de-variables-1"><i class="fa fa-check"></i><b>6.4.2</b> Suppression de variables</a></li>
+<li class="chapter" data-level="6.4.3" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#ne-garder-que-le-resultat"><i class="fa fa-check"></i><b>6.4.3</b> Ne garder que le résultat</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#selection-dobservations-filter"><i class="fa fa-check"></i><b>6.5</b> Sélection d’observations: <code>filter</code></a><ul>
+<li class="chapter" data-level="6.5.1" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#sur-la-base-de-criteres-numeriques"><i class="fa fa-check"></i><b>6.5.1</b> Sur la base de critères numériques</a></li>
+<li class="chapter" data-level="6.5.2" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#sur-la-base-de-criteres-categoriels."><i class="fa fa-check"></i><b>6.5.2</b> Sur la base de critères catégoriels.</a></li>
+<li class="chapter" data-level="6.5.3" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#sur-la-base-dexpressions-regulieres"><i class="fa fa-check"></i><b>6.5.3</b> Sur la base d’expressions régulières</a></li>
+<li class="chapter" data-level="6.5.4" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#sur-la-base-dindex"><i class="fa fa-check"></i><b>6.5.4</b> Sur la base d’index</a></li>
+<li class="chapter" data-level="6.5.5" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#filtres-multiples"><i class="fa fa-check"></i><b>6.5.5</b> Filtres multiples</a></li>
+<li class="chapter" data-level="6.5.6" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#tri-dobservations-arrange"><i class="fa fa-check"></i><b>6.5.6</b> Tri d’observations: <code>arrange</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#vers-lagregation-group_by-et-summarize"><i class="fa fa-check"></i><b>6.6</b> Vers l’agrégation: <code>group_by</code> et <code>summarize</code></a></li>
+<li class="chapter" data-level="6.7" data-path="transformer-de-donnees-avec-dplyr.html"><a href="transformer-de-donnees-avec-dplyr.html#conclusion-1"><i class="fa fa-check"></i><b>6.7</b> Conclusion</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -236,16 +273,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="importer-des-donnees-dans-r" class="section level1">
-<h1><span class="header-section-number">Chapitre 4</span> Importer des données dans R</h1>
+<h1><span class="header-section-number">Chapitre 5</span> Importer des données dans R</h1>
 <div id="introduction-3" class="section level2">
-<h2><span class="header-section-number">4.1</span> Introduction</h2>
+<h2><span class="header-section-number">5.1</span> Introduction</h2>
 <div id="objectif-de-ce-cours" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> Objectif de ce cours</h3>
+<h3><span class="header-section-number">5.1.1</span> Objectif de ce cours</h3>
 <p>Dans le flux de travail (<em>workflow</em>) du <em>data scientist</em>, l’importation constitue très généralement le point de départ. Les données ne sont toujours disponibles sous le format qui se prête à l’analyse souhaitée. Elles peuvent exister dans un classeur Excel sous format <em>xls</em>, <em>xlsx</em> ou <em>csv</em>. Elles peuvent aussi se trouver dans une base de données relationnelles, où diverses tables sont connectées entres elles. Elles peuvent même être disponibles sur Internet (page Wikipédia, Twitter, Facebook, etc.) Dans tous les cas, il revient au <em>data scientist</em> de connaitre la techique appropriée pour les importer dans son environnement de travail, les organiser et les analyser selon l’objectif qu’il s’assigne.</p>
 <p>Dans ce chapitre, nous allons voir quelques techniques d’importation de données dans R.</p>
 </div>
 <div id="que-nous-faut-il" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> Que nous faut-il?</h3>
+<h3><span class="header-section-number">5.1.2</span> Que nous faut-il?</h3>
 <ul>
 <li><p>R (évidemment) et RStudio (de préférence) installés sur le poste de travail</p></li>
 <li><p>les fichiers fournis dans le cadre du module</p></li>
@@ -253,10 +290,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </div>
 <div id="donnees-1" class="section level3">
-<h3><span class="header-section-number">4.1.3</span> Données</h3>
+<h3><span class="header-section-number">5.1.3</span> Données</h3>
 <p>Nous allons illustrer ce chapitre avec une compilation de données tirées des <a href="https://www.malikunnafoni.com">Recensements Généraux de la Population et de l’Habitat au Mali, menés respectivement en 1976, 1987, 1998 et 2009</a>. Le tableau suivant affiche un aperçu (l’année 1976 seulement) des données dont il est question.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-228">Table 4.1: </span>Un aperçu des données démographiques</caption>
+<caption><span id="tab:unnamed-chunk-228">Table 5.1: </span>Un aperçu des données démographiques</caption>
 <thead>
 <tr class="header">
 <th align="right">annee</th>
@@ -492,13 +529,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 </div>
 <div id="fichiers-plats-cas-du-format-csv" class="section level2">
-<h2><span class="header-section-number">4.2</span> Fichiers plats: cas du format <em>CSV</em></h2>
+<h2><span class="header-section-number">5.2</span> Fichiers plats: cas du format <em>CSV</em></h2>
 <div id="apercu" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> Aperçu</h3>
+<h3><span class="header-section-number">5.2.1</span> Aperçu</h3>
 <p>Comme son nom l’indique, le format <em>CSV</em> (<em>Comma Separated Values</em>) est un format où les valeurs de données rectangulaires sont séparées par une virgule (<code>,</code>). Cette règle de base est commode pour les anglophones, pour lesquels les décimales viennent après un point (<code>.</code>) et non après une virgule. Par contre, pour les francophones, le format de sauvegarde de données réquiert une règle différente. Pour ne pas confondre le séparateur de valeurs et la virgule de la décimale, l’on utilise le point-virgule (<code>;</code>). Nous verrons les fonctions qui conviennent pour chacun de ces deux formats.</p>
 </div>
 <div id="importation-avec-r-base-read.csv" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Importation avec <em>R-base</em>: <code>read.csv</code></h3>
+<h3><span class="header-section-number">5.2.2</span> Importation avec <em>R-base</em>: <code>read.csv</code></h3>
 <p>La version d’installation de R, couramment appelée <em>R-base</em> (ou <em>base-R</em>), vient avec un ensemble de fonctions qui sont disponibles par défaut. Parmi celles-ci: <code>read.csv</code>. L’importation d’un fichier <em>csv</em> avec <em>R-base</em> se fait de la façon suivante:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">RGPH_MLI &lt;-<span class="st"> </span><span class="kw">read.csv</span>(
   <span class="co"># Spécifier le nom du fichier</span>
@@ -531,7 +568,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  $ office      : Factor w/ 2 levels &quot;&quot;,&quot;DNSI&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
 </div>
 <div id="importation-avec-r-base-read.csv2" class="section level3">
-<h3><span class="header-section-number">4.2.3</span> Importation avec <em>R-base</em>: <code>read.csv2</code></h3>
+<h3><span class="header-section-number">5.2.3</span> Importation avec <em>R-base</em>: <code>read.csv2</code></h3>
 <p>Avec read.csv déjà, le séparateur peut être spécifié pour permettre la prise en charge des fichiers qui ont point-virgule comme séparateur (<code>;</code>). Toutefois, il existe une fonction bâtie au dessus de celle-ci, qui prend en charge les spécificités de tels fichiers. Il s’agit de <code>read.cvs2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">RGPH_MLI2 &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(
   <span class="co"># Spécifier le nom du fichier</span>
@@ -564,9 +601,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  $ office      : Factor w/ 2 levels &quot;&quot;,&quot;DNSI&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
 </div>
 <div id="importation-avec-readr" class="section level3">
-<h3><span class="header-section-number">4.2.4</span> Importation avec <code>readr</code></h3>
+<h3><span class="header-section-number">5.2.4</span> Importation avec <code>readr</code></h3>
 <div id="apercu-1" class="section level4">
-<h4><span class="header-section-number">4.2.4.1</span> Aperçu</h4>
+<h4><span class="header-section-number">5.2.4.1</span> Aperçu</h4>
 <p><a href="https://readr.tidyverse.org/"><em>readr</em></a> est un package créé par <a href="http://hadley.nz/">Hadley Wickham</a>. Ses fonctions sont similaires à celles de <code>read.csv</code> et de <code>read.csv2</code>. <code>readr</code> présente l’avantage de faire partie du <a href="https://www.tidyverse.org/"><em>tidyverse</em></a>. Il travaille harmonieusement avec les autres packages de cet écosystème. Sa syntaxe est très simple: pour importer un fichier csv, on utilise <code>read_csv</code> au lieu de <code>read.csv</code>. Cette logique est valable pour d’autres formats, dont il suffit seulement d’ajouter l’extension après le tiret d’en bas (“_“). Ainsi, on a :</p>
 <ul>
 <li><p><code>read_csv2</code>: pour les fichiers <em>CSV</em> ayant le point-virgule (<code>;</code>) comme séparateur;</p></li>
@@ -575,7 +612,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </div>
 <div id="read_csv-et-read_csv2" class="section level4">
-<h4><span class="header-section-number">4.2.4.2</span> <code>read_csv</code> et <code>read_csv2</code></h4>
+<h4><span class="header-section-number">5.2.4.2</span> <code>read_csv</code> et <code>read_csv2</code></h4>
 <p>Ouvrons le fichier csv avec <code>read_csv</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;readr&quot;</span>
 <span class="kw">library</span>(readr) 
@@ -606,7 +643,7 @@ RGPH_MLI &lt;-<span class="st"> </span><span class="kw">read_csv2</span>(
   )</code></pre></div>
 </div>
 <div id="generalisation" class="section level4">
-<h4><span class="header-section-number">4.2.4.3</span> Généralisation</h4>
+<h4><span class="header-section-number">5.2.4.3</span> Généralisation</h4>
 <p><code>read_csv</code> est un cas spécifique d’une fonction généraliste qui couvre un large spectre de formats : <code>read_delim</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;readr&quot;</span>
 <span class="kw">library</span>(readr) 
@@ -637,9 +674,9 @@ RGPH_MLI2 &lt;-<span class="st"> </span><span class="kw">read_delim</span>(
 </div>
 </div>
 <div id="excel-xls-xlsx" class="section level2">
-<h2><span class="header-section-number">4.3</span> Excel: <code>xls</code>, <code>xlsx</code></h2>
+<h2><span class="header-section-number">5.3</span> Excel: <code>xls</code>, <code>xlsx</code></h2>
 <div id="apercu-2" class="section level3">
-<h3><span class="header-section-number">4.3.1</span> Aperçu</h3>
+<h3><span class="header-section-number">5.3.1</span> Aperçu</h3>
 <p>Faisant partie de la suite MS Office, Excel est l’un des tableurs les plus populaires. Il est difficile de l’exclure du <em>workflow</em> du <em>data scientist</em> car c’est l’outil de prédilection dans beaucoup de domaines et secteurs (entreprises, administrations) en matière d’organisation et de sauvegarde des données . Les <em>data scientist</em> opérant exclusivement sur des bases de données constituent une niche. Pour la majorité, amenée à interagir avec des spécialistes d’autres domaines, il est important de pourvoir disposer de techniques pour importer les données collectées et organisées par leurs soins dans Excel.</p>
 <p>Dans R, plusieurs solutions existent. Nous verrons deux packages:</p>
 <ul>
@@ -648,7 +685,7 @@ RGPH_MLI2 &lt;-<span class="st"> </span><span class="kw">read_delim</span>(
 </ul>
 </div>
 <div id="importation-avec-xlsx-read.xlsx" class="section level3">
-<h3><span class="header-section-number">4.3.2</span> Importation avec <code>xlsx</code>: <code>read.xlsx</code></h3>
+<h3><span class="header-section-number">5.3.2</span> Importation avec <code>xlsx</code>: <code>read.xlsx</code></h3>
 <p>Le package <code>xlsx</code> offre deux fonctions majeures pour lire des formats <code>xls</code> et <code>xlsx</code>. Il s’agit de <code>read.xlsx</code> et <code>read.xlsx2</code> (plus rapide sur les fichiers lourds).</p>
 <p>Pour le format <code>xls</code>…</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;xlsx&quot;</span>
@@ -694,7 +731,7 @@ RGPH_MLI_xlsx &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(
 )</code></pre></div>
 </div>
 <div id="importation-avec-readxl-read_excel" class="section level3">
-<h3><span class="header-section-number">4.3.3</span> Importation avec <code>readxl</code>: <code>read_excel</code></h3>
+<h3><span class="header-section-number">5.3.3</span> Importation avec <code>readxl</code>: <code>read_excel</code></h3>
 <p>Le package <code>readxl</code> est bâti sur les mêmes principes que <a href="https://www.tidyverse.org/"><code>readr</code></a>. Il permet d’importer des formats Excel avec la même logique syntaxique. Il contient des fonctions spécifiques, <code>read_xls</code> et <code>read_xlsx</code>, et une fonction généraliste, <code>read_excel</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;readxl&quot;</span>
 <span class="kw">library</span>(readxl) 
@@ -721,14 +758,14 @@ RGPH_MLI_xlsx &lt;-<span class="st"> </span><span class="kw">read_excel</span>(
 </div>
 </div>
 <div id="formats-issues-dautres-logiciels-statistiques-stata-et-spss" class="section level2">
-<h2><span class="header-section-number">4.4</span> Formats issues d’autres logiciels statistiques: <code>Stata</code> et <code>SPSS</code></h2>
+<h2><span class="header-section-number">5.4</span> Formats issues d’autres logiciels statistiques: <code>Stata</code> et <code>SPSS</code></h2>
 <div id="apercu-3" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Aperçu</h3>
+<h3><span class="header-section-number">5.4.1</span> Aperçu</h3>
 <p>Le data scientist peut aussi être amené à travailler sur des données sauvegardées à partir d’autres programmes de traitement de données tels que <code>Stata</code>, <code>SPSS</code>, <code>SAS</code>, etc. Dans R, les solutions sont nombreuses. Ici, nous allons voir deux packages: <code>foreign</code> et <code>haven</code>.</p>
 </div>
 </div>
 <div id="importation-avec-foreign" class="section level2">
-<h2><span class="header-section-number">4.5</span> Importation avec <code>foreign</code></h2>
+<h2><span class="header-section-number">5.5</span> Importation avec <code>foreign</code></h2>
 <p>Le package <a href="https://cran.r-project.org/web/packages/foreign/index.html"><code>foreign</code></a> permet d’ouvrir des fichiers <code>dta</code>, issus de <code>Stata</code>…</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;foreign&quot;</span>
 <span class="kw">library</span>(foreign) 
@@ -778,9 +815,9 @@ RGPH_MLI_spss &lt;-<span class="st"> </span><span class="kw">read.spss</span>(
   )</code></pre></div>
 </div>
 <div id="base-de-donnees-relationnelles" class="section level2">
-<h2><span class="header-section-number">4.6</span> Base de données relationnelles</h2>
+<h2><span class="header-section-number">5.6</span> Base de données relationnelles</h2>
 <div id="apercu-4" class="section level3">
-<h3><span class="header-section-number">4.6.1</span> Aperçu</h3>
+<h3><span class="header-section-number">5.6.1</span> Aperçu</h3>
 <p>R peut aussi importer des données depuis une base de données relationnelles. Celle-ci peut aussi bien être locale, installée sur le poste de travail, que distante, installée sur un serveur accessible via Internet. Nous allons illustrer ici avec une base locale.</p>
 <p>Les packages varient d’un type de base à un autre:</p>
 <ul>
@@ -792,7 +829,7 @@ RGPH_MLI_spss &lt;-<span class="st"> </span><span class="kw">read.spss</span>(
 <p>Pour plus de détails, consulter cette <a href="https://db.rstudio.com/getting-started/">page</a>.</p>
 </div>
 <div id="importation-avec-rodbc" class="section level3">
-<h3><span class="header-section-number">4.6.2</span> Importation avec <em>RODBC</em></h3>
+<h3><span class="header-section-number">5.6.2</span> Importation avec <em>RODBC</em></h3>
 <p>Commençons par ouvrir le chaine de communication entre R et la base via ODBC (<em>Open Data Base Connectivity</em>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;RODBC&quot;</span>
 <span class="kw">library</span>(RODBC) 
@@ -824,7 +861,7 @@ RGPH_MLI_rodbc_sql &lt;-<span class="st"> </span><span class="kw">sqlQuery</span
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">odbcClose</span>(dswr)</code></pre></div>
 </div>
 <div id="importation-avec-odbc" class="section level3">
-<h3><span class="header-section-number">4.6.3</span> Importation avec <code>odbc</code></h3>
+<h3><span class="header-section-number">5.6.3</span> Importation avec <code>odbc</code></h3>
 <p>Une autre solution est de passe par le package <code>odbc</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;odbc&quot;</span>
 <span class="kw">library</span>(odbc)
@@ -859,13 +896,13 @@ RGPH_MLI_odbc_sql &lt;-<span class="st"> </span><span class="kw">dbGetQuery</spa
 </div>
 </div>
 <div id="depuis-internet" class="section level2">
-<h2><span class="header-section-number">4.7</span> Depuis Internet</h2>
+<h2><span class="header-section-number">5.7</span> Depuis Internet</h2>
 <div id="apercu-5" class="section level3">
-<h3><span class="header-section-number">4.7.1</span> Aperçu</h3>
+<h3><span class="header-section-number">5.7.1</span> Aperçu</h3>
 <p>Les données peuvent aussi être tirées de la toile mondiale. Les outils disponibles dans R varient selon le type de données.</p>
 </div>
 <div id="chargement-de-fichier-csv" class="section level3">
-<h3><span class="header-section-number">4.7.2</span> Chargement de fichier CSV</h3>
+<h3><span class="header-section-number">5.7.2</span> Chargement de fichier CSV</h3>
 <p>Pour un fichier CSV, le chargement dans l’environnement R se fait de la même façon que pour des fichiers locaux.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/4_Importer_Donnees_dans_R/data/RGPH_MLI.csv&quot;</span>
 RGPH_MLI_csv_online &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)
@@ -881,7 +918,7 @@ RGPH_MLI_csv_online &lt;-<span class="st"> </span><span class="kw">read_csv</spa
         </div>
       </div>
 <a href="sexprimer-dans-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="transformer-de-donnees-avec-dplyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

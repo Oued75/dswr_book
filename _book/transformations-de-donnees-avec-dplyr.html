@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapitre 6 Transformations de données avec dplyr | Data Science avec R</title>
+  <meta name="description" content="Chapitre 6 Transformations de données avec dplyr | Data Science avec R">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapitre 6 Transformations de données avec dplyr | Data Science avec R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 6 Transformations de données avec dplyr | Data Science avec R" />
+  
+  
+  
+
+<meta name="author" content="Fousseynou Bah">
+
+
+<meta name="date" content="2019-03-14">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="importer-des-donnees-dans-r.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science avec R</a></li>
+
+<li class="divider"></li>
+<li class="part"><span><b>I Les basiques dans R</b></span></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#un-autre-livre-sur-la-data-science-vraiment"><i class="fa fa-check"></i><b>1.1</b> Un autre livre sur la <em>data science</em>! Vraiment?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#la-data-science"><i class="fa fa-check"></i><b>1.2</b> La <em>data science</em></a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#le-data-scientist"><i class="fa fa-check"></i><b>1.3</b> Le <em>data scientist</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-a-r.html"><a href="introduction-a-r.html"><i class="fa fa-check"></i><b>2</b> Introduction à R</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-a-r.html"><a href="introduction-a-r.html#r"><i class="fa fa-check"></i><b>2.1</b> R</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-a-r.html"><a href="introduction-a-r.html#quest-ce-que-cest-que-r"><i class="fa fa-check"></i><b>2.1.1</b> Qu’est-ce que c’est que R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="introduction-a-r.html"><a href="introduction-a-r.html#pourquoi-r"><i class="fa fa-check"></i><b>2.1.2</b> Pourquoi R?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="introduction-a-r.html"><a href="introduction-a-r.html#r-dans-lecosysteme-des-langages"><i class="fa fa-check"></i><b>2.1.3</b> R dans l’écosystème des langages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="introduction-a-r.html"><a href="introduction-a-r.html#rstudio"><i class="fa fa-check"></i><b>2.2</b> RStudio</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-a-r.html"><a href="introduction-a-r.html#quest-ce-que-cest-que-rstudio"><i class="fa fa-check"></i><b>2.2.1</b> Qu’est-ce que c’est que RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="objets-dans-r.html"><a href="objets-dans-r.html"><i class="fa fa-check"></i><b>3</b> Objets dans R</a><ul>
+<li class="chapter" data-level="3.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-dobjet-dans-r"><i class="fa fa-check"></i><b>3.2</b> La notion d’objet dans R</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-objet"><i class="fa fa-check"></i><b>3.2.1</b> Qu’est-ce qu’un objet?</a></li>
+<li class="chapter" data-level="3.2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oranges-et-bananes"><i class="fa fa-check"></i><b>3.2.2</b> Oranges et bananes</a></li>
+<li class="chapter" data-level="3.2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#ce-qui-se-ressemblent-sassemblent"><i class="fa fa-check"></i><b>3.2.3</b> Ce qui se ressemblent s’assemblent</a></li>
+<li class="chapter" data-level="3.2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quelques-objets-dans-r"><i class="fa fa-check"></i><b>3.2.4</b> Quelques objets dans R</a></li>
+<li class="chapter" data-level="3.2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-de-classe-et-de-type"><i class="fa fa-check"></i><b>3.2.5</b> La notion de classe et de type</a></li>
+<li class="chapter" data-level="3.2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vers-dautres-types-dobjets"><i class="fa fa-check"></i><b>3.2.6</b> Vers d’autres types d’objets</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vecteurs"><i class="fa fa-check"></i><b>3.3</b> Vecteurs</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-vecteur"><i class="fa fa-check"></i><b>3.3.1</b> Qu’est-ce qu’un vecteur?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#creons-en-des-vecteurs"><i class="fa fa-check"></i><b>3.3.2</b> Créons-en, des vecteurs!</a></li>
+<li class="chapter" data-level="3.3.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vrai-pour-un-vrai-pour-plusieurs"><i class="fa fa-check"></i><b>3.3.3</b> Vrai pour un, vrai pour plusieurs</a></li>
+<li class="chapter" data-level="3.3.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#nommer-les-elements-dun-vecteur"><i class="fa fa-check"></i><b>3.3.4</b> Nommer les éléments d’un vecteur</a></li>
+<li class="chapter" data-level="3.3.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-vecteurs"><i class="fa fa-check"></i><b>3.3.5</b> Opérations sur vecteurs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#matrices"><i class="fa fa-check"></i><b>3.4</b> Matrices</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-ensemble-de-vecteurs"><i class="fa fa-check"></i><b>3.4.1</b> La matrice, un ensemble de vecteurs</a></li>
+<li class="chapter" data-level="3.4.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-objet-bidimensionnel"><i class="fa fa-check"></i><b>3.4.2</b> La matrice, un objet bidimensionnel</a></li>
+<li class="chapter" data-level="3.4.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-matrices"><i class="fa fa-check"></i><b>3.4.3</b> Opérations sur matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#data-frames"><i class="fa fa-check"></i><b>3.5</b> <em>Data frames</em></a><ul>
+<li class="chapter" data-level="3.5.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-data-frame-au-dela-de-la-matrice"><i class="fa fa-check"></i><b>3.5.1</b> Le <em>data frame</em>, au-délà de la matrice</a></li>
+<li class="chapter" data-level="3.5.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame"><i class="fa fa-check"></i><b>3.5.2</b> Opérations sur <em>data frame</em></a></li>
+<li class="chapter" data-level="3.5.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-meilleur-reste-a-venir"><i class="fa fa-check"></i><b>3.5.3</b> Le meilleur reste à venir</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#listes"><i class="fa fa-check"></i><b>3.6</b> Listes</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oublier-lordre-et-la-structure"><i class="fa fa-check"></i><b>3.6.1</b> Oublier l’ordre et la structure</a></li>
+<li class="chapter" data-level="3.6.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#un-contenant-de-contenants"><i class="fa fa-check"></i><b>3.6.2</b> Un contenant de contenants</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="objets-dans-r.html"><a href="objets-dans-r.html#conclusion"><i class="fa fa-check"></i><b>3.7</b> Conclusion</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#et-ce-nest-que-le-debut"><i class="fa fa-check"></i><b>3.7.1</b> Et ce n’est que le début</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html"><i class="fa fa-check"></i><b>4</b> S’exprimer dans R</a><ul>
+<li class="chapter" data-level="4.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#objectif"><i class="fa fa-check"></i><b>4.1.1</b> Objectif</a></li>
+<li class="chapter" data-level="4.1.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#outils"><i class="fa fa-check"></i><b>4.1.2</b> Outils</a></li>
+<li class="chapter" data-level="4.1.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#donnees"><i class="fa fa-check"></i><b>4.1.3</b> Données</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-declarations"><i class="fa fa-check"></i><b>4.2</b> Les déclarations</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#formulations-simples"><i class="fa fa-check"></i><b>4.2.1</b> Formulations simples</a></li>
+<li class="chapter" data-level="4.2.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-additifs-et"><i class="fa fa-check"></i><b>4.2.2</b> Critères additifs: <em>et</em> = <code>&amp;</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-alternatifs-ou"><i class="fa fa-check"></i><b>4.2.3</b> Critères alternatifs: <em>ou</em> = <code>|</code></a></li>
+<li class="chapter" data-level="4.2.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-opposes-contraire"><i class="fa fa-check"></i><b>4.2.4</b> Critères opposés: <em>contraire</em> = <code>!</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#conditionalites"><i class="fa fa-check"></i><b>4.2.5</b> Conditionalités</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-boucles"><i class="fa fa-check"></i><b>4.3</b> Les boucles</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-solution-aux-taches-repetititives"><i class="fa fa-check"></i><b>4.3.1</b> La solution aux tâches répétititives</a></li>
+<li class="chapter" data-level="4.3.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-fonction-for"><i class="fa fa-check"></i><b>4.3.2</b> La fonction <em>for</em></a></li>
+<li class="chapter" data-level="4.3.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-vecteurs"><i class="fa fa-check"></i><b>4.3.3</b> Application sur vecteurs</a></li>
+<li class="chapter" data-level="4.3.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-matrices"><i class="fa fa-check"></i><b>4.3.4</b> Application sur matrices</a></li>
+<li class="chapter" data-level="4.3.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-data-frame"><i class="fa fa-check"></i><b>4.3.5</b> Application sur <em>data frame</em></a></li>
+<li class="chapter" data-level="4.3.6" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-listes"><i class="fa fa-check"></i><b>4.3.6</b> Application sur listes</a></li>
+<li class="chapter" data-level="4.3.7" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#arretons-nous-un-instant"><i class="fa fa-check"></i><b>4.3.7</b> Arrêtons-nous un instant!</a></li>
+<li class="chapter" data-level="4.3.8" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#paradigme-split-apply-combine-illustration-avec-lapply"><i class="fa fa-check"></i><b>4.3.8</b> Paradigme <em>split-apply-combine</em>: illustration avec <em>lapply</em></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-fonctions"><i class="fa fa-check"></i><b>4.4</b> Les fonctions</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#lepine-dorsale-de-r"><i class="fa fa-check"></i><b>4.4.1</b> L’épine dorsale de R</a></li>
+<li class="chapter" data-level="4.4.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#retour-sur-quelques-fonctions"><i class="fa fa-check"></i><b>4.4.2</b> Retour sur quelques fonctions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#pourquoi-faire-une-fonction"><i class="fa fa-check"></i><b>4.4.3</b> Pourquoi faire une fonction?</a></li>
+<li class="chapter" data-level="4.4.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-basiques-de-la-fonction"><i class="fa fa-check"></i><b>4.4.4</b> Les basiques de la fonction</a></li>
+<li class="chapter" data-level="4.4.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#fonctions-et-boucles"><i class="fa fa-check"></i><b>4.4.5</b> Fonctions et boucles</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Manipuler des données dans R</b></span></li>
+<li class="chapter" data-level="5" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html"><i class="fa fa-check"></i><b>5</b> Importer des données dans R</a><ul>
+<li class="chapter" data-level="5.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#introduction-3"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#objectif-de-ce-cours"><i class="fa fa-check"></i><b>5.1.1</b> Objectif de ce cours</a></li>
+<li class="chapter" data-level="5.1.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#que-nous-faut-il"><i class="fa fa-check"></i><b>5.1.2</b> Que nous faut-il?</a></li>
+<li class="chapter" data-level="5.1.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#donnees-1"><i class="fa fa-check"></i><b>5.1.3</b> Données</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#fichiers-plats-cas-du-format-csv"><i class="fa fa-check"></i><b>5.2</b> Fichiers plats: cas du format <em>CSV</em></a><ul>
+<li class="chapter" data-level="5.2.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu"><i class="fa fa-check"></i><b>5.2.1</b> Aperçu</a></li>
+<li class="chapter" data-level="5.2.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv"><i class="fa fa-check"></i><b>5.2.2</b> Importation avec <em>R-base</em>: <code>read.csv</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv2"><i class="fa fa-check"></i><b>5.2.3</b> Importation avec <em>R-base</em>: <code>read.csv2</code></a></li>
+<li class="chapter" data-level="5.2.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readr"><i class="fa fa-check"></i><b>5.2.4</b> Importation avec <code>readr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#excel-xls-xlsx"><i class="fa fa-check"></i><b>5.3</b> Excel: <code>xls</code>, <code>xlsx</code></a><ul>
+<li class="chapter" data-level="5.3.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-2"><i class="fa fa-check"></i><b>5.3.1</b> Aperçu</a></li>
+<li class="chapter" data-level="5.3.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-xlsx-read.xlsx"><i class="fa fa-check"></i><b>5.3.2</b> Importation avec <code>xlsx</code>: <code>read.xlsx</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readxl-read_excel"><i class="fa fa-check"></i><b>5.3.3</b> Importation avec <code>readxl</code>: <code>read_excel</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#formats-issues-dautres-logiciels-statistiques-stata-et-spss"><i class="fa fa-check"></i><b>5.4</b> Formats issues d’autres logiciels statistiques: <code>Stata</code> et <code>SPSS</code></a><ul>
+<li class="chapter" data-level="5.4.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-3"><i class="fa fa-check"></i><b>5.4.1</b> Aperçu</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-foreign"><i class="fa fa-check"></i><b>5.5</b> Importation avec <code>foreign</code></a></li>
+<li class="chapter" data-level="5.6" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#base-de-donnees-relationnelles"><i class="fa fa-check"></i><b>5.6</b> Base de données relationnelles</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-4"><i class="fa fa-check"></i><b>5.6.1</b> Aperçu</a></li>
+<li class="chapter" data-level="5.6.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-rodbc"><i class="fa fa-check"></i><b>5.6.2</b> Importation avec <em>RODBC</em></a></li>
+<li class="chapter" data-level="5.6.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-odbc"><i class="fa fa-check"></i><b>5.6.3</b> Importation avec <code>odbc</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#depuis-internet"><i class="fa fa-check"></i><b>5.7</b> Depuis Internet</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-5"><i class="fa fa-check"></i><b>5.7.1</b> Aperçu</a></li>
+<li class="chapter" data-level="5.7.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#chargement-de-fichier-csv"><i class="fa fa-check"></i><b>5.7.2</b> Chargement de fichier CSV</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html"><i class="fa fa-check"></i><b>6</b> Transformations de données avec <code>dplyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html#objectif-de-ce-chapitre"><i class="fa fa-check"></i><b>6.1</b> Objectif de ce chapitre</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html#que-nous-faut-il-1"><i class="fa fa-check"></i><b>6.1.1</b> Que nous faut-il?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html#donnees-2"><i class="fa fa-check"></i><b>6.2</b> Données</a></li>
+<li class="chapter" data-level="6.3" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html#apercu-de-dplyr"><i class="fa fa-check"></i><b>6.3</b> Aperçu de <code>dplyr</code></a></li>
+<li class="chapter" data-level="6.4" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html#avant-daller-loin"><i class="fa fa-check"></i><b>6.4</b> Avant d’aller loin</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html#selection-etou-exclusion-de-variables-select"><i class="fa fa-check"></i><b>6.4.1</b> Selection et/ou exclusion de variables: <code>select</code></a></li>
+<li class="chapter" data-level="6.4.2" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html#creation-de-variable-de-variables-mutate"><i class="fa fa-check"></i><b>6.4.2</b> Création de variable de variables: <code>mutate</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html#selection-dobservations-filter"><i class="fa fa-check"></i><b>6.4.3</b> Sélection d’observations: <code>filter</code></a></li>
+<li class="chapter" data-level="6.4.4" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html#tri-dobservations-arrange"><i class="fa fa-check"></i><b>6.4.4</b> Tri d’observations: <code>arrange</code></a></li>
+<li class="chapter" data-level="6.4.5" data-path="transformations-de-donnees-avec-dplyr.html"><a href="transformations-de-donnees-avec-dplyr.html#vers-lagregation-group_by-et-summarize"><i class="fa fa-check"></i><b>6.4.5</b> Vers l’agrégation: <code>group_by</code> et <code>summarize</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publié avec bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science avec R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="transformations-de-donnees-avec-dplyr" class="section level1">
+<h1><span class="header-section-number">Chapitre 6</span> Transformations de données avec <code>dplyr</code></h1>
+<div id="objectif-de-ce-chapitre" class="section level2">
+<h2><span class="header-section-number">6.1</span> Objectif de ce chapitre</h2>
+<p>Le <em>data scientist</em> a très rarement les données structurées dans la forme qui lui convient. Il lui revient de les mettres dans cette forme. De ce fait, il lui est indispensable de savoir manipuler les données. Il s’agit de la maîtrise d’une série de tâches parmi lesquelles nous pouvons citer:</p>
+<ul>
+<li><p>la simple sélection d’un sous-ensemble à l’intérieur d’un large groupe ;</p></li>
+<li><p>la sélection d’un nombre déterminé de variables (attributs) ;</p></li>
+<li><p>la combinaison d’informations conservées dans différentes <em>data frame</em>;</p></li>
+<li><p>la suppresion et la création variables;</p></li>
+<li><p>la réorganisation des données à l’intérieur d’un <em>data frame</em>.</p></li>
+</ul>
+<p>Dans ce chapitre, nous allons voir quelques techniques de manipulation de données avec le package <code>dplyr</code>.</p>
+<div id="que-nous-faut-il-1" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Que nous faut-il?</h3>
+<ul>
+<li><p>R (évidemment) et RStudio (de préférence) installés sur le poste de travail;</p></li>
+<li><p>les packages <em>dplyr</em> et <em>tidyr</em> installés;</p></li>
+<li><p>les fichiers fournis dans le cadre du module.</p></li>
+</ul>
+</div>
+</div>
+<div id="donnees-2" class="section level2">
+<h2><span class="header-section-number">6.2</span> Données</h2>
+<p>Nous allons illustrer ce chapitre avec une compilation de données tirées des <a href="https://www.malikunnafoni.com">Recensements Généraux de la Population et de l’Habitat au Mali, menés respectivement en 1976, 1987, 1998 et 2009</a>. Il s’agit:</p>
+<ul>
+<li><p>d’un côté, de tableaux sur la population par groupe d’âge (tranche de 5 ans);</p></li>
+<li><p>de l’autre, de tableaux sur la population par commune.</p></li>
+</ul>
+</div>
+<div id="apercu-de-dplyr" class="section level2">
+<h2><span class="header-section-number">6.3</span> Aperçu de <code>dplyr</code></h2>
+<p>Le package <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> est un package crééé par <a href="http://hadley.nz/">Hadley Wickham</a>. Il fait partie de l’écosystème <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> qui est un ensemble de packages conçus pour la <em>data science</em> et partageant tous les mêmes philoshophie, grammaire et structure. Nous allons, avec l’exploration des packages du <code>tidyverse</code>, comprendre l’importance de cette grammaire. Elle traduit la volonté des auteurs de condenser dans le nom des fonctions l’idée de la tâche que celles-ci exécutent. Dans <code>dplyr</code>, les fonctions majeures sont des verbes (comme nous allons le voir).</p>
+<p>Alors, qu’est-ce que <code>dplyr</code> fait? Voici une simple analogie. Si les données constituent un tissu, nous pouvons voir <code>dplyr</code> comme à la fois la paire de ciseaux pour en faire la coupe, et l’aiguille et le fil pour le coudre. Pour le prouver, voici le <a href="https://github.com/tidyverse/dplyr/blob/master/pkgdown/favicon/apple-touch-icon-120x120.png">logo</a> associé au package.</p>
+<p>Pour travailler avec <code>dplyr</code>, l’on commence par l’installer sur son poste de travail. Etant intégré au <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, il est possible de l’installer en même temps que les autres composantes de celui-ci.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
+<p>L’on peut aussi l’installer tout seul.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
+<p>Cette commande télécharge depuis le <a href="https://cran.r-project.org/">réseau d’archivage des packages R</a> la dernière version stable publiée. Toutefois, il est aussi possible d’acquérir les versions en développement depuis <a href="https://github.com/tidyverse/dplyr">Github</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>) <span class="co"># au cas où ce package n&#39;est pas installé</span>
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;tidyverse/dplyr&quot;</span>)</code></pre></div>
+<p>Une fois l’installation effectuée, l’on peut charger le package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+</div>
+<div id="avant-daller-loin" class="section level2">
+<h2><span class="header-section-number">6.4</span> Avant d’aller loin</h2>
+<p>Avant d’aller loin, il est utile d’introduire la notion de <em>tibble</em> qui est une partie intégrante des packages du <code>tidyverse</code>. Il s’agit de la même chose que le <em>data frame</em>, mais celui-ci repensé. Le <em>tibble</em> n’altère pas la structure ni la classe des données contenue dans un <em>data frame</em>. Par contre, il agit sur l’affichage des données et, comme nous le verrons plus tard, leur permet de stocker de nouvelles sortes de données (<code>colonne-list</code>, à noter quelque part…on y reviendra). Pour l’instant regardons-le à l’oeuvre en termes d’affichage.</p>
+<p>Prenons les données sur les populations des communes du Mali en 2009 (RGPH, 2009).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Importation des données</span>
+adm3_pop_<span class="dv">2009</span> &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/5_Manipuler_Donnees_dans_R/data/adm3_pop_2009.csv&quot;</span>)</code></pre></div>
+<p>Quelle est la classe de cet objet?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(adm3_pop_<span class="dv">2009</span>)</code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p>C’est un <em>data frame</em>! Regardons sa structure ainsi que les six premières observations</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(adm3_pop_<span class="dv">2009</span>)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    703 obs. of  9 variables:
+##  $ id        : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ admin0_nom: Factor w/ 1 level &quot;Mali&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ admin1_nom: Factor w/ 9 levels &quot;Bamako&quot;,&quot;Gao&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ admin2_nom: Factor w/ 50 levels &quot;Abeibara&quot;,&quot;Ansongo&quot;,..: 23 23 23 23 23 23 23 23 23 23 ...
+##  $ admin3_nom: Factor w/ 687 levels &quot;Abeibara&quot;,&quot;Adarmalane&quot;,..: 25 74 116 156 192 210 231 238 249 257 ...
+##  $ annee     : int  2009 2009 2009 2009 2009 2009 2009 2009 2009 2009 ...
+##  $ homme     : num  6123 6144 7115 11466 5141 ...
+##  $ femme     : int  5974 6353 7015 12091 5017 1934 3927 1903 10234 3445 ...
+##  $ source    : Factor w/ 1 level &quot;RGPH&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(adm3_pop_<span class="dv">2009</span>)</code></pre></div>
+<pre><code>##   id admin0_nom admin1_nom admin2_nom admin3_nom annee homme femme source
+## 1  1       Mali      Kayes      Kayes   Bangassi  2009  6123  5974   RGPH
+## 2  2       Mali      Kayes      Kayes  Colimbine  2009  6144  6353   RGPH
+## 3  3       Mali      Kayes      Kayes     Diamou  2009  7115  7015   RGPH
+## 4  4       Mali      Kayes      Kayes   Djelebou  2009 11466 12091   RGPH
+## 5  5       Mali      Kayes      Kayes     Faleme  2009  5141  5017   RGPH
+## 6  6       Mali      Kayes      Kayes      Fegui  2009  1999  1934   RGPH</code></pre>
+<p>Maintenant, déclarons cet objet comme un <em>tibble</em>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(adm3_pop_<span class="dv">2009</span>)</code></pre></div>
+<p>Revoyons la classe.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(adm3_pop_<span class="dv">2009</span>)</code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<p>La classe a changé, ou plutôt elle s’est consolidée. De nouvelles caractéristiques ont été ajoutées à <code>data.frame</code>. Maintenant, imprimons le jeu de données lui-même.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span></code></pre></div>
+<pre><code>## # A tibble: 703 x 9
+##       id admin0_nom admin1_nom admin2_nom admin3_nom annee homme femme
+##    &lt;int&gt; &lt;fct&gt;      &lt;fct&gt;      &lt;fct&gt;      &lt;fct&gt;      &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
+##  1     1 Mali       Kayes      Kayes      Bangassi    2009  6123  5974
+##  2     2 Mali       Kayes      Kayes      Colimbine   2009  6144  6353
+##  3     3 Mali       Kayes      Kayes      Diamou      2009  7115  7015
+##  4     4 Mali       Kayes      Kayes      Djelebou    2009 11466 12091
+##  5     5 Mali       Kayes      Kayes      Faleme      2009  5141  5017
+##  6     6 Mali       Kayes      Kayes      Fegui       2009  1999  1934
+##  7     7 Mali       Kayes      Kayes      Gory Gope~  2009  3939  3927
+##  8     8 Mali       Kayes      Kayes      Goumera     2009  1918  1903
+##  9     9 Mali       Kayes      Kayes      Guidimaka~  2009  9798 10234
+## 10    10 Mali       Kayes      Kayes      Hawa Demb~  2009  3406  3445
+## # ... with 693 more rows, and 1 more variable: source &lt;fct&gt;</code></pre>
+<p>Avec les <em>tibble</em>, l’affichage d’un jeu de donnée donne par défaut les dix premières observations et indique la classe et/ou le type des colonnes. Nous voyons par exemple que la variable <code>id</code> est composée d’entiers tandis que la variable <code>admin0_nom</code> est déclarée en facteur. De ce fait, l’impression d’un <em>tibble</em> permet de combiner les résultats qu’on obtiendrait avec les commandes <code>str</code> et <code>head</code>.</p>
+<p>Le <em>tibble</em> est l’output par défaut des fonctions du <code>tidyverse</code>. Reprenons l’opération d’importation. Cette fois-ci, au lieu de passer par <code>read.csv</code> qui est une fonction basique, nous utiliserons <code>read_csv</code> du package <code>readr</code>, lui-même membre du club <code>tidyverse</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;readr&quot;</span>
+<span class="kw">library</span>(readr)
+
+<span class="co"># Importation des données</span>
+adm3_pop_<span class="dv">2009</span> &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/5_Manipuler_Donnees_dans_R/data/adm3_pop_2009.csv&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   id = col_double(),
+##   admin0_nom = col_character(),
+##   admin1_nom = col_character(),
+##   admin2_nom = col_character(),
+##   admin3_nom = col_character(),
+##   annee = col_double(),
+##   homme = col_double(),
+##   femme = col_double(),
+##   source = col_character()
+## )</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Classe</span>
+<span class="kw">class</span>(adm3_pop_<span class="dv">2009</span>)</code></pre></div>
+<pre><code>## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Impression</span>
+adm3_pop_<span class="dv">2009</span></code></pre></div>
+<pre><code>## # A tibble: 703 x 9
+##       id admin0_nom admin1_nom admin2_nom admin3_nom annee homme femme
+##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     1 Mali       Kayes      Kayes      Bangassi    2009  6123  5974
+##  2     2 Mali       Kayes      Kayes      Colimbine   2009  6144  6353
+##  3     3 Mali       Kayes      Kayes      Diamou      2009  7115  7015
+##  4     4 Mali       Kayes      Kayes      Djelebou    2009 11466 12091
+##  5     5 Mali       Kayes      Kayes      Faleme      2009  5141  5017
+##  6     6 Mali       Kayes      Kayes      Fegui       2009  1999  1934
+##  7     7 Mali       Kayes      Kayes      Gory Gope~  2009  3939  3927
+##  8     8 Mali       Kayes      Kayes      Goumera     2009  1918  1903
+##  9     9 Mali       Kayes      Kayes      Guidimaka~  2009  9798 10234
+## 10    10 Mali       Kayes      Kayes      Hawa Demb~  2009  3406  3445
+## # ... with 693 more rows, and 1 more variable: source &lt;chr&gt;</code></pre>
+<p>Vous voyez!</p>
+<p>Même si l’on passe un <em>data frame</em> à une fonction du <code>tidyverse</code>, le résultat est un <em>tibble</em>. Prenons la fonction <code>glimpse</code> du package <code>dplyr</code> (notez que <em>glimpse</em> veut dire aperçu en anglais).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Importation des données</span>
+adm3_pop_<span class="dv">2009</span> &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/5_Manipuler_Donnees_dans_R/data/adm3_pop_2009.csv&quot;</span>)
+<span class="co"># Aperçu avec &quot;glimpse&quot;</span>
+<span class="kw">glimpse</span>(adm3_pop_<span class="dv">2009</span>)</code></pre></div>
+<pre><code>## Observations: 703
+## Variables: 9
+## $ id         &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ...
+## $ admin0_nom &lt;fct&gt; Mali, Mali, Mali, Mali, Mali, Mali, Mali, Mali, Mal...
+## $ admin1_nom &lt;fct&gt; Kayes, Kayes, Kayes, Kayes, Kayes, Kayes, Kayes, Ka...
+## $ admin2_nom &lt;fct&gt; Kayes, Kayes, Kayes, Kayes, Kayes, Kayes, Kayes, Ka...
+## $ admin3_nom &lt;fct&gt; Bangassi, Colimbine, Diamou, Djelebou, Faleme, Fegu...
+## $ annee      &lt;int&gt; 2009, 2009, 2009, 2009, 2009, 2009, 2009, 2009, 200...
+## $ homme      &lt;dbl&gt; 6123, 6144, 7115, 11466, 5141, 1999, 3939, 1918, 97...
+## $ femme      &lt;int&gt; 5974, 6353, 7015, 12091, 5017, 1934, 3927, 1903, 10...
+## $ source     &lt;fct&gt; RGPH, RGPH, RGPH, RGPH, RGPH, RGPH, RGPH, RGPH, RGP...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Comparons à &quot;str&quot;</span>
+<span class="kw">str</span>(adm3_pop_<span class="dv">2009</span>)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    703 obs. of  9 variables:
+##  $ id        : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ admin0_nom: Factor w/ 1 level &quot;Mali&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ admin1_nom: Factor w/ 9 levels &quot;Bamako&quot;,&quot;Gao&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ admin2_nom: Factor w/ 50 levels &quot;Abeibara&quot;,&quot;Ansongo&quot;,..: 23 23 23 23 23 23 23 23 23 23 ...
+##  $ admin3_nom: Factor w/ 687 levels &quot;Abeibara&quot;,&quot;Adarmalane&quot;,..: 25 74 116 156 192 210 231 238 249 257 ...
+##  $ annee     : int  2009 2009 2009 2009 2009 2009 2009 2009 2009 2009 ...
+##  $ homme     : num  6123 6144 7115 11466 5141 ...
+##  $ femme     : int  5974 6353 7015 12091 5017 1934 3927 1903 10234 3445 ...
+##  $ source    : Factor w/ 1 level &quot;RGPH&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<p>Nous voyons que <code>glimpse</code> répartit différemment l’espace en les observations affichées. Il se préoccupe plus de l’équilibre entre celles-ci que les fonctions comme <code>str</code> ou <code>head</code>.</p>
+<p>Nous allons maintenant explorer les verbes majeurs du package <code>dplyr</code>. Dans une démarche pédagogique - pour rappeler les bases déjà vue et enrichir celles-ci, au besoin - nous tenterons autant que possible de reproduire les exemples avec R-base aussi afin de mettre en exergue les différences.</p>
+<div id="selection-etou-exclusion-de-variables-select" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Selection et/ou exclusion de variables: <code>select</code></h3>
+<p>Comme nous avons vu précédemment, il arrive souvent que l’on veuille sélectionner certaines variables d’un jeu de données. Dans notre cas, supposons que nous sommes seulement intéressés par les chiffres. Il s’agit des colonnes: <code>homme</code> et <code>femme</code>.</p>
+<p>Ramenons notre jeu de données.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Chargement du package &quot;readr&quot;</span>
+<span class="kw">library</span>(readr)
+
+<span class="co"># Importation des données</span>
+adm3_pop_<span class="dv">2009</span> &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/fousseynoubah/dswr_slides/master/5_Manipuler_Donnees_dans_R/data/adm3_pop_2009.csv&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   id = col_double(),
+##   admin0_nom = col_character(),
+##   admin1_nom = col_character(),
+##   admin2_nom = col_character(),
+##   admin3_nom = col_character(),
+##   annee = col_double(),
+##   homme = col_double(),
+##   femme = col_double(),
+##   source = col_character()
+## )</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Impression</span>
+adm3_pop_<span class="dv">2009</span></code></pre></div>
+<pre><code>## # A tibble: 703 x 9
+##       id admin0_nom admin1_nom admin2_nom admin3_nom annee homme femme
+##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     1 Mali       Kayes      Kayes      Bangassi    2009  6123  5974
+##  2     2 Mali       Kayes      Kayes      Colimbine   2009  6144  6353
+##  3     3 Mali       Kayes      Kayes      Diamou      2009  7115  7015
+##  4     4 Mali       Kayes      Kayes      Djelebou    2009 11466 12091
+##  5     5 Mali       Kayes      Kayes      Faleme      2009  5141  5017
+##  6     6 Mali       Kayes      Kayes      Fegui       2009  1999  1934
+##  7     7 Mali       Kayes      Kayes      Gory Gope~  2009  3939  3927
+##  8     8 Mali       Kayes      Kayes      Goumera     2009  1918  1903
+##  9     9 Mali       Kayes      Kayes      Guidimaka~  2009  9798 10234
+## 10    10 Mali       Kayes      Kayes      Hawa Demb~  2009  3406  3445
+## # ... with 693 more rows, and 1 more variable: source &lt;chr&gt;</code></pre>
+<p>Maintenant, passons d’abord par les méthodes de R-base, comme nous avons vu avant.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span>[ , <span class="kw">c</span>(<span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>)]</code></pre></div>
+<pre><code>## # A tibble: 703 x 2
+##    homme femme
+##    &lt;dbl&gt; &lt;dbl&gt;
+##  1  6123  5974
+##  2  6144  6353
+##  3  7115  7015
+##  4 11466 12091
+##  5  5141  5017
+##  6  1999  1934
+##  7  3939  3927
+##  8  1918  1903
+##  9  9798 10234
+## 10  3406  3445
+## # ... with 693 more rows</code></pre>
+<p>ou</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="dt">x =</span> adm3_pop_<span class="dv">2009</span>, <span class="dt">select =</span> <span class="kw">c</span>(homme, femme))</code></pre></div>
+<pre><code>## # A tibble: 703 x 2
+##    homme femme
+##    &lt;dbl&gt; &lt;dbl&gt;
+##  1  6123  5974
+##  2  6144  6353
+##  3  7115  7015
+##  4 11466 12091
+##  5  5141  5017
+##  6  1999  1934
+##  7  3939  3927
+##  8  1918  1903
+##  9  9798 10234
+## 10  3406  3445
+## # ... with 693 more rows</code></pre>
+<p>Dans <code>dplyr</code>, l’on utilise pour ce faire la fonction <code>select</code> qui va se rapprocher de la fonction <code>subset</code> de R-base.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(adm3_pop_<span class="dv">2009</span>, homme, femme)</code></pre></div>
+<pre><code>## # A tibble: 703 x 2
+##    homme femme
+##    &lt;dbl&gt; &lt;dbl&gt;
+##  1  6123  5974
+##  2  6144  6353
+##  3  7115  7015
+##  4 11466 12091
+##  5  5141  5017
+##  6  1999  1934
+##  7  3939  3927
+##  8  1918  1903
+##  9  9798 10234
+## 10  3406  3445
+## # ... with 693 more rows</code></pre>
+<p>Le premier argument de la fonction est le jeu de données. Ceci est général pour toutes les fonctions de <code>dplyr</code>. Ensuite viennent les autres arguments. Ici, nous avons énuméré les variables qui nous intéressent. La fonction <code>select</code> présente un grande simplicité par rapport aux alternatives de R-base. A l’instar de <code>subset</code>, elle ne requiert pas que les noms de variables soient entre griffes (<code>&quot; &quot;</code>). Aussi, elle ne requiert pas que l’on spécifie le nombre d’observations à afficher, que l’input soit un <em>data frame</em> ou un <em>tibble</em>. Avec les fonctions de R-base, quand l’input est une <em>tibble</em>, l’affichage est limité à dix observations. Toutefois, cette règle est violée quand l’input est un <em>data frame</em>.</p>
+<p>Il y a un autre avantage avec <code>select</code>, mais qui est commun au <code>tidyverse</code> tout entier. C’est l’opérateur: <code>%&gt;%</code> que l’on appelle <em>pipe opérator</em>. Ce signe permet d’ordonner les lignes de commandes de sorte à rendre compte du séquençage des opérations. Nous savons ici que nous partons d’un jeu de données, <code>adm3_pop_2009</code>, que nous soumettons à une opération. Avec <code>%&gt;%</code>, nous verbalisons cette idée en faisant de l’input de départ la première ligne.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(homme, femme)</code></pre></div>
+<pre><code>## # A tibble: 703 x 2
+##    homme femme
+##    &lt;dbl&gt; &lt;dbl&gt;
+##  1  6123  5974
+##  2  6144  6353
+##  3  7115  7015
+##  4 11466 12091
+##  5  5141  5017
+##  6  1999  1934
+##  7  3939  3927
+##  8  1918  1903
+##  9  9798 10234
+## 10  3406  3445
+## # ... with 693 more rows</code></pre>
+<p>Avec cette nouvelle écriture, nous obtenons la même résultat, mais la lisibilité est améliorée. A partir de maintenant, nous allons progressivement adoptée cette façon d’écrire les opérations.</p>
+<p>Un autre avantage de <code>select</code> est de permettre la sélection de plusieurs variables à travers leur communalité. Dans notre jeu, nous avons trois variables qui portent toutes le terme <code>admin</code> comme préfixe. Plutôt que de les sélectionner une à une nous pouvons les appeler toutes ensembles. Commençons par R-base.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">names_df &lt;-<span class="st"> </span><span class="kw">names</span>(adm3_pop_<span class="dv">2009</span>)
+select_df &lt;-<span class="st"> </span><span class="kw">startsWith</span>(<span class="dt">x =</span> names_df, <span class="dt">prefix =</span> <span class="st">&quot;adm&quot;</span>)
+adm3_pop_<span class="dv">2009</span>[, select_df]</code></pre></div>
+<pre><code>## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows</code></pre>
+<p>Cette opération nous a pris trois lignes différents. Avec <code>select</code>, nous en faisons juste de deux lignes séquencées (même une si l’on veut).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;adm&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows</code></pre>
+<p>L’on peut faire la même chose avec les suffixes…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="kw">ends_with</span>(<span class="st">&quot;nom&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows</code></pre>
+<p>…ou chercher des termes indépendemment de leur position dans le nom des variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="kw">contains</span>(<span class="st">&quot;nom&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows</code></pre>
+<p><code>dplyr</code> contient une variétés de fonctions similaires dont: <code>matches()</code>, <code>num_range()</code>, <code>one_of()</code>, <code>everything()</code>, <code>group_cols()</code>. Avec R, l’on peut aboutir au même résultat en utilisant différentes méthodes. La force de <code>dplyr</code> - et de <code>tidyverse</code> dans une large mesure - est que la méthode est plus économe en écriture de codes et le séquençage bien explicité à l’aide de l’opérateur <code>%&gt;%</code>.</p>
+<p>La sélection peut aussi se faire sur la base de l’index des colonnes, c’est-à-dire leur position. Sélectionnons de la deuxième à la cinquième colonne.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Avec R-base</span>
+adm3_pop_<span class="dv">2009</span>[, <span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>)]</code></pre></div>
+<pre><code>## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Avec dpylr</span>
+adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>)</code></pre></div>
+<pre><code>## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows</code></pre>
+<p>La même chose peut se faire avec le nom des variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Avec R-base</span>
+adm3_pop_<span class="dv">2009</span>[, <span class="kw">c</span>(<span class="st">&quot;admin0_nom&quot;</span>, <span class="st">&quot;admin1_nom&quot;</span>, <span class="st">&quot;admin2_nom&quot;</span>, <span class="st">&quot;admin3_nom&quot;</span>)]</code></pre></div>
+<pre><code>## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Avec dplyr</span>
+adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(admin0_nom, admin1_nom, admin2_nom, admin3_nom)</code></pre></div>
+<pre><code>## # A tibble: 703 x 4
+##    admin0_nom admin1_nom admin2_nom admin3_nom          
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;               
+##  1 Mali       Kayes      Kayes      Bangassi            
+##  2 Mali       Kayes      Kayes      Colimbine           
+##  3 Mali       Kayes      Kayes      Diamou              
+##  4 Mali       Kayes      Kayes      Djelebou            
+##  5 Mali       Kayes      Kayes      Faleme              
+##  6 Mali       Kayes      Kayes      Fegui               
+##  7 Mali       Kayes      Kayes      Gory Gopela         
+##  8 Mali       Kayes      Kayes      Goumera             
+##  9 Mali       Kayes      Kayes      Guidimakan Keri Kaff
+## 10 Mali       Kayes      Kayes      Hawa Dembaya        
+## # ... with 693 more rows</code></pre>
+<p>L’on peut faire plus simple avec <code>dplyr</code> quand les variables recherchées se suivent.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(admin0_nom<span class="op">:</span>admin3_nom)</code></pre></div>
+<p>Comme avec R-base, la sélection peut aussi se faire sur la base de l’exclusion. Imaginez que l’on souhaite exclure les quatre premières variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Avec R-base</span>
+adm3_pop_<span class="dv">2009</span>[, <span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)]</code></pre></div>
+<pre><code>## # A tibble: 703 x 5
+##    admin3_nom           annee homme femme source
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
+##  1 Bangassi              2009  6123  5974 RGPH  
+##  2 Colimbine             2009  6144  6353 RGPH  
+##  3 Diamou                2009  7115  7015 RGPH  
+##  4 Djelebou              2009 11466 12091 RGPH  
+##  5 Faleme                2009  5141  5017 RGPH  
+##  6 Fegui                 2009  1999  1934 RGPH  
+##  7 Gory Gopela           2009  3939  3927 RGPH  
+##  8 Goumera               2009  1918  1903 RGPH  
+##  9 Guidimakan Keri Kaff  2009  9798 10234 RGPH  
+## 10 Hawa Dembaya          2009  3406  3445 RGPH  
+## # ... with 693 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Avec dplyr</span>
+adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>))</code></pre></div>
+<pre><code>## # A tibble: 703 x 5
+##    admin3_nom           annee homme femme source
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
+##  1 Bangassi              2009  6123  5974 RGPH  
+##  2 Colimbine             2009  6144  6353 RGPH  
+##  3 Diamou                2009  7115  7015 RGPH  
+##  4 Djelebou              2009 11466 12091 RGPH  
+##  5 Faleme                2009  5141  5017 RGPH  
+##  6 Fegui                 2009  1999  1934 RGPH  
+##  7 Gory Gopela           2009  3939  3927 RGPH  
+##  8 Goumera               2009  1918  1903 RGPH  
+##  9 Guidimakan Keri Kaff  2009  9798 10234 RGPH  
+## 10 Hawa Dembaya          2009  3406  3445 RGPH  
+## # ... with 693 more rows</code></pre>
+<p>L’on voit qu’à l’instar de R-base, l’on a juste à précédéer les éléments à exclure du signe <code>-</code>.</p>
+</div>
+<div id="creation-de-variable-de-variables-mutate" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> Création de variable de variables: <code>mutate</code></h3>
+<p>La sélection et la suppression de variables peuvent s’inscrire dans le cadre d’une stratégie d’exploration plus large qui peut elle-même impliquer la création de nouvelles variables.</p>
+<p>Revenons à l’exploration de la supériorité numérique entre hommes et femmes, sujet que nous avons abordé dans le chapitre précédent. Supposons que nous souhaitions:</p>
+<ul>
+<li><p>sélectionner les populations pour les hommes et les femmes pour chaque commune;</p></li>
+<li><p>calculer un ratio <code>femme</code>/<code>homme</code> pour chaque commune.</p></li>
+</ul>
+<p>Avec R-base.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sélection des variables d&#39;intérêt</span>
+pop_df &lt;-<span class="st"> </span>adm3_pop_<span class="dv">2009</span>[ , <span class="kw">c</span>(<span class="st">&quot;admin3_nom&quot;</span>, <span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>)]
+
+<span class="co"># Création d&#39;une nouvelle variable</span>
+pop_df<span class="op">$</span>ratio &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">/</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Aperçu</span>
+pop_df</code></pre></div>
+<pre><code>## # A tibble: 703 x 4
+##    admin3_nom           homme femme ratio
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Bangassi              6123  5974 0.976
+##  2 Colimbine             6144  6353 1.03 
+##  3 Diamou                7115  7015 0.986
+##  4 Djelebou             11466 12091 1.05 
+##  5 Faleme                5141  5017 0.976
+##  6 Fegui                 1999  1934 0.967
+##  7 Gory Gopela           3939  3927 0.997
+##  8 Goumera               1918  1903 0.992
+##  9 Guidimakan Keri Kaff  9798 10234 1.04 
+## 10 Hawa Dembaya          3406  3445 1.01 
+## # ... with 693 more rows</code></pre>
+<p>Avec <code>dplyr</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ratio =</span> homme<span class="op">/</span>femme)</code></pre></div>
+<pre><code>## # A tibble: 703 x 4
+##    admin3_nom           homme femme ratio
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Bangassi              6123  5974 1.02 
+##  2 Colimbine             6144  6353 0.967
+##  3 Diamou                7115  7015 1.01 
+##  4 Djelebou             11466 12091 0.948
+##  5 Faleme                5141  5017 1.02 
+##  6 Fegui                 1999  1934 1.03 
+##  7 Gory Gopela           3939  3927 1.00 
+##  8 Goumera               1918  1903 1.01 
+##  9 Guidimakan Keri Kaff  9798 10234 0.957
+## 10 Hawa Dembaya          3406  3445 0.989
+## # ... with 693 more rows</code></pre>
+<p>Le résultat est le même, mais le gain avec dplyr est visible. Le séquençage rend la lecture du code facile. Il évite aussi la création d’un objet intermédiaire, comme ce fut le cas de <code>pop_df</code> avec R-base.</p>
+<p>Dans le cadre précédent, la variable était numérique. Elle peut aussi prendre la forme catégorielle. Considérons par exemple des intervalles de population qu’on souhaiterait créer pour séparer les communes en catégories. Nous allons d’abord faire la somme des deux groupes, hommes et femmes, et ensuite créer la variable catégorielle.</p>
+<p>Avec R-base</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sélection des variables d&#39;intérêt</span>
+pop_df &lt;-<span class="st"> </span>adm3_pop_<span class="dv">2009</span>[ , <span class="kw">c</span>(<span class="st">&quot;admin3_nom&quot;</span>, <span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>)]
+
+<span class="co"># Création d&#39;une nouvelle variable: numérique</span>
+pop_df<span class="op">$</span>total &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">+</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Création d&#39;une nouvelle variable: catégorielle</span>
+pop_df<span class="op">$</span>pop_cat &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pop_df<span class="op">$</span>total <span class="op">&lt;</span><span class="st"> </span><span class="dv">10000</span>, <span class="st">&quot;&lt;10000&quot;</span>, <span class="st">&quot;&gt;=10000&quot;</span>)
+
+<span class="co"># Aperçu</span>
+pop_df</code></pre></div>
+<pre><code>## # A tibble: 703 x 5
+##    admin3_nom           homme femme total pop_cat
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  
+##  1 Bangassi              6123  5974 12097 &gt;=10000
+##  2 Colimbine             6144  6353 12497 &gt;=10000
+##  3 Diamou                7115  7015 14130 &gt;=10000
+##  4 Djelebou             11466 12091 23557 &gt;=10000
+##  5 Faleme                5141  5017 10158 &gt;=10000
+##  6 Fegui                 1999  1934  3933 &lt;10000 
+##  7 Gory Gopela           3939  3927  7866 &lt;10000 
+##  8 Goumera               1918  1903  3821 &lt;10000 
+##  9 Guidimakan Keri Kaff  9798 10234 20032 &gt;=10000
+## 10 Hawa Dembaya          3406  3445  6851 &lt;10000 
+## # ... with 693 more rows</code></pre>
+<p>Avec <code>dplyr</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable: numérique</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable: catégorielle</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop_cat =</span> <span class="kw">ifelse</span>(total <span class="op">&lt;</span><span class="st"> </span><span class="dv">10000</span>, <span class="st">&quot;&lt;10000&quot;</span>, <span class="st">&quot;&gt;=10000&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 703 x 5
+##    admin3_nom           homme femme total pop_cat
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  
+##  1 Bangassi              6123  5974 12097 &gt;=10000
+##  2 Colimbine             6144  6353 12497 &gt;=10000
+##  3 Diamou                7115  7015 14130 &gt;=10000
+##  4 Djelebou             11466 12091 23557 &gt;=10000
+##  5 Faleme                5141  5017 10158 &gt;=10000
+##  6 Fegui                 1999  1934  3933 &lt;10000 
+##  7 Gory Gopela           3939  3927  7866 &lt;10000 
+##  8 Goumera               1918  1903  3821 &lt;10000 
+##  9 Guidimakan Keri Kaff  9798 10234 20032 &gt;=10000
+## 10 Hawa Dembaya          3406  3445  6851 &lt;10000 
+## # ... with 693 more rows</code></pre>
+<p>Les deux opérations de création peuvent être rassemblées à l’intérieur d’un seul appel de la fonction <code>mutate</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création de deux nouvelles variables: numérique et catégorielle</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme,
+         <span class="dt">pop_cat =</span> <span class="kw">ifelse</span>(total <span class="op">&lt;</span><span class="st"> </span><span class="dv">10000</span>, <span class="st">&quot;&lt;10000&quot;</span>, <span class="st">&quot;&gt;=10000&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 703 x 5
+##    admin3_nom           homme femme total pop_cat
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  
+##  1 Bangassi              6123  5974 12097 &gt;=10000
+##  2 Colimbine             6144  6353 12497 &gt;=10000
+##  3 Diamou                7115  7015 14130 &gt;=10000
+##  4 Djelebou             11466 12091 23557 &gt;=10000
+##  5 Faleme                5141  5017 10158 &gt;=10000
+##  6 Fegui                 1999  1934  3933 &lt;10000 
+##  7 Gory Gopela           3939  3927  7866 &lt;10000 
+##  8 Goumera               1918  1903  3821 &lt;10000 
+##  9 Guidimakan Keri Kaff  9798 10234 20032 &gt;=10000
+## 10 Hawa Dembaya          3406  3445  6851 &lt;10000 
+## # ... with 693 more rows</code></pre>
+<p>L’appel de <code>mutate</code> n’a pas à être spécifique à une seule variable. La fonction peut effectuer plusieurs opérations lors d’un seul appel.</p>
+<p>Une variante de la fonction <code>mutate</code> est la fonction <code>transmute</code>. Pendant que la première préserve les variables préexistantes à l’opération de création de nouvelles colonnes, la seconde, quant à elle, les supprime. Reprenons le dernier exemple.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création de deux nouvelles variables: numérique et catégorielle</span>
+<span class="st">  </span><span class="kw">transmute</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme, 
+            <span class="dt">pop_cat =</span> <span class="kw">ifelse</span>(total <span class="op">&lt;</span><span class="st"> </span><span class="dv">10000</span>, <span class="st">&quot;&lt;10000&quot;</span>, <span class="st">&quot;&gt;=10000&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 703 x 2
+##    total pop_cat
+##    &lt;dbl&gt; &lt;chr&gt;  
+##  1 12097 &gt;=10000
+##  2 12497 &gt;=10000
+##  3 14130 &gt;=10000
+##  4 23557 &gt;=10000
+##  5 10158 &gt;=10000
+##  6  3933 &lt;10000 
+##  7  7866 &lt;10000 
+##  8  3821 &lt;10000 
+##  9 20032 &gt;=10000
+## 10  6851 &lt;10000 
+## # ... with 693 more rows</code></pre>
+<p>Vous voyez! Comme résultat, nous avons les deux nouvelles colonnes. Toutes les autres ont été omises. Toutefois, le nombre d’observations n’a pas varié.</p>
+<p>Les avantages de <code>dplyr</code> deviennent évident avec l’augmentation du nombre d’opérations à mener sur une intrant donnée, très généralement un jeu de données rectangulaires (<em>data frame</em> ou <em>tibble</em>).</p>
+</div>
+<div id="selection-dobservations-filter" class="section level3">
+<h3><span class="header-section-number">6.4.3</span> Sélection d’observations: <code>filter</code></h3>
+<p>Dans le chapitre précédent, nous avions quelques techniques de sélections d’observations. Souvent à partir de la position, souvent à partir de critères définis. Re-appliquons certaines de ces techniques à nos données et comparons à la démarche de <code>dplyr</code>.</p>
+<p>Regardons à nouveau notre jeu de données.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(adm3_pop_<span class="dv">2009</span>)</code></pre></div>
+<pre><code>## Observations: 703
+## Variables: 9
+## $ id         &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ...
+## $ admin0_nom &lt;chr&gt; &quot;Mali&quot;, &quot;Mali&quot;, &quot;Mali&quot;, &quot;Mali&quot;, &quot;Mali&quot;, &quot;Mali&quot;, &quot;Ma...
+## $ admin1_nom &lt;chr&gt; &quot;Kayes&quot;, &quot;Kayes&quot;, &quot;Kayes&quot;, &quot;Kayes&quot;, &quot;Kayes&quot;, &quot;Kayes...
+## $ admin2_nom &lt;chr&gt; &quot;Kayes&quot;, &quot;Kayes&quot;, &quot;Kayes&quot;, &quot;Kayes&quot;, &quot;Kayes&quot;, &quot;Kayes...
+## $ admin3_nom &lt;chr&gt; &quot;Bangassi&quot;, &quot;Colimbine&quot;, &quot;Diamou&quot;, &quot;Djelebou&quot;, &quot;Fal...
+## $ annee      &lt;dbl&gt; 2009, 2009, 2009, 2009, 2009, 2009, 2009, 2009, 200...
+## $ homme      &lt;dbl&gt; 6123, 6144, 7115, 11466, 5141, 1999, 3939, 1918, 97...
+## $ femme      &lt;dbl&gt; 5974, 6353, 7015, 12091, 5017, 1934, 3927, 1903, 10...
+## $ source     &lt;chr&gt; &quot;RGPH&quot;, &quot;RGPH&quot;, &quot;RGPH&quot;, &quot;RGPH&quot;, &quot;RGPH&quot;, &quot;RGPH&quot;, &quot;RG...</code></pre>
+<p>Nous avons 703 observations, donc 703 communes. Regardons les plus grandes en matière de population. Disons, celles qui sont au dessus du seuil de 100000 habitants.</p>
+<p>Avec R-base.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sélection des variables d&#39;intérêt</span>
+pop_df &lt;-<span class="st"> </span>adm3_pop_<span class="dv">2009</span>[ , <span class="kw">c</span>(<span class="st">&quot;admin3_nom&quot;</span>, <span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>)]
+
+<span class="co"># Création d&#39;une nouvelle variable: numérique</span>
+pop_df<span class="op">$</span>total &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">+</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Critère de sélection: valeurs logiques (TRUE/FALSE)</span>
+pop_100000_plus &lt;-<span class="st"> </span>pop_df<span class="op">$</span>total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>
+
+<span class="co"># Mise en oeuvre de la sélection</span>
+pop_df[pop_100000_plus, ]</code></pre></div>
+<pre><code>## # A tibble: 12 x 4
+##    admin3_nom        homme  femme  total
+##    &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Kayes Commune     65135  61184 126319
+##  2 Kalabancoro       81018  80864 161882
+##  3 Koutiala Commune  70905  70539 141444
+##  4 Sikasso Commune  114171 112447 226618
+##  5 Segou Commune     66819  66682 133501
+##  6 Mopti Commune     60080  60706 120786
+##  7 Commune I        168308 166587 334895
+##  8 Commune II        78690  80670 159360
+##  9 Commune III       63792  64874 128666
+## 10 Commune IV       152153 152373 304526
+## 11 Commune V        206749 206517 413266
+## 12 Commune VI       237951 231702 469653</code></pre>
+<p>Avec <code>dplyr</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection d&#39;observations d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">filter</span>(total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>)</code></pre></div>
+<pre><code>## # A tibble: 12 x 4
+##    admin3_nom        homme  femme  total
+##    &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Kayes Commune     65135  61184 126319
+##  2 Kalabancoro       81018  80864 161882
+##  3 Koutiala Commune  70905  70539 141444
+##  4 Sikasso Commune  114171 112447 226618
+##  5 Segou Commune     66819  66682 133501
+##  6 Mopti Commune     60080  60706 120786
+##  7 Commune I        168308 166587 334895
+##  8 Commune II        78690  80670 159360
+##  9 Commune III       63792  64874 128666
+## 10 Commune IV       152153 152373 304526
+## 11 Commune V        206749 206517 413266
+## 12 Commune VI       237951 231702 469653</code></pre>
+<p>Là aussi, nous voyons que la séquence est plus économe.</p>
+<p>La sélection peut aussi porter sur des variables en caractères ou catégorielles. Supposons que nous souhaitons connaître la population d’une commune dont nous avons le nom: <em>Bambara Maoudé</em>.</p>
+<p>Avec R-base</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sélection des variables d&#39;intérêt</span>
+pop_df &lt;-<span class="st"> </span>adm3_pop_<span class="dv">2009</span>[ , <span class="kw">c</span>(<span class="st">&quot;admin3_nom&quot;</span>, <span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>)]
+
+<span class="co"># Création d&#39;une nouvelle variable: numérique</span>
+pop_df<span class="op">$</span>total &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">+</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Critère de sélection: valeurs logiques (TRUE/FALSE)</span>
+bambara_maoude &lt;-<span class="st"> </span>pop_df<span class="op">$</span>admin3_nom <span class="op">==</span><span class="st"> &quot;Bambara Maoude&quot;</span>
+
+<span class="co"># Mise en oeuvre de la sélection</span>
+pop_df[bambara_maoude, ]</code></pre></div>
+<pre><code>## # A tibble: 1 x 4
+##   admin3_nom     homme femme total
+##   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Bambara Maoude  8315  8170 16485</code></pre>
+<p>Avec <code>dplyr</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection d&#39;observations d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">filter</span>(admin3_nom <span class="op">==</span><span class="st"> &quot;Bambara Maoude&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 1 x 4
+##   admin3_nom     homme femme total
+##   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Bambara Maoude  8315  8170 16485</code></pre>
+<p>Dans le chapitre précédent, nous avons qu’en matière de sélection d’observations à partir de critères, il y a plusieurs façons de combiner ces derniers. On peut les ajouter avec le signe <code>&amp;</code>, les présenter comme des alternatives avec le signe <code>|</code> ou opérer avec une logique de négation avec le signe <code>!</code>. Avec <code>dplyr</code>, ces signes demeurent valides.</p>
+<p>Supposons que nous voulons connaître les communes de plus de 100000 où il y a plus de femmes que d’hommes. Ici, les deux critères s’accumulent.</p>
+<p>Avec R-base.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sélection des variables d&#39;intérêt</span>
+pop_df &lt;-<span class="st"> </span>adm3_pop_<span class="dv">2009</span>[ , <span class="kw">c</span>(<span class="st">&quot;admin3_nom&quot;</span>, <span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>)]
+
+<span class="co"># Création d&#39;une nouvelle variable: numérique</span>
+pop_df<span class="op">$</span>total &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">+</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Critère de sélection (1): valeurs logiques (TRUE/FALSE)</span>
+pop_100000_plus &lt;-<span class="st"> </span>pop_df<span class="op">$</span>total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>
+
+<span class="co"># Critère de sélection (1): valeurs logiques (TRUE/FALSE)</span>
+femmes_sup_hommes &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">&gt;</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Mise en oeuvre de la sélection</span>
+pop_df[pop_100000_plus <span class="op">&amp;</span><span class="st"> </span>femmes_sup_hommes, ]</code></pre></div>
+<pre><code>## # A tibble: 4 x 4
+##   admin3_nom     homme  femme  total
+##   &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Mopti Commune  60080  60706 120786
+## 2 Commune II     78690  80670 159360
+## 3 Commune III    63792  64874 128666
+## 4 Commune IV    152153 152373 304526</code></pre>
+<p>Avec <code>dplyr</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection d&#39;observations d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    <span class="co"># Critère 1: population &gt; 100000</span>
+    total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>, 
+    <span class="co"># Critère 2: femme &gt; homme</span>
+    femme <span class="op">&gt;</span><span class="st"> </span>homme
+    )</code></pre></div>
+<pre><code>## # A tibble: 4 x 4
+##   admin3_nom     homme  femme  total
+##   &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Mopti Commune  60080  60706 120786
+## 2 Commune II     78690  80670 159360
+## 3 Commune III    63792  64874 128666
+## 4 Commune IV    152153 152373 304526</code></pre>
+<p>Ce sont quatre lignes qui répondent à nos critères.</p>
+<p>Maintenant regardons ces mêmes critères, mais en termes d’alternatives. Les communes qui ont soit plus de 100000 habitants soit plus de femmes que d’hommes.</p>
+<p>Avec R-base.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sélection des variables d&#39;intérêt</span>
+pop_df &lt;-<span class="st"> </span>adm3_pop_<span class="dv">2009</span>[ , <span class="kw">c</span>(<span class="st">&quot;admin3_nom&quot;</span>, <span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>)]
+
+<span class="co"># Création d&#39;une nouvelle variable: numérique</span>
+pop_df<span class="op">$</span>total &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">+</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Critère de sélection (1): valeurs logiques (TRUE/FALSE)</span>
+pop_100000_plus &lt;-<span class="st"> </span>pop_df<span class="op">$</span>total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>
+
+<span class="co"># Critère de sélection (1): valeurs logiques (TRUE/FALSE)</span>
+femmes_sup_hommes &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">&gt;</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Mise en oeuvre de la sélection</span>
+pop_df[pop_100000_plus <span class="op">|</span><span class="st"> </span>femmes_sup_hommes, ]</code></pre></div>
+<pre><code>## # A tibble: 538 x 4
+##    admin3_nom           homme femme  total
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Colimbine             6144  6353  12497
+##  2 Djelebou             11466 12091  23557
+##  3 Guidimakan Keri Kaff  9798 10234  20032
+##  4 Hawa Dembaya          3406  3445   6851
+##  5 Karakoro              7436  7770  15206
+##  6 Kayes Commune        65135 61184 126319
+##  7 Kemene Tambo          8381  8574  16955
+##  8 Koniakary             4061  4080   8141
+##  9 Konsiga               2308  2620   4928
+## 10 Koussane             10472 11118  21590
+## # ... with 528 more rows</code></pre>
+<p>Avec <code>dplyr</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection d&#39;observations d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    <span class="co"># Critère 1: population &gt; 100000</span>
+    total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span> <span class="op">|</span>
+<span class="st">    </span><span class="co"># Critère 2: femme &gt; homme</span>
+<span class="st">    </span>femme <span class="op">&gt;</span><span class="st"> </span>homme
+    )</code></pre></div>
+<pre><code>## # A tibble: 538 x 4
+##    admin3_nom           homme femme  total
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Colimbine             6144  6353  12497
+##  2 Djelebou             11466 12091  23557
+##  3 Guidimakan Keri Kaff  9798 10234  20032
+##  4 Hawa Dembaya          3406  3445   6851
+##  5 Karakoro              7436  7770  15206
+##  6 Kayes Commune        65135 61184 126319
+##  7 Kemene Tambo          8381  8574  16955
+##  8 Koniakary             4061  4080   8141
+##  9 Konsiga               2308  2620   4928
+## 10 Koussane             10472 11118  21590
+## # ... with 528 more rows</code></pre>
+<p>Ici, nous avons nettement plus d’observations.</p>
+<p>En ce qui concernent les critères alternatifs, <code>dplyr</code> offre une commodité avec le signe <code>%in%</code>. Imaginez qu’au lieu d’une seule commune, <em>Bambara Maoude</em>, que l’on souhaite sélectionner les résultats d’un groupe de commune dont on a connait le nom. Plutôt que d’utiliser <code>|</code>, l’on peut passer par <code>%in%</code>.</p>
+<p>Avec R-base.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sélection des variables d&#39;intérêt</span>
+pop_df &lt;-<span class="st"> </span>adm3_pop_<span class="dv">2009</span>[ , <span class="kw">c</span>(<span class="st">&quot;admin3_nom&quot;</span>, <span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>)]
+
+<span class="co"># Création d&#39;une nouvelle variable: numérique</span>
+pop_df<span class="op">$</span>total &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">+</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Critère de sélection: valeurs logiques (TRUE/FALSE)</span>
+groupe_commune &lt;-<span class="st"> </span>pop_df<span class="op">$</span>admin3_nom <span class="op">==</span><span class="st"> &quot;Bambara Maoude&quot;</span> <span class="op">|</span><span class="st">  </span>
+<span class="st">                  </span>pop_df<span class="op">$</span>admin3_nom <span class="op">==</span><span class="st"> &quot;Segou Commune&quot;</span> <span class="op">|</span>
+<span class="st">                  </span>pop_df<span class="op">$</span>admin3_nom <span class="op">==</span><span class="st"> &quot;Soumpi&quot;</span> <span class="op">|</span><span class="st"> </span>
+<span class="st">                  </span>pop_df<span class="op">$</span>admin3_nom <span class="op">==</span><span class="st"> &quot;Ansongo&quot;</span>
+
+<span class="co"># Mise en oeuvre de la sélection</span>
+pop_df[groupe_commune, ]</code></pre></div>
+<pre><code>## # A tibble: 4 x 4
+##   admin3_nom     homme femme  total
+##   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Segou Commune  66819 66682 133501
+## 2 Bambara Maoude  8315  8170  16485
+## 3 Soumpi          8547  8401  16948
+## 4 Ansongo        14707 15384  30091</code></pre>
+<p>Avec <code>dplyr</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection d&#39;observations d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">filter</span>(admin3_nom <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Bambara Maoude&quot;</span>, <span class="st">&quot;Segou Commune&quot;</span>, <span class="st">&quot;Soumpi&quot;</span>, <span class="st">&quot;Ansongo&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 4 x 4
+##   admin3_nom     homme femme  total
+##   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Segou Commune  66819 66682 133501
+## 2 Bambara Maoude  8315  8170  16485
+## 3 Soumpi          8547  8401  16948
+## 4 Ansongo        14707 15384  30091</code></pre>
+<p>Moins de lignes! Même résultat!</p>
+</div>
+<div id="tri-dobservations-arrange" class="section level3">
+<h3><span class="header-section-number">6.4.4</span> Tri d’observations: <code>arrange</code></h3>
+<p>Souvent, il arrive qu’à la suite d’opération de sélections (aussi bien de variables que de colonnes) que l’on souhaite ordonner les résultats selon un ordre bien précis.</p>
+<p>Considérons qu’après avoir filter pour ne garder que les communes qui ont plus de 100000 habitants et plus de femmes que d’hommes, que nous souhaitions ordonner la population.</p>
+<p>Avec R-base</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sélection des variables d&#39;intérêt</span>
+pop_df &lt;-<span class="st"> </span>adm3_pop_<span class="dv">2009</span>[ , <span class="kw">c</span>(<span class="st">&quot;admin3_nom&quot;</span>, <span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>)]
+
+<span class="co"># Création d&#39;une nouvelle variable: numérique</span>
+pop_df<span class="op">$</span>total &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">+</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Critère de sélection (1): valeurs logiques (TRUE/FALSE)</span>
+pop_100000_plus &lt;-<span class="st"> </span>pop_df<span class="op">$</span>total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>
+
+<span class="co"># Critère de sélection (1): valeurs logiques (TRUE/FALSE)</span>
+femmes_sup_hommes &lt;-<span class="st"> </span>pop_df<span class="op">$</span>femme <span class="op">&gt;</span><span class="st"> </span>pop_df<span class="op">$</span>homme
+
+<span class="co"># Mise en oeuvre de la sélection</span>
+pop_df_filtre &lt;-<span class="st"> </span>pop_df[pop_100000_plus <span class="op">|</span><span class="st"> </span>femmes_sup_hommes, ]
+
+<span class="co"># Tri: ordre croissant</span>
+pop_decroissant &lt;-<span class="st"> </span><span class="kw">order</span>(pop_df_filtre<span class="op">$</span>total)
+
+<span class="co"># Mise en oeuvre du tri</span>
+pop_df_filtre[pop_decroissant, ]</code></pre></div>
+<pre><code>## # A tibble: 538 x 4
+##    admin3_nom            homme femme total
+##    &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Adarmalane              463   492   955
+##  2 Bassirou                825   893  1718
+##  3 Arham                  1358  1461  2819
+##  4 Soignebougou           1547  1552  3099
+##  5 Ouro Modi              1566  1762  3328
+##  6 Sokourani Missirikoro  1632  1740  3372
+##  7 Diou                   1744  1760  3504
+##  8 Kende                  1805  1921  3726
+##  9 Somo                   1853  1891  3744
+## 10 M&#39;bouna                1894  1937  3831
+## # ... with 528 more rows</code></pre>
+<p>Pour voir la liste avec l’ordre décroissant.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Tri: ordre décroissant</span>
+pop_decroissant &lt;-<span class="st"> </span><span class="kw">order</span>(pop_df_filtre<span class="op">$</span>total, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># Mise en oeuvre du tri</span>
+pop_df_filtre[pop_decroissant, ]</code></pre></div>
+<pre><code>## # A tibble: 538 x 4
+##    admin3_nom        homme  femme  total
+##    &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Commune VI       237951 231702 469653
+##  2 Commune V        206749 206517 413266
+##  3 Commune I        168308 166587 334895
+##  4 Commune IV       152153 152373 304526
+##  5 Sikasso Commune  114171 112447 226618
+##  6 Kalabancoro       81018  80864 161882
+##  7 Commune II        78690  80670 159360
+##  8 Koutiala Commune  70905  70539 141444
+##  9 Segou Commune     66819  66682 133501
+## 10 Commune III       63792  64874 128666
+## # ... with 528 more rows</code></pre>
+<p>Avec <code>dplyr</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection d&#39;observations d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    <span class="co"># Critère 1: population &gt; 100000</span>
+    total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span> <span class="op">|</span>
+<span class="st">    </span><span class="co"># Critère 2: femme &gt; homme</span>
+<span class="st">    </span>femme <span class="op">&gt;</span><span class="st"> </span>homme
+    ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(total)</code></pre></div>
+<pre><code>## # A tibble: 538 x 4
+##    admin3_nom            homme femme total
+##    &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Adarmalane              463   492   955
+##  2 Bassirou                825   893  1718
+##  3 Arham                  1358  1461  2819
+##  4 Soignebougou           1547  1552  3099
+##  5 Ouro Modi              1566  1762  3328
+##  6 Sokourani Missirikoro  1632  1740  3372
+##  7 Diou                   1744  1760  3504
+##  8 Kende                  1805  1921  3726
+##  9 Somo                   1853  1891  3744
+## 10 M&#39;bouna                1894  1937  3831
+## # ... with 528 more rows</code></pre>
+<p>Avec l’ordre décroissant.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection d&#39;observations d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    <span class="co"># Critère 1: population &gt; 100000</span>
+    total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span> <span class="op">|</span>
+<span class="st">    </span><span class="co"># Critère 2: femme &gt; homme</span>
+<span class="st">    </span>femme <span class="op">&gt;</span><span class="st"> </span>homme
+    ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(total))</code></pre></div>
+<pre><code>## # A tibble: 538 x 4
+##    admin3_nom        homme  femme  total
+##    &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Commune VI       237951 231702 469653
+##  2 Commune V        206749 206517 413266
+##  3 Commune I        168308 166587 334895
+##  4 Commune IV       152153 152373 304526
+##  5 Sikasso Commune  114171 112447 226618
+##  6 Kalabancoro       81018  80864 161882
+##  7 Commune II        78690  80670 159360
+##  8 Koutiala Commune  70905  70539 141444
+##  9 Segou Commune     66819  66682 133501
+## 10 Commune III       63792  64874 128666
+## # ... with 528 more rows</code></pre>
+<p>Il est facile de constater que plus l’opération se complixifie, plus R-base requiert lignes et d’objets intermédiaires tandis que <code>dplyr</code> se contente tout s’allonger la chaîne de passation, prenant un objet de départ, le transformant avec une fonction et le passant à une autre.</p>
+<p>L’on peut agrémenter <code>arrange</code> avec une fonction qui spécifie le nombre d’observations à afficher ou à sauvegarder: <code>top_n</code>. Celle-ci peut opérer par le haut (les valeurs élevées)…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection d&#39;observations d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    <span class="co"># Critère 1: population &gt; 100000</span>
+    total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span> <span class="op">|</span>
+<span class="st">    </span><span class="co"># Critère 2: femme &gt; homme</span>
+<span class="st">    </span>femme <span class="op">&gt;</span><span class="st"> </span>homme
+    ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Tri: décroissant</span>
+<span class="st">  </span><span class="kw">arrange</span>(total) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># Sélection des 5 premières observations</span>
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dt">n =</span> <span class="dv">5</span>, <span class="dt">wt =</span> total)</code></pre></div>
+<pre><code>## # A tibble: 5 x 4
+##   admin3_nom       homme  femme  total
+##   &lt;chr&gt;            &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Sikasso Commune 114171 112447 226618
+## 2 Commune IV      152153 152373 304526
+## 3 Commune I       168308 166587 334895
+## 4 Commune V       206749 206517 413266
+## 5 Commune VI      237951 231702 469653</code></pre>
+<p>…ou par le bas (les valeurs faibles).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(admin3_nom, homme, femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection d&#39;observations d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">filter</span>(
+    <span class="co"># Critère 1: population &gt; 100000</span>
+    total <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span> <span class="op">|</span>
+<span class="st">    </span><span class="co"># Critère 2: femme &gt; homme</span>
+<span class="st">    </span>femme <span class="op">&gt;</span><span class="st"> </span>homme
+    ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Tri: décroissant</span>
+<span class="st">  </span><span class="kw">arrange</span>(total) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># Sélection des 5 dernières observations</span>
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dt">n =</span> <span class="op">-</span><span class="dv">5</span>, <span class="dt">wt =</span> total)</code></pre></div>
+<pre><code>## # A tibble: 5 x 4
+##   admin3_nom   homme femme total
+##   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Adarmalane     463   492   955
+## 2 Bassirou       825   893  1718
+## 3 Arham         1358  1461  2819
+## 4 Soignebougou  1547  1552  3099
+## 5 Ouro Modi     1566  1762  3328</code></pre>
+</div>
+<div id="vers-lagregation-group_by-et-summarize" class="section level3">
+<h3><span class="header-section-number">6.4.5</span> Vers l’agrégation: <code>group_by</code> et <code>summarize</code></h3>
+<p>Jusque là, nous avons opéré en ajoutant ou enlevant des variables, en sélectionnant ou excluant des observations. Ces opérations ont toutes été intra-individuelles c’est-à-dire qu’à aucun moment il n’a été nécéssaire de mélanger les valeurs de deux ou plusieurs observations. Or, il arrive souvant que le <em>data scientist</em> ait besoin d’agréer des valeurs pour approfondir sa propre compréhension ou tout simplement synthétiser ses résultats. <code>dplyr</code> comptent deux fonctions sont pratiques pour ce faire. Il s’agit de <code>group_by</code> et <code>summarize</code> (<code>summarise</code> aussi marche). Elles viennent consolider les quatre que nous avons vues. La première <code>group_by</code> définit les groupes sur lesquels les opérations à venir doivent être exécutées. Quant à <code>summarize</code>, elle explicite ces opérations. Illustrons pour mieux comprendre.</p>
+<p>Supposons que l’on veuille agréger la population par <code>admin1_nom</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Spécification du niveau d&#39;agrégation</span>
+<span class="st">  </span><span class="kw">group_by</span>(admin1_nom) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Opération d&#39;agrégation </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">population =</span> <span class="kw">sum</span>(total)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Tri: décroissant</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(population))</code></pre></div>
+<pre><code>## # A tibble: 9 x 2
+##   admin1_nom population
+##   &lt;chr&gt;           &lt;dbl&gt;
+## 1 Sikasso       2644458
+## 2 Koulikouro    2419212
+## 3 Segou         2321651
+## 4 Mopti         2038855
+## 5 Kayes         2013076
+## 6 Bamako        1810366
+## 7 Tombouctou     671005
+## 8 Gao            542304
+## 9 Kidal           67739</code></pre>
+<p>Et si voulions connaitre en même temps le nombre de communes par région?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Spécification du niveau d&#39;agrégation</span>
+<span class="st">  </span><span class="kw">group_by</span>(admin1_nom) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Opération d&#39;agrégation </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">population =</span> <span class="kw">sum</span>(total),
+            <span class="dt">nombre_communes =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Tri: décroissant</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(population))</code></pre></div>
+<pre><code>## # A tibble: 9 x 3
+##   admin1_nom population nombre_communes
+##   &lt;chr&gt;           &lt;dbl&gt;           &lt;int&gt;
+## 1 Sikasso       2644458             147
+## 2 Koulikouro    2419212             108
+## 3 Segou         2321651             118
+## 4 Mopti         2038855             108
+## 5 Kayes         2013076             129
+## 6 Bamako        1810366               6
+## 7 Tombouctou     671005              52
+## 8 Gao            542304              24
+## 9 Kidal           67739              11</code></pre>
+<p>Avec une seule ligne à l’intérieur de <code>summarize</code>, l’on peut ajouter d’autres opérations. Nous pouvons même ajouter la population moyenne par commune.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Spécification du niveau d&#39;agrégation</span>
+<span class="st">  </span><span class="kw">group_by</span>(admin1_nom) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Opération d&#39;agrégation </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">population =</span> <span class="kw">sum</span>(total),
+            <span class="dt">nombre_communes =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable %&gt;% </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop_par_commune =</span> population <span class="op">/</span><span class="st"> </span>nombre_communes) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Tri: décroissant</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(population))</code></pre></div>
+<pre><code>## # A tibble: 9 x 4
+##   admin1_nom population nombre_communes pop_par_commune
+##   &lt;chr&gt;           &lt;dbl&gt;           &lt;int&gt;           &lt;dbl&gt;
+## 1 Sikasso       2644458             147          17990.
+## 2 Koulikouro    2419212             108          22400.
+## 3 Segou         2321651             118          19675.
+## 4 Mopti         2038855             108          18878.
+## 5 Kayes         2013076             129          15605.
+## 6 Bamako        1810366               6         301728.
+## 7 Tombouctou     671005              52          12904.
+## 8 Gao            542304              24          22596 
+## 9 Kidal           67739              11           6158.</code></pre>
+<p><code>summarize</code> acceptent la majorité des fonctions statistiques de R-base: <code>sum</code> pour la somme, <code>mean</code> pour la moyenne, <code>sd</code> pour l’écart-type, <code>min</code> pour le minimum, <code>max</code> pour le maximum, etc.</p>
+<p>Il est utile de noter que, bien que les deux fonctions opèrent généralement en paire, elles ne sont pas toutefois obligées d’être ensemble…enfin, pas tout le temps.</p>
+<p>Considérons par exemple que l’on veut agréger la population totale aussi bien pour les hommes que pour les femmes. Comme le groupe de référence est l’ensemble des observations (toutes les communes), l’on n’a pas besoin de <code>group_by</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Opérations d&#39;agrégation </span>
+<span class="st">  </span><span class="kw">summarize</span>(
+    <span class="co"># Hommes</span>
+    <span class="dt">homme =</span> <span class="kw">sum</span>(homme),
+    <span class="co"># Femmes</span>
+    <span class="dt">femme =</span> <span class="kw">sum</span>(femme),
+    <span class="co"># Total</span>
+    <span class="dt">total =</span> <span class="kw">sum</span>(total)
+    )</code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##     homme   femme    total
+##     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+## 1 7204994 7323672 14528666</code></pre>
+<p>Là, nous avons utilisé <code>summarize</code> sans <code>group_by</code>. Maintenant, faisons l’inverse. Déterminons la part de chaque commune dans la population régionale. Et gardons seulement ceux qui représentent plus de 5% de la population de la région.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adm3_pop_<span class="dv">2009</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> homme <span class="op">+</span><span class="st"> </span>femme) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Spécification du niveau d&#39;agrégation</span>
+<span class="st">  </span><span class="kw">group_by</span>(admin1_nom) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Création d&#39;une nouvelle variable </span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="co"># Population au niveau de admin1_nom</span>
+    <span class="dt">population_region =</span> <span class="kw">sum</span>(total),
+    <span class="co"># Ratio population de la commune / population de la région</span>
+    <span class="dt">part_commune =</span> total <span class="op">/</span><span class="st"> </span>population_region
+    ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Filtre: part &gt; 20%</span>
+<span class="st">  </span><span class="kw">filter</span>(part_commune <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.05</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Tri des résultats: ordre décroissant</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(part_commune)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Sélection des variables d&#39;intérêt</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="kw">contains</span>(<span class="st">&quot;nom&quot;</span>), part_commune)</code></pre></div>
+<pre><code>## # A tibble: 28 x 5
+## # Groups:   admin1_nom [9]
+##    admin0_nom admin1_nom admin2_nom admin3_nom      part_commune
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;                  &lt;dbl&gt;
+##  1 Mali       Kidal      Kidal      Kidal                 0.383 
+##  2 Mali       Bamako     Bamako     Commune VI            0.259 
+##  3 Mali       Bamako     Bamako     Commune V             0.228 
+##  4 Mali       Bamako     Bamako     Commune I             0.185 
+##  5 Mali       Bamako     Bamako     Commune IV            0.168 
+##  6 Mali       Gao        Gao        Gao                   0.159 
+##  7 Mali       Kidal      Tessalit   Adjelhoc              0.117 
+##  8 Mali       Bamako     Bamako     Commune II            0.0880
+##  9 Mali       Gao        Gao        Sony Aliber           0.0878
+## 10 Mali       Sikasso    Sikasso    Sikasso Commune       0.0857
+## # ... with 18 more rows</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="importer-des-donnees-dans-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["dswr_book.pdf", "dswr_book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

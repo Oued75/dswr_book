@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapitre 2 Chapter Two | Data Science avec R</title>
+  <meta name="description" content="Chapitre 2 Chapter Two | Data Science avec R">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapitre 2 Chapter Two | Data Science avec R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 2 Chapter Two | Data Science avec R" />
+  
+  
+  
+
+<meta name="author" content="Fousseynou Bah">
+
+
+<meta name="date" content="2019-03-13">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="chapter-three.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science avec R</a></li>
+
+<li class="divider"></li>
+<li class="part"><span><b>I Part I</b></span></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Chapter One</a></li>
+<li class="chapter" data-level="2" data-path="chapter-two.html"><a href="chapter-two.html"><i class="fa fa-check"></i><b>2</b> Chapter Two</a></li>
+<li class="part"><span><b>II Part II</b></span></li>
+<li class="chapter" data-level="3" data-path="chapter-three.html"><a href="chapter-three.html"><i class="fa fa-check"></i><b>3</b> Chapter Three</a></li>
+<li class="chapter" data-level="4" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>4</b> Introduction</a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction.html"><a href="introduction.html#un-autre-livre-sur-la-data-science-vraiment"><i class="fa fa-check"></i><b>4.1</b> Un autre livre sur la <em>data science</em>! Vraiment?</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction.html"><a href="introduction.html#la-data-science"><i class="fa fa-check"></i><b>4.2</b> La <em>data science</em></a></li>
+<li class="chapter" data-level="4.3" data-path="introduction.html"><a href="introduction.html#le-data-scientist"><i class="fa fa-check"></i><b>4.3</b> Le <em>data scientist</em></a></li>
+<li class="chapter" data-level="4.4" data-path="introduction.html"><a href="introduction.html#r"><i class="fa fa-check"></i><b>4.4</b> R</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="introduction.html"><a href="introduction.html#quest-ce-que-cest-que-r"><i class="fa fa-check"></i><b>4.4.1</b> Qu’est-ce que c’est que R?</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introduction.html"><a href="introduction.html#pourquoi-r"><i class="fa fa-check"></i><b>4.4.2</b> Pourquoi R?</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introduction.html"><a href="introduction.html#r-dans-lecosysteme-des-langages"><i class="fa fa-check"></i><b>4.4.3</b> R dans l’écosystème des langages</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="introduction.html"><a href="introduction.html#rstudio"><i class="fa fa-check"></i><b>4.5</b> RStudio</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="introduction.html"><a href="introduction.html#quest-ce-que-cest-que-rstudio"><i class="fa fa-check"></i><b>4.5.1</b> Qu’est-ce que c’est que RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="objets-dans-r.html"><a href="objets-dans-r.html"><i class="fa fa-check"></i><b>5</b> Objets dans R</a><ul>
+<li class="chapter" data-level="5.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-dobjet-dans-r"><i class="fa fa-check"></i><b>5.2</b> La notion d’objet dans R</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-objet"><i class="fa fa-check"></i><b>5.2.1</b> Qu’est-ce qu’un objet?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oranges-et-bananes"><i class="fa fa-check"></i><b>5.2.2</b> Oranges et bananes</a></li>
+<li class="chapter" data-level="5.2.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#ce-qui-se-ressemblent-sassemblent"><i class="fa fa-check"></i><b>5.2.3</b> Ce qui se ressemblent s’assemblent</a></li>
+<li class="chapter" data-level="5.2.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quelques-objets-dans-r"><i class="fa fa-check"></i><b>5.2.4</b> Quelques objets dans R</a></li>
+<li class="chapter" data-level="5.2.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-notion-de-classe-et-de-type"><i class="fa fa-check"></i><b>5.2.5</b> La notion de classe et de type</a></li>
+<li class="chapter" data-level="5.2.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vers-dautres-types-dobjets"><i class="fa fa-check"></i><b>5.2.6</b> Vers d’autres types d’objets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vecteurs"><i class="fa fa-check"></i><b>5.3</b> Vecteurs</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#quest-ce-quun-vecteur"><i class="fa fa-check"></i><b>5.3.1</b> Qu’est-ce qu’un vecteur?</a></li>
+<li class="chapter" data-level="5.3.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#creons-en-des-vecteurs"><i class="fa fa-check"></i><b>5.3.2</b> Créons-en, des vecteurs!</a></li>
+<li class="chapter" data-level="5.3.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#vrai-pour-un-vrai-pour-plusieurs"><i class="fa fa-check"></i><b>5.3.3</b> Vrai pour un, vrai pour plusieurs</a></li>
+<li class="chapter" data-level="5.3.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#nommer-les-elements-dun-vecteur"><i class="fa fa-check"></i><b>5.3.4</b> Nommer les éléments d’un vecteur</a></li>
+<li class="chapter" data-level="5.3.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-vecteurs"><i class="fa fa-check"></i><b>5.3.5</b> Opérations sur vecteurs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="objets-dans-r.html"><a href="objets-dans-r.html#matrices"><i class="fa fa-check"></i><b>5.4</b> Matrices</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-ensemble-de-vecteurs"><i class="fa fa-check"></i><b>5.4.1</b> La matrice, un ensemble de vecteurs</a></li>
+<li class="chapter" data-level="5.4.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#la-matrice-un-objet-bidimensionnel"><i class="fa fa-check"></i><b>5.4.2</b> La matrice, un objet bidimensionnel</a></li>
+<li class="chapter" data-level="5.4.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-matrices"><i class="fa fa-check"></i><b>5.4.3</b> Opérations sur matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="objets-dans-r.html"><a href="objets-dans-r.html#data-frames"><i class="fa fa-check"></i><b>5.5</b> <em>Data frames</em></a><ul>
+<li class="chapter" data-level="5.5.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-data-frame-au-dela-de-la-matrice"><i class="fa fa-check"></i><b>5.5.1</b> Le <em>data frame</em>, au-délà de la matrice</a></li>
+<li class="chapter" data-level="5.5.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#operations-sur-data-frame"><i class="fa fa-check"></i><b>5.5.2</b> Opérations sur <em>data frame</em></a></li>
+<li class="chapter" data-level="5.5.3" data-path="objets-dans-r.html"><a href="objets-dans-r.html#le-meilleur-reste-a-venir"><i class="fa fa-check"></i><b>5.5.3</b> Le meilleur reste à venir</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="objets-dans-r.html"><a href="objets-dans-r.html#listes"><i class="fa fa-check"></i><b>5.6</b> Listes</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#oublier-lordre-et-la-structure"><i class="fa fa-check"></i><b>5.6.1</b> Oublier l’ordre et la structure</a></li>
+<li class="chapter" data-level="5.6.2" data-path="objets-dans-r.html"><a href="objets-dans-r.html#un-contenant-de-contenants"><i class="fa fa-check"></i><b>5.6.2</b> Un contenant de contenants</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="objets-dans-r.html"><a href="objets-dans-r.html#conclusion"><i class="fa fa-check"></i><b>5.7</b> Conclusion</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="objets-dans-r.html"><a href="objets-dans-r.html#et-ce-nest-que-le-debut"><i class="fa fa-check"></i><b>5.7.1</b> Et ce n’est que le début</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html"><i class="fa fa-check"></i><b>6</b> S’exprimer dans R</a><ul>
+<li class="chapter" data-level="6.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#objectif"><i class="fa fa-check"></i><b>6.1.1</b> Objectif</a></li>
+<li class="chapter" data-level="6.1.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#outils"><i class="fa fa-check"></i><b>6.1.2</b> Outils</a></li>
+<li class="chapter" data-level="6.1.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#donnees"><i class="fa fa-check"></i><b>6.1.3</b> Données</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-declarations"><i class="fa fa-check"></i><b>6.2</b> Les déclarations</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#formulations-simples"><i class="fa fa-check"></i><b>6.2.1</b> Formulations simples</a></li>
+<li class="chapter" data-level="6.2.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-additifs-et"><i class="fa fa-check"></i><b>6.2.2</b> Critères additifs: <em>et</em> = <code>&amp;</code></a></li>
+<li class="chapter" data-level="6.2.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-alternatifs-ou"><i class="fa fa-check"></i><b>6.2.3</b> Critères alternatifs: <em>ou</em> = <code>|</code></a></li>
+<li class="chapter" data-level="6.2.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#criteres-opposes-contraire"><i class="fa fa-check"></i><b>6.2.4</b> Critères opposés: <em>contraire</em> = <code>!</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#conditionalites"><i class="fa fa-check"></i><b>6.2.5</b> Conditionalités</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-boucles"><i class="fa fa-check"></i><b>6.3</b> Les boucles</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-solution-aux-taches-repetititives"><i class="fa fa-check"></i><b>6.3.1</b> La solution aux tâches répétititives</a></li>
+<li class="chapter" data-level="6.3.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#la-fonction-for"><i class="fa fa-check"></i><b>6.3.2</b> La fonction <em>for</em></a></li>
+<li class="chapter" data-level="6.3.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-vecteurs"><i class="fa fa-check"></i><b>6.3.3</b> Application sur vecteurs</a></li>
+<li class="chapter" data-level="6.3.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-matrices"><i class="fa fa-check"></i><b>6.3.4</b> Application sur matrices</a></li>
+<li class="chapter" data-level="6.3.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-data-frame"><i class="fa fa-check"></i><b>6.3.5</b> Application sur <em>data frame</em></a></li>
+<li class="chapter" data-level="6.3.6" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#application-sur-listes"><i class="fa fa-check"></i><b>6.3.6</b> Application sur listes</a></li>
+<li class="chapter" data-level="6.3.7" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#arretons-nous-un-instant"><i class="fa fa-check"></i><b>6.3.7</b> Arrêtons-nous un instant!</a></li>
+<li class="chapter" data-level="6.3.8" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#paradigme-split-apply-combine-illustration-avec-lapply"><i class="fa fa-check"></i><b>6.3.8</b> Paradigme <em>split-apply-combine</em>: illustration avec <em>lapply</em></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-fonctions"><i class="fa fa-check"></i><b>6.4</b> Les fonctions</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#lepine-dorsale-de-r"><i class="fa fa-check"></i><b>6.4.1</b> L’épine dorsale de R</a></li>
+<li class="chapter" data-level="6.4.2" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#retour-sur-quelques-fonctions"><i class="fa fa-check"></i><b>6.4.2</b> Retour sur quelques fonctions</a></li>
+<li class="chapter" data-level="6.4.3" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#pourquoi-faire-une-fonction"><i class="fa fa-check"></i><b>6.4.3</b> Pourquoi faire une fonction?</a></li>
+<li class="chapter" data-level="6.4.4" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#les-basiques-de-la-fonction"><i class="fa fa-check"></i><b>6.4.4</b> Les basiques de la fonction</a></li>
+<li class="chapter" data-level="6.4.5" data-path="sexprimer-dans-r.html"><a href="sexprimer-dans-r.html#fonctions-et-boucles"><i class="fa fa-check"></i><b>6.4.5</b> Fonctions et boucles</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html"><i class="fa fa-check"></i><b>7</b> Importer des données dans R</a><ul>
+<li class="chapter" data-level="7.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#introduction-3"><i class="fa fa-check"></i><b>7.1</b> Introduction</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#objectif-de-ce-cours"><i class="fa fa-check"></i><b>7.1.1</b> Objectif de ce cours</a></li>
+<li class="chapter" data-level="7.1.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#que-nous-faut-il"><i class="fa fa-check"></i><b>7.1.2</b> Que nous faut-il?</a></li>
+<li class="chapter" data-level="7.1.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#donnees-1"><i class="fa fa-check"></i><b>7.1.3</b> Données</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#fichiers-plats-cas-du-format-csv"><i class="fa fa-check"></i><b>7.2</b> Fichiers plats: cas du format <em>CSV</em></a><ul>
+<li class="chapter" data-level="7.2.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu"><i class="fa fa-check"></i><b>7.2.1</b> Aperçu</a></li>
+<li class="chapter" data-level="7.2.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv"><i class="fa fa-check"></i><b>7.2.2</b> Importation avec <em>R-base</em>: <code>read.csv</code></a></li>
+<li class="chapter" data-level="7.2.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-r-base-read.csv2"><i class="fa fa-check"></i><b>7.2.3</b> Importation avec <em>R-base</em>: <code>read.csv2</code></a></li>
+<li class="chapter" data-level="7.2.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readr"><i class="fa fa-check"></i><b>7.2.4</b> Importation avec <code>readr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#excel-xls-xlsx"><i class="fa fa-check"></i><b>7.3</b> Excel: <code>xls</code>, <code>xlsx</code></a><ul>
+<li class="chapter" data-level="7.3.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-2"><i class="fa fa-check"></i><b>7.3.1</b> Aperçu</a></li>
+<li class="chapter" data-level="7.3.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-xlsx-read.xlsx"><i class="fa fa-check"></i><b>7.3.2</b> Importation avec <code>xlsx</code>: <code>read.xlsx</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-readxl-read_excel"><i class="fa fa-check"></i><b>7.3.3</b> Importation avec <code>readxl</code>: <code>read_excel</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#formats-issues-dautres-logiciels-statistiques-stata-et-spss"><i class="fa fa-check"></i><b>7.4</b> Formats issues d’autres logiciels statistiques: <code>Stata</code> et <code>SPSS</code></a><ul>
+<li class="chapter" data-level="7.4.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-3"><i class="fa fa-check"></i><b>7.4.1</b> Aperçu</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-foreign"><i class="fa fa-check"></i><b>7.5</b> Importation avec <code>foreign</code></a></li>
+<li class="chapter" data-level="7.6" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#base-de-donnees-relationnelles"><i class="fa fa-check"></i><b>7.6</b> Base de données relationnelles</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-4"><i class="fa fa-check"></i><b>7.6.1</b> Aperçu</a></li>
+<li class="chapter" data-level="7.6.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-rodbc"><i class="fa fa-check"></i><b>7.6.2</b> Importation avec <em>RODBC</em></a></li>
+<li class="chapter" data-level="7.6.3" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#importation-avec-odbc"><i class="fa fa-check"></i><b>7.6.3</b> Importation avec <code>odbc</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#depuis-internet"><i class="fa fa-check"></i><b>7.7</b> Depuis Internet</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#apercu-5"><i class="fa fa-check"></i><b>7.7.1</b> Aperçu</a></li>
+<li class="chapter" data-level="7.7.2" data-path="importer-des-donnees-dans-r.html"><a href="importer-des-donnees-dans-r.html#chargement-de-fichier-csv"><i class="fa fa-check"></i><b>7.7.2</b> Chargement de fichier CSV</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html"><i class="fa fa-check"></i><b>8</b> Manipuler des données dans R</a><ul>
+<li class="chapter" data-level="8.1" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#introduction-4"><i class="fa fa-check"></i><b>8.1</b> Introduction</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#objectif-de-ce-cours-1"><i class="fa fa-check"></i><b>8.1.1</b> Objectif de ce cours</a></li>
+<li class="chapter" data-level="8.1.2" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#que-nous-faut-il-1"><i class="fa fa-check"></i><b>8.1.2</b> Que nous faut-il?</a></li>
+<li class="chapter" data-level="8.1.3" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#donnees-2"><i class="fa fa-check"></i><b>8.1.3</b> Données</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#dplyr-les-fonctions-de-transformation"><i class="fa fa-check"></i><b>8.2</b> <code>dplyr</code>: les fonctions de transformation</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#apercu-6"><i class="fa fa-check"></i><b>8.2.1</b> Aperçu</a></li>
+<li class="chapter" data-level="8.2.2" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#avant-daller-loin"><i class="fa fa-check"></i><b>8.2.2</b> Avant d’aller loin</a></li>
+<li class="chapter" data-level="8.2.3" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#selection-etou-exclusion-de-variables-select"><i class="fa fa-check"></i><b>8.2.3</b> Selection et/ou exclusion de variables: <code>select</code></a></li>
+<li class="chapter" data-level="8.2.4" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#creation-de-variable-de-variables-mutate"><i class="fa fa-check"></i><b>8.2.4</b> Création de variable de variables: <code>mutate</code></a></li>
+<li class="chapter" data-level="8.2.5" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#selection-dobservations-filter"><i class="fa fa-check"></i><b>8.2.5</b> Sélection d’observations: <code>filter</code></a></li>
+<li class="chapter" data-level="8.2.6" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#tri-dobservations-arrange"><i class="fa fa-check"></i><b>8.2.6</b> Tri d’observations: <code>arrange</code></a></li>
+<li class="chapter" data-level="8.2.7" data-path="manipuler-des-donnees-dans-r.html"><a href="manipuler-des-donnees-dans-r.html#vers-lagregation-group_by-et-summarize"><i class="fa fa-check"></i><b>8.2.7</b> Vers l’agrégation: <code>group_by</code> et <code>summarize</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publié avec bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science avec R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapter-two" class="section level1">
+<h1><span class="header-section-number">Chapitre 2</span> Chapter Two</h1>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-three.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["dswr_book.pdf", "dswr_book.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
